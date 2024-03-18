@@ -19,6 +19,11 @@ export const config = {
     }),
   ],
   adapter: PrismaAdapter(prisma),
+  pages: {
+    // signIn: '/signin',
+    // signOut: '/signout',
+    newUser: "/signup", // New users will be directed here on first sign in (leave the property out if not of interest)
+  },
   // rest of your config
 } satisfies NextAuthOptions;
 
