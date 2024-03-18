@@ -5,11 +5,7 @@ type Props = {
   col: number;
   row: number;
   src: string;
-  handleClick: (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    col: number,
-    row: number
-  ) => void;
+  handleClick: (id: number) => void;
 };
 
 const ImageFront = (props: Props) => {
@@ -17,7 +13,7 @@ const ImageFront = (props: Props) => {
   return (
     <div>
       <div
-        onClick={(e) => handleClick(e, col, row)}
+        onClick={(e) => handleClick(col * 4 + row)}
         className="hover:cursor-pointer rounded-md"
       >
         <Image

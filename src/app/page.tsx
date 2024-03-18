@@ -1,33 +1,29 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import ReactCardFlip from "react-card-flip";
 
 import ImageFront from "@/components/ImageFront";
 import ImageBack from "@/components/ImageBack";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function Home() {
-  const [isFlipped, setIsFlipped] = useState<boolean[]>(
-    Array.from({ length: 12 }, () => false)
-  );
+  const searchParams = useSearchParams();
+  const flipCard = Number(searchParams.get("flip"));
+  const pathname = usePathname();
+  const { replace } = useRouter();
+  const params = new URLSearchParams(searchParams);
 
-  const handleClick = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    col: number,
-    row: number
-  ) => {
-    e.preventDefault();
-    setIsFlipped((prevFlips) => {
-      const updatedFlips = [...prevFlips];
-      //   updatedFlips[col][row] = !updatedFlips[col][row];
-      //   updatedFlips[col][row] = !updatedFlips[col][row];
-      //   console.log(col, row, updatedFlips[col][row]);
-      updatedFlips[col * 4 + row] = !updatedFlips[col * 4 + row];
-      console.log(col, row, updatedFlips[col * 4 + row]);
-      return updatedFlips;
-    });
+  const handleFront = (flipId: number) => {
+    params.set("flip", flipId.toString());
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
-  console.log(isFlipped[0]);
+
+  const handleBack = () => {
+    params.delete("flip");
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
   return (
     <div className="lg:px-40 p-5 flex ">
       {[0, 1, 2].map((col) => (
@@ -35,29 +31,26 @@ export default function Home() {
           {[0, 1, 2, 3].map((row) => (
             <ReactCardFlip
               key={row}
-              //   isFlipped={isFlipped[col][row]}
-              isFlipped={isFlipped[col * 4 + row]}
+              isFlipped={flipCard === col * 4 + row}
               flipDirection="horizontal"
-              flipSpeedBackToFront={0.5}
-              flipSpeedFrontToBack={0.5}
+              flipSpeedBackToFront={0.8}
+              flipSpeedFrontToBack={0.48}
               infinite={true}
               //   cardZIndex={`${index / 3}`}
             >
               <ImageFront
                 col={col}
                 row={row}
-                handleClick={handleClick}
+                handleClick={handleFront}
                 src={`https://source.unsplash.com/collection/1346951/${
                   col + (row % 3) + 3
                 }00x500?sig=${col * 3 + row}`}
               />
               <ImageBack
-                col={col}
-                row={row}
                 src={`https://source.unsplash.com/collection/1346951/${
                   col + (row % 3) + 3
                 }00x500?sig=${row}`}
-                handleClick={handleClick}
+                handleClick={handleBack}
               />
             </ReactCardFlip>
           ))}
