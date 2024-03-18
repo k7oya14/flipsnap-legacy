@@ -6,6 +6,8 @@ import type {
 import type { NextAuthOptions } from "next-auth";
 import { getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import prisma from "./db";
 
 // You'll need to import and pass this
 // to `NextAuth` in `app/api/auth/[...nextauth]/route.ts`
@@ -15,7 +17,9 @@ export const config = {
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     }),
-  ], // rest of your config
+  ],
+  adapter: PrismaAdapter(prisma),
+  // rest of your config
 } satisfies NextAuthOptions;
 
 // Use it in server contexts
