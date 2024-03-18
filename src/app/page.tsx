@@ -7,56 +7,61 @@ import ImageFront from "@/components/ImageFront";
 import ImageBack from "@/components/ImageBack";
 
 export default function Home() {
-  const [isFlipped, setIsFlipped] = useState([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
+  const [isFlipped, setIsFlipped] = useState<boolean[]>(
+    Array.from({ length: 12 }, () => false)
+  );
 
   const handleClick = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
+    col: number,
+    row: number
   ) => {
     e.preventDefault();
     setIsFlipped((prevFlips) => {
       const updatedFlips = [...prevFlips];
-      updatedFlips[index - 1] = !updatedFlips[index - 1];
+      //   updatedFlips[col][row] = !updatedFlips[col][row];
+      //   updatedFlips[col][row] = !updatedFlips[col][row];
+      //   console.log(col, row, updatedFlips[col][row]);
+      updatedFlips[col * 4 + row] = !updatedFlips[col * 4 + row];
+      console.log(col, row, updatedFlips[col * 4 + row]);
       return updatedFlips;
     });
   };
-
+  console.log(isFlipped[0]);
   return (
-    <div className="lg:px-40 p-5 grid lg:grid-cols-3 grid-cols-2 gap-3">
-      {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((index) => (
-        <ReactCardFlip
-          key={index}
-          isFlipped={isFlipped[index - 1]}
-          flipDirection="horizontal"
-          flipSpeedBackToFront={0.5}
-          flipSpeedFrontToBack={0.5}
-          infinite={true}
-          //   cardZIndex={`${index / 3}`}
-        >
-          <ImageFront
-            index={index}
-            handleClick={handleClick}
-            src={`https://source.unsplash.com/collection/1346951/1200x1600?sig=${index}`}
-          />
-          <ImageBack
-            index={index}
-            src={`https://source.unsplash.com/collection/1346951/1200x1600?sig=${
-              index + 10
-            }`}
-            handleClick={handleClick}
-          />
-        </ReactCardFlip>
+    <div className="lg:px-40 p-5 flex ">
+      {[0, 1, 2].map((col) => (
+        <div key={col} className="w-1/3 p-2">
+          {[0, 1, 2, 3].map((row) => (
+            <ReactCardFlip
+              key={row}
+              //   isFlipped={isFlipped[col][row]}
+              isFlipped={isFlipped[col * 4 + row]}
+              flipDirection="horizontal"
+              flipSpeedBackToFront={0.5}
+              flipSpeedFrontToBack={0.5}
+              infinite={true}
+              //   cardZIndex={`${index / 3}`}
+            >
+              <ImageFront
+                col={col}
+                row={row}
+                handleClick={handleClick}
+                src={`https://source.unsplash.com/collection/1346951/${
+                  col + (row % 3) + 3
+                }00x500?sig=${col * 3 + row}`}
+              />
+              <ImageBack
+                col={col}
+                row={row}
+                src={`https://source.unsplash.com/collection/1346951/${
+                  col + (row % 3) + 3
+                }00x500?sig=${row}`}
+                handleClick={handleClick}
+              />
+            </ReactCardFlip>
+          ))}
+        </div>
       ))}
     </div>
   );

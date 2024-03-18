@@ -4,26 +4,28 @@ import React from "react";
 import { Button } from "./ui/button";
 
 type Props = {
-  index: number;
+  col: number;
+  row: number;
   src: string;
   handleClick: (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
+    col: number,
+    row: number
   ) => void;
 };
 
 const ImageBack = (props: Props) => {
-  const { index, src, handleClick } = props;
+  const { col, row, src, handleClick } = props;
   return (
     <div>
       <div
-        onClick={(e) => handleClick(e, index)}
+        onClick={(e) => handleClick(e, col, row)}
         className="relative hover:cursor-pointer rounded-lg border-[3px] border-gray-200 "
       >
         <Image
-          width={300}
-          height={400}
-          className="rounded-md blur-lg "
+          width={500}
+          height={500}
+          className="rounded-md blur-lg py-2"
           alt=""
           src={src}
         />
