@@ -8,11 +8,16 @@ const Header = async () => {
     <header className="">
       <nav className="flex items-center justify-between p-4">
         <Link href="/">FlipSnap</Link>
-        {session ? (
-          <Link href="/api/auth/signout">SignOut</Link>
-        ) : (
-          <Link href="/api/auth/signin">SignIn</Link>
-        )}
+        <div className="flex space-x-4">
+          <Link href="/posts/create" scroll={false}>
+            Post
+          </Link>
+          {session ? (
+            <Link href="/api/auth/signout">SignOut</Link>
+          ) : (
+            <Link href="/api/auth/signin">SignIn</Link>
+          )}
+        </div>
       </nav>
     </header>
   );
