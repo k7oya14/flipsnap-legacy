@@ -1,5 +1,5 @@
 import InterceptedDialogContent from "@/components/ui/InterceptedDialogContent";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog } from "@/components/ui/dialog";
 
 export default function InterceptedPageAsModal() {
   return (
