@@ -21,70 +21,67 @@ export function PostModal(props: Props) {
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClick = () => setIsFlipped((isFlipped) => !isFlipped);
-  console.log(isFlipped);
 
   return (
-    <div className="max-w-5xl mx-auto relative">
-      <div className="flex">
-        <div className="w-3/5 flex justify-center relative top-3 -left-3">
-          <ReactCardFlip
-            isFlipped={isFlipped}
-            flipDirection="horizontal"
-            flipSpeedBackToFront={0.6}
-            flipSpeedFrontToBack={0.6}
-            infinite={true}
-          >
-            <DetailFront src={src} handleClick={handleClick} />
-            <DetailBack src={src} handleClick={handleClick} />
-          </ReactCardFlip>
+    <div className="flex">
+      <div className="w-3/5 flex justify-center relative top-3 -left-3">
+        <ReactCardFlip
+          isFlipped={isFlipped}
+          flipDirection="horizontal"
+          flipSpeedBackToFront={0.6}
+          flipSpeedFrontToBack={0.6}
+          infinite={true}
+        >
+          <DetailFront src={src} handleClick={handleClick} />
+          <DetailBack src={src} handleClick={handleClick} />
+        </ReactCardFlip>
+      </div>
+      <div className="w-2/5 flex flex-col">
+        <div className="flex items-center p-4 border-b">
+          <Avatar>
+            <AvatarImage
+              alt="User avatar"
+              src="https://github.com/shadcn.png"
+            />
+            <AvatarFallback>U</AvatarFallback>
+          </Avatar>
+          <div className="ml-3">
+            <p className="font-semibold">username</p>
+            <p className="text-xs text-gray-500">Location</p>
+          </div>
+          <MoreHorizontalIcon className="ml-auto text-gray-600" />
         </div>
-        <div className="w-2/5 flex flex-col">
-          <div className="flex items-center p-4 border-b">
+        <div className="flex-grow overflow-y-auto">
+          <div className="flex items-start space-x-3 p-4">
             <Avatar>
               <AvatarImage
                 alt="User avatar"
-                src="https://github.com/shadcn.png"
+                src="/placeholder.svg?height=32&width=32"
               />
               <AvatarFallback>U</AvatarFallback>
             </Avatar>
-            <div className="ml-3">
-              <p className="font-semibold">username</p>
-              <p className="text-xs text-gray-500">Location</p>
-            </div>
-            <MoreHorizontalIcon className="ml-auto text-gray-600" />
-          </div>
-          <div className="flex-grow overflow-y-auto">
-            <div className="flex items-start space-x-3 p-4">
-              <Avatar>
-                <AvatarImage
-                  alt="User avatar"
-                  src="/placeholder.svg?height=32&width=32"
-                />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
-              <div>
-                <p className="font-semibold">
-                  username <span className="font-normal">comment text</span>
-                </p>
-                <p className="text-xs text-gray-500">2d</p>
-              </div>
+            <div>
+              <p className="font-semibold">
+                username <span className="font-normal">comment text</span>
+              </p>
+              <p className="text-xs text-gray-500">2d</p>
             </div>
           </div>
-          <div className="flex items-center justify-between p-4 border-t">
-            <div className="flex space-x-4">
-              <HeartIcon className="text-gray-600" />
-              <ReplyIcon className="text-gray-600" />
-              <SendIcon className="text-gray-600" />
-            </div>
-            <BookmarkIcon className="text-gray-600" />
+        </div>
+        <div className="flex items-center justify-between p-4 border-t">
+          <div className="flex space-x-4">
+            <HeartIcon className="text-gray-600" />
+            <ReplyIcon className="text-gray-600" />
+            <SendIcon className="text-gray-600" />
           </div>
-          <div className="px-4 pb-4">
-            <p className="font-semibold">1,234 likes</p>
-            <p className="text-xs text-gray-500">2 days ago</p>
-          </div>
-          <div className="px-4 pb-4">
-            <Input placeholder="Add a comment..." type="text" />
-          </div>
+          <BookmarkIcon className="text-gray-600" />
+        </div>
+        <div className="px-4 pb-4">
+          <p className="font-semibold">1,234 likes</p>
+          <p className="text-xs text-gray-500">2 days ago</p>
+        </div>
+        <div className="px-4 pb-4">
+          <Input placeholder="Add a comment..." type="text" />
         </div>
       </div>
     </div>

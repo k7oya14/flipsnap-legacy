@@ -6,7 +6,9 @@ const page = () => {
   return (
     <Card className="max-w-5xl mx-auto my-4">
       <CardContent>
-        <PostModal alt="" src="https://source.unsplash.com/random/" />
+        <div className="max-w-5xl mx-auto relative">
+          <PostModal alt="" src="https://source.unsplash.com/random/" />
+        </div>
       </CardContent>
     </Card>
   );
