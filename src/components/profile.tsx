@@ -3,11 +3,20 @@
  * @see https://v0.dev/t/MVzmgZIaiJu
  */
 import { AvatarImage, Avatar } from "@/components/ui/avatar";
-import Image from "next/image";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
+import ReactCardFlip from "react-card-flip";
+import ProfileFront from "./ProfileFront";
+import ProfileBack from "./ProfileBack";
 
-export function Profile() {
+type Props = {
+  flip: string;
+  handleFront: (id: number) => void;
+  handleBack: () => void;
+};
+
+export function Profile(props: Props) {
+  const { flip, handleFront, handleBack } = props;
   return (
     <div className="max-w-5xl mx-auto">
       <Card>
@@ -40,18 +49,23 @@ export function Profile() {
           </div>
           <div className="grid sm:grid-cols-3 grid-cols-2 px-1 gap-4 mt-8">
             {[0, 1, 2, 3, 4, 5].map((index) => (
-              <Image
-                key={index}
-                alt="Post image"
-                className="w-full rounded"
-                height="293"
-                src="https://source.unsplash.com/random/3"
-                style={{
-                  aspectRatio: "293/293",
-                  objectFit: "cover",
-                }}
-                width="293"
-              />
+              <ReactCardFlip
+                isFlipped={flip === index.toString()}
+                flipDirection="horizontal"
+                flipSpeedBackToFront={0.6}
+                flipSpeedFrontToBack={0.6}
+                infinite={true}
+              >
+                <ProfileFront
+                  id={index}
+                  src={`https://source.unsplash.com/random/${index}`}
+                  handleClick={handleFront}
+                />
+                <ProfileBack
+                  src={`https://source.unsplash.com/random/${index + 5}`}
+                  handleClick={handleBack}
+                />
+              </ReactCardFlip>
             ))}
           </div>
         </div>
