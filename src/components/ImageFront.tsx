@@ -2,6 +2,7 @@ import { ArrowsPointingOutIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import Link from "next/link";
 
 type Props = {
   col: number;
@@ -12,16 +13,23 @@ type Props = {
 
 const ImageFront = (props: Props) => {
   const { col, row, src, handleClick } = props;
+
+  const handleIconClick = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
+    e.stopPropagation();
+  };
   return (
     <div>
       <div
-        onClick={(e) => handleClick(col * 4 + row)}
+        onClick={() => handleClick(col * 4 + row)}
         className="group relative rounded-md my-2 overflow-hidden"
       >
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
         <Image
           width={500}
           height={500}
+          priority={true}
           className="rounded-md"
           alt=""
           src={src}
@@ -30,7 +38,13 @@ const ImageFront = (props: Props) => {
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <ArrowsPointingOutIcon className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200" />
+        <Link
+          onClick={(e) => handleIconClick(e)}
+          href={`/posts/${col * 4 + row}`}
+          scroll={false}
+        >
+          <ArrowsPointingOutIcon className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200" />
+        </Link>
       </div>
     </div>
   );
