@@ -34,10 +34,15 @@ const ImageFront = (props: Props) => {
           alt=""
           src={src}
         />
-        <Avatar className="absolute bottom-2 left-2 invisible group-hover:visible">
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
+        <Link
+          href={`/profile/${col * 4 + row}`}
+          onClick={(e) => handleIconClick(e)}
+        >
+          <Avatar className="absolute bottom-2 left-2 invisible group-hover:visible">
+            <AvatarImage src="https://github.com/shadcn.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </Link>
         <Link
           onClick={(e) => handleIconClick(e)}
           href={`/posts/${col * 4 + row}`}
