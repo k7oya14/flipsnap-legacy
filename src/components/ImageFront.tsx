@@ -14,7 +14,9 @@ type Props = {
 const ImageFront = (props: Props) => {
   const { col, row, src, handleClick } = props;
 
-  const handleIconClick = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
+  const handleIconClick = (
+    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
+  ) => {
     e.stopPropagation();
   };
   return (
@@ -36,11 +38,12 @@ const ImageFront = (props: Props) => {
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <Link href={`/posts/${col * 4 + row}`} scroll={false}>
-          <ArrowsPointingOutIcon
-            onClick={(e) => handleIconClick(e)}
-            className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200"
-          />
+        <Link
+          onClick={(e) => handleIconClick(e)}
+          href={`/posts/${col * 4 + row}`}
+          scroll={false}
+        >
+          <ArrowsPointingOutIcon className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200" />
         </Link>
       </div>
     </div>
