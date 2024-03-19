@@ -7,7 +7,7 @@ export default function DetailPage({ params }: { params: { id: string } }) {
   return (
     <Dialog open>
       <InterceptedDialogContent className="rounded-lg">
-        <div className="max-w-5xl mx-auto h-5/6 w-5/6 relative">
+        <div className="max-w-5xl mx-auto h-4/5 w-4/5 relative">
           <PostModal alt="" src="https://source.unsplash.com/random/" />
         </div>
       </InterceptedDialogContent>
