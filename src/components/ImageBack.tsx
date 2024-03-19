@@ -19,6 +19,7 @@ const ImageBack = (props: Props) => {
         <Image
           width={500}
           height={500}
+          priority={true}
           className="rounded-md blur-lg py-2"
           alt=""
           src={src}
