@@ -3,26 +3,24 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Pacifico, Roboto_Slab } from "next/font/google";
-import { BanknotesIcon } from "@heroicons/react/24/outline";
-
+import { BanknotesIcon, CameraIcon } from "@heroicons/react/24/outline";
+import IconDropDown from "./IconDropDown";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+  LucidePlusSquare,
+  PlusIcon,
+  PlusSquare,
+  PlusSquareIcon,
+} from "lucide-react";
+import { Button } from "./ui/button";
 
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
 const robotoSlab = Roboto_Slab({ weight: "400", subsets: ["latin"] });
 
 const Header = async () => {
-  const session = await auth(); //sessionがnullログインしてない
+  const session = await auth();
   const user = session?.user;
   return (
-    <header className="">
+    <header className="sm:px-10 px-2 border-b border-gray-300 shadow-sm shadow-gray-300">
       <nav className="flex items-center justify-between p-2">
         <div className={`${pacifico.className} flex items-center`}>
           <Image src="/logo.png" alt="FlipSnap" width={60} height={60} />
@@ -30,35 +28,19 @@ const Header = async () => {
             FlipSnap
           </Link>
         </div>
-        <div className={`${robotoSlab.className} flex space-x-4`}>
+        <div className={`${robotoSlab.className} flex sm:space-x-8 space-x-6`}>
           <Link
             href="/posts/create"
             scroll={false}
             className="flex items-center"
           >
-            <p>Post</p>
-            <BanknotesIcon className="ml-[0.8px] w-6 h-6 text-black" />
+            <p className="text-xl text-black">Post</p>
+            <BanknotesIcon className="ml-[1px] w-8 h-8 text-black" />
+            {/* <LucidePlusSquare className="ml-[1px] w-8 h-8 text-black" /> */}
+            {/* <CameraIcon className="ml-[1px] w-8 h-8 text-black" /> */}
           </Link>
           {session ? (
-            // <Link href="/api/auth/signout">SignOut</Link>
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Avatar>
-                  <AvatarImage src={user?.image!} />
-                  <AvatarFallback>{user?.name!}</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuLabel>{user?.name}</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <Link href={`/profile/${user?.id}`}>
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                </Link>
-                <Link href="/api/auth/signout">
-                  <DropdownMenuItem>Sign Out</DropdownMenuItem>
-                </Link>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <IconDropDown user={user!} />
           ) : (
             <Link href="/api/auth/signin">SignIn</Link>
           )}
