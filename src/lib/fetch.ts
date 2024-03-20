@@ -16,6 +16,13 @@ export async function fetchUserById(id: string) {
   }
 }
 
+// Fetch Post API Usage :
+//
+// const data = await fetchLatestPosts(1, null);
+// const cursorPostId = useCursor(data);
+// const data2 = await fetchMoreLatestPosts(1, null,cursorPostId);
+//
+
 export async function fetchLatestPosts(take: number, myId: string | null) {
   noStore();
   try {
