@@ -1,16 +1,22 @@
 import CreatePostForm from "@/components/CreatePostForm";
+import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 import React from "react";
 
 const page = async () => {
   const session = await auth();
   if (!session) {
-    return <h1>You need to be logged in to access this page.</h1>;
+    redirect("/profile/error");
   }
   return (
-    <>
-      <CreatePostForm userId={session.user.id} />
-    </>
+    <div className="my-4">
+      <Card
+        className={`mx-auto p-3 max-w-5xl w-96 flex flex-col justify-center items-center border-slate-300`}
+      >
+        <CreatePostForm userId={session.user.id} />
+      </Card>
+    </div>
   );
 };
 

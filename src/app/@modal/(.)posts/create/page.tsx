@@ -1,16 +1,18 @@
+import CreatePostForm from "@/components/CreatePostForm";
 import InterceptedDialogContent from "@/components/ui/InterceptedDialogContent";
 import { Dialog } from "@/components/ui/dialog";
+import { auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
-export default function InterceptedPageAsModal() {
+export default async function InterceptedPageAsModal() {
+  const session = await auth();
+  if (!session) {
+    redirect("/profile/error");
+  }
   return (
     <Dialog open>
-      <InterceptedDialogContent className="h-1/2 w-1/2 rounded-lg">
-        <h1>Intercepted page as modal</h1>
-        <p>
-          This page is opened as a modal. It is not a separate page, but a
-          component that is opened as a modal.
-        </p>
-        <input type="text" className="border-2 border-gray-600" />
+      <InterceptedDialogContent className="max-w-96 max-h-5/6 rounded-md shadow-xl">
+        <CreatePostForm userId={session.user.id} />
       </InterceptedDialogContent>
     </Dialog>
   );
