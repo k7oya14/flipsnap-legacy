@@ -2,46 +2,6 @@ import React from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
 
-// export async function fetchLatestPost(take: number) {
-//   noStore();
-//   try {
-//     const data = await prisma.post.findMany({
-//       orderBy: {
-//         createdAt: "desc",
-//       },
-//       take,
-//     });
-//     return data;
-//   } catch (error) {
-//     throw new Error("Failed to fetch first latest posts.");
-//   }
-// }
-
-// export async function fetchMoreLatestPost({
-//   take,
-//   cursorId,
-// }: {
-//   take: number;
-//   cursorId: string;
-// }) {
-//   noStore();
-//   try {
-//     const data = await prisma.post.findMany({
-//       orderBy: {
-//         createdAt: "desc",
-//       },
-//       take,
-//       skip: 1, // Skip the cursor
-//       cursor: {
-//         id: cursorId,
-//       },
-//     });
-//     return data;
-//   } catch (error) {
-//     throw new Error("Failed to fetch more latest posts.");
-//   }
-// }
-
 export async function fetchUserById(id: string) {
   noStore();
   try {
@@ -56,13 +16,7 @@ export async function fetchUserById(id: string) {
   }
 }
 
-export async function fetchLatestPosts({
-  take,
-  myId,
-}: {
-  take: number;
-  myId: string | null;
-}) {
+export async function fetchLatestPosts(take: number, myId: string | null) {
   noStore();
   try {
     const data = await prisma.post.findMany({
@@ -72,44 +26,126 @@ export async function fetchLatestPosts({
       take,
     });
     if (myId) {
-      const posts = data.map(async (post) => {
-        const author = await fetchUserById(post.authorId);
-        return {
-          ...post,
-          username: author?.username,
-          avatar: author?.image,
-          isMutualFollow: true,
-        };
-      });
+      const posts = await Promise.all(
+        data.map(async (post) => {
+          const author = await fetchUserById(post.authorId);
+          return {
+            ...post,
+            name: author?.name,
+            avatar: author?.image,
+            isMutualFollow: true, // TODO: fix value to be dynamic by func
+          };
+        })
+      );
       return posts;
     } else {
-      const posts = data.map(async (post) => {
-        const author = await fetchUserById(post.authorId);
-        return {
-          ...post,
-          username: author?.username,
-          avatar: author?.image,
-          isMutualFollow: false,
-        };
-      });
+      const posts = await Promise.all(
+        data.map(async (post) => {
+          const author = await fetchUserById(post.authorId);
+          return {
+            ...post,
+            name: author?.name,
+            avatar: author?.image,
+            isMutualFollow: false,
+          };
+        })
+      );
+      return posts;
     }
   } catch (error) {
     throw new Error("Failed to fetch first latest posts.");
   }
 }
 
-export async function fetchMoreLatestPostById() {
+export async function fetchMoreLatestPosts(
+  take: number,
+  myId: string | null,
+  cursorPostId: string
+) {
   noStore();
   try {
+    const data = await prisma.post.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+      take,
+      skip: 1, // Skip the cursor
+      cursor: {
+        id: cursorPostId,
+      },
+    });
+    if (myId) {
+      const posts = await Promise.all(
+        data.map(async (post) => {
+          const author = await fetchUserById(post.authorId);
+          return {
+            ...post,
+            name: author?.name,
+            avatar: author?.image,
+            isMutualFollow: true, // TODO: fix value to be dynamic by func
+          };
+        })
+      );
+      return posts;
+    } else {
+      const posts = await Promise.all(
+        data.map(async (post) => {
+          const author = await fetchUserById(post.authorId);
+          return {
+            ...post,
+            name: author?.name,
+            avatar: author?.image,
+            isMutualFollow: false,
+          };
+        })
+      );
+      return posts;
+    }
   } catch (error) {
-    throw new Error("Failed to fetch.");
+    throw new Error("Failed to fetch more latest posts.");
   }
 }
 
-export async function fetchUserPostWithId() {
+export async function fetchUserPosts(userId: string, take: number) {
   noStore();
   try {
+    const data = await prisma.post.findMany({
+      where: {
+        authorId: userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take,
+    });
+    return data;
   } catch (error) {
-    throw new Error("Failed to fetch.");
+    throw new Error("Failed to fetch first User posts.");
+  }
+}
+
+export async function fetchMoreUserPosts(
+  userId: string,
+  take: number,
+  cursorPostId: string
+) {
+  noStore();
+  try {
+    const data = await prisma.post.findMany({
+      where: {
+        authorId: userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      take,
+      skip: 1, // Skip the cursor
+      cursor: {
+        id: cursorPostId,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch first User posts.");
   }
 }

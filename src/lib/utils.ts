@@ -7,9 +7,9 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // Usage :
-// const data = await fetchLatestPost(12);
-// const cursorId = useCursorId(data);
-// const data2 = await fetchMoreLatestPost({ take: 12, cursorId });
-export function useCursorId(data: Post[]) {
+// const data = await fetchLatestPosts(1, null);
+// const cursorPostId = useCursor(data);
+// const data2 = await fetchMoreLatestPosts(1, null,cursorPostId);
+export function useCursor(data: Post[]) {
   return data[data.length - 1].id;
 }
