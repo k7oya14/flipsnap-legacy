@@ -11,7 +11,6 @@ import {
   PlusSquare,
   PlusSquareIcon,
 } from "lucide-react";
-import { Button } from "./ui/button";
 
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
 const robotoSlab = Roboto_Slab({ weight: "400", subsets: ["latin"] });
