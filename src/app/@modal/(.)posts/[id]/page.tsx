@@ -1,4 +1,4 @@
-import { PostModal } from "@/components/post-modal";
+import { PostModal } from "@/components/detail/post-modal";
 import InterceptedDialogContent from "@/components/ui/InterceptedDialogContent";
 import { Dialog } from "@/components/ui/dialog";
 

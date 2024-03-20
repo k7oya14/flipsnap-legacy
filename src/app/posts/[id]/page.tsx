@@ -1,4 +1,4 @@
-import { PostModal } from "@/components/post-modal";
+import { PostModal } from "@/components/detail/post-modal";
 import { Card, CardContent } from "@/components/ui/card";
 import React from "react";
 

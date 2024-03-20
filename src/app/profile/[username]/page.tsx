@@ -1,6 +1,6 @@
 "use client";
 
-import { Profile } from "@/components/profile";
+import { Profile } from "@/components/profile/profile";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
