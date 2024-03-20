@@ -13,3 +13,24 @@ export const UserSchema = z.object({
   bio: z.string(),
   created_at: z.date(),
 });
+
+const ACCEPTED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+];
+
+export const RawPostSchema = z.object({
+  imgFront: z
+    .instanceof(File)
+    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
+      message: ".jpg, .jpeg, .png and .webp files are accepted.",
+    }),
+  imgBack: z
+    .instanceof(File)
+    .refine((file) => ACCEPTED_IMAGE_TYPES.includes(file.type), {
+      message: ".jpg, .jpeg, .png and .webp files are accepted.",
+    }),
+  caption: z.string(),
+});

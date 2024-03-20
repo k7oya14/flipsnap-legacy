@@ -8,10 +8,7 @@ const SignUp = async () => {
   if (!session?.user?.email) {
     return (
       <div>
-        <h1>
-          You need to be logged in the account associated with Email to access
-          this page
-        </h1>
+        <h1>You need to be logged in to access this page</h1>
 
         <Link href="/api/auth/signin">
           <button className="border-2 border-black p-1 rounded-md hover:bg-gray-300">
@@ -24,7 +21,7 @@ const SignUp = async () => {
 
   return (
     <>
-      <SignupForm email={session.user.email} />
+      <SignupForm userId={session.user.id} />
     </>
   );
 };
