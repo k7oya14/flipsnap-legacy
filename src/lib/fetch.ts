@@ -1,3 +1,5 @@
+"use server";
+
 import React from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
