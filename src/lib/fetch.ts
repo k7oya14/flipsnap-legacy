@@ -4,21 +4,61 @@ import React from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
 
-export async function fetchUserById(id: string) {
+export async function fetchUserByUsername(username: string) {
   noStore();
   try {
     const data = await prisma.user.findUnique({
       where: {
-        id,
+        username,
       },
     });
     return data;
   } catch (error) {
-    throw new Error("Failed to fetch User info.");
+    throw new Error("Failed to fetch user info by username.");
   }
 }
 
-// Fetch Post API Usage :
+export async function fetchUserById(userId: string) {
+  noStore();
+  try {
+    const data = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch user info by userId.");
+  }
+}
+
+export async function fetchPost(postId: string) {
+  noStore();
+  try {
+    const data = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+    });
+    const author = data ? await fetchUserById(data?.authorId) : null;
+    const post = data
+      ? {
+          ...data,
+          author: {
+            username: author?.username ?? "",
+            avatar: author?.image ?? undefined,
+            name: author?.name ?? "",
+            isMutualFollow: false,
+          },
+        }
+      : null;
+    return post;
+  } catch (error) {
+    throw new Error("Failed to fetch a post.");
+  }
+}
+
+// Fetch Posts API Usage at infinite scroll:
 //
 // const data = await fetchLatestPosts(1, null);
 // const cursorPostId = useCursor(data);
@@ -40,9 +80,12 @@ export async function fetchLatestPosts(take: number, myId: string | null) {
           const author = await fetchUserById(post.authorId);
           return {
             ...post,
-            name: author?.name,
-            avatar: author?.image,
-            isMutualFollow: true, // TODO: fix value to be dynamic by func
+            author: {
+              username: author?.username ?? "",
+              avatar: author?.image ?? undefined,
+              name: author?.name ?? "",
+              isMutualFollow: true, // TODO: fix value to be dynamic by func
+            },
           };
         })
       );
@@ -53,9 +96,12 @@ export async function fetchLatestPosts(take: number, myId: string | null) {
           const author = await fetchUserById(post.authorId);
           return {
             ...post,
-            name: author?.name,
-            avatar: author?.image,
-            isMutualFollow: false,
+            author: {
+              username: author?.username ?? "",
+              avatar: author?.image ?? undefined,
+              name: author?.name ?? "",
+              isMutualFollow: false,
+            },
           };
         })
       );
@@ -89,9 +135,12 @@ export async function fetchMoreLatestPosts(
           const author = await fetchUserById(post.authorId);
           return {
             ...post,
-            name: author?.name,
-            avatar: author?.image,
-            isMutualFollow: true, // TODO: fix value to be dynamic by func
+            author: {
+              username: author?.username ?? "",
+              avatar: author?.image ?? undefined,
+              name: author?.name ?? "",
+              isMutualFollow: true, // TODO: fix value to be dynamic by func
+            },
           };
         })
       );
@@ -102,9 +151,12 @@ export async function fetchMoreLatestPosts(
           const author = await fetchUserById(post.authorId);
           return {
             ...post,
-            name: author?.name,
-            avatar: author?.image,
-            isMutualFollow: false,
+            author: {
+              username: author?.username ?? "",
+              avatar: author?.image ?? undefined,
+              name: author?.name ?? "",
+              isMutualFollow: false,
+            },
           };
         })
       );
@@ -155,6 +207,6 @@ export async function fetchMoreUserPostsById(
     });
     return data;
   } catch (error) {
-    throw new Error("Failed to fetch first User posts.");
+    throw new Error("Failed to fetch more User posts.");
   }
 }
