@@ -113,7 +113,7 @@ export async function fetchMoreLatestPosts(
   }
 }
 
-export async function fetchUserPosts(userId: string, take: number) {
+export async function fetchUserPostsById(userId: string, take: number) {
   noStore();
   try {
     const data = await prisma.post.findMany({
@@ -131,7 +131,7 @@ export async function fetchUserPosts(userId: string, take: number) {
   }
 }
 
-export async function fetchMoreUserPosts(
+export async function fetchMoreUserPostsById(
   userId: string,
   take: number,
   cursorPostId: string
