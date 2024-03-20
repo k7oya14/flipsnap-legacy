@@ -18,8 +18,8 @@ export default function RootLayout({
   modal: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+    <html lang="ja">
+      <body className={`${inter.className}`}>
         <Header />
         {modal}
         {children}

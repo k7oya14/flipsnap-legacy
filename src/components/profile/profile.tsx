@@ -3,8 +3,8 @@
  * @see https://v0.dev/t/MVzmgZIaiJu
  */
 import { AvatarImage, Avatar } from "@/components/ui/avatar";
-import { Button } from "./ui/button";
-import { Card } from "./ui/card";
+import { Button } from "../ui/button";
+import { Card } from "../ui/card";
 import ReactCardFlip from "react-card-flip";
 import ProfileFront from "./ProfileFront";
 import ProfileBack from "./ProfileBack";
