@@ -7,4 +7,11 @@ export type Post = {
   imgBack: string;
   caption: string;
   createdAt: Date;
+}
+
+export type sessionUser = {
+  id: string;
+  name?: string | null | undefined;
+  email?: string | null | undefined;
+  image?: string | null | undefined;
 };
