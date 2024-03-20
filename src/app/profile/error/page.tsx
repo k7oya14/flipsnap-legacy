@@ -10,16 +10,13 @@ const ProfileError = () => {
       <CardContent className="flex flex-col items-center justify-center m-6">
         <ExclamationTriangleIcon className="text-yellow-300 w-12 h-12 mb-4" />
         <h1 className="text-center text-2xl font-bold mb-4">
-          関連付けられたメールアドレスでログインしてください
+          ログインが必要です
         </h1>
         <h1 className="text-center mb-4">
-          You need to be logged in the account associated with Email to access
-          this page
+          You need to be logged in to access this page.
         </h1>
         <Link href="/api/auth/signin">
-          <Button className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
-            Sign in
-          </Button>
+          <Button className="text-white px-4 py-2 rounded-lg">Login</Button>
         </Link>
       </CardContent>
     </Card>
