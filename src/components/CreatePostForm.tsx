@@ -31,7 +31,9 @@ function CreatePostForm({ userId }: { userId: string }) {
       <CardContent className="flex items-center justify-center">
         <form action={dispatch} className="w-full">
           <div className="mb-4">
-            <Label htmlFor="imgFront">Front Image</Label>
+            <Label className="ml-[2px]" htmlFor="imgFront">
+              Front Image
+            </Label>
             <Input
               type="file"
               accept="image/*"
@@ -51,7 +53,9 @@ function CreatePostForm({ userId }: { userId: string }) {
             </div>
           </div>
           <div className="mb-4">
-            <Label htmlFor="imgBack">Back Image</Label>
+            <Label className="ml-[2px]" htmlFor="imgBack">
+              Back Image
+            </Label>
             <Input
               type="file"
               accept="image/*"
@@ -71,8 +75,11 @@ function CreatePostForm({ userId }: { userId: string }) {
             </div>
           </div>
           <div className="mb-4">
-            <Label htmlFor="caption">Caption</Label>
+            <Label className="ml-[2px]" htmlFor="caption">
+              Caption
+            </Label>
             <AutosizeTextarea
+              placeholder="Write a caption..."
               maxHeight={300}
               name="caption"
               id="caption"
