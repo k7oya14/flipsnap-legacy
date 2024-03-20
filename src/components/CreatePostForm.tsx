@@ -95,7 +95,7 @@ function CreatePostForm({ userId }: { userId: string }) {
           </div>
           <Button
             type="submit"
-            className="w-full border border-black p-2 rounded-md hover:bg-gray-800"
+            className="w-full border border-black py-0 my-0 rounded-md hover:bg-gray-800"
           >
             Create Post
           </Button>
