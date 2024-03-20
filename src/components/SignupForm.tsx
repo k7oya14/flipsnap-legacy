@@ -4,10 +4,10 @@ import React from "react";
 import { updateUsername } from "@/lib/actions";
 import { useFormState } from "react-dom";
 
-function SignupForm({ email }: { email: string }) {
+function SignupForm({ userId }: { userId: string }) {
   const initialState = { message: "", errors: { username: [] } };
-  const updateUsernameWithEmail = updateUsername.bind(null, email);
-  const [state, dispatch] = useFormState(updateUsernameWithEmail, initialState);
+  const updateUsernameWithId = updateUsername.bind(null, userId);
+  const [state, dispatch] = useFormState(updateUsernameWithId, initialState);
   return (
     <div className="ml-4">
       <form action={dispatch}>

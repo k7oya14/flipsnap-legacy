@@ -1,14 +1,16 @@
+import CreatePostForm from "@/components/CreatePostForm";
+import { auth } from "@/lib/auth";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+  const session = await auth();
+  if (!session) {
+    return <h1>You need to be logged in to access this page.</h1>;
+  }
   return (
-    <div>
-      <h1>Intercepted page as modal</h1>
-      <p>
-        This page is opened as a modal. It is not a separate page, but a
-        component that is opened as a modal.
-      </p>
-    </div>
+    <>
+      <CreatePostForm userId={session.user.id} />
+    </>
   );
 };
 
