@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache";
 
 const path = require("path");
 
-export async function uploadFile({ file }: { file: File }) {
+export async function uploadFile(file: File) {
   const fileExtension = path.extname(file.name);
   const file_path = `${uuidv4()}${fileExtension}`;
   const { data, error } = await supabase.storage
@@ -95,8 +95,8 @@ export async function createPost(
   const { imgFront, imgBack, caption } = validatedFields.data;
 
   const [imgFrontUrl, imgBackUrl] = await Promise.all([
-    uploadFile({ file: imgFront }),
-    uploadFile({ file: imgBack }),
+    uploadFile(imgFront),
+    uploadFile(imgBack),
   ]);
 
   try {
