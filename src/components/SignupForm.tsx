@@ -7,10 +7,11 @@ import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 import { updateUsername } from "@/lib/actions";
 import { useFormState } from "react-dom";
 
-export function SignupForm({ email }: { email: string }) {
+export function SignupForm({ userId }: { userId: string }) {
+
   const initialState = { message: "", errors: { username: [] } };
-  const updateUsernameWithEmail = updateUsername.bind(null, email);
-  const [state, dispatch] = useFormState(updateUsernameWithEmail, initialState);
+  const updateUsernameWithId = updateUsername.bind(null, userId);
+  const [state, dispatch] = useFormState(updateUsernameWithId, initialState);
   return (
     <div className="m-4 flex items-center justify-center">
       <form action={dispatch} className="w-96">

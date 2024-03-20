@@ -7,7 +7,7 @@ import type { NextAuthOptions } from "next-auth";
 import { getServerSession } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "./db";
+import prisma from "./prismaClient";
 
 // You'll need to import and pass this
 // to `NextAuth` in `app/api/auth/[...nextauth]/route.ts`
@@ -23,6 +23,11 @@ export const config = {
     // signIn: '/signin',
     // signOut: '/signout',
     newUser: "/signup", // New users will be directed here on first sign in (leave the property out if not of interest)
+  },
+  callbacks: {
+    async session({ session, token, user }) {
+      return { ...session, user: { ...session.user, id: user.id } };
+    },
   },
   // rest of your config
 } satisfies NextAuthOptions;

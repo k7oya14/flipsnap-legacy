@@ -11,7 +11,7 @@ const SignUp = async () => {
 
   return (
     <>
-      <SignupForm email={session.user.email} />
+      <SignupForm userId={session.user.id} />
     </>
   );
 };

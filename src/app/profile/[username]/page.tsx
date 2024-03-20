@@ -4,7 +4,7 @@ import { Profile } from "@/components/profile/profile";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
-const page = ({ params }: { params: { username: string } }) => {
+const Page = ({ params }: { params: { username: string } }) => {
   const username = params.username;
   const searchParams = useSearchParams();
   const flipCard = Number(searchParams.get("flip"));
@@ -32,4 +32,4 @@ const page = ({ params }: { params: { username: string } }) => {
   );
 };
 
-export default page;
+export default Page;
