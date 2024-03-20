@@ -118,3 +118,24 @@ export async function createPost(
   revalidatePath("/profile/me");
   redirect("/profile/me");
 }
+
+export async function Follow(MyId: string, userId: string) {
+  try {
+    await prisma.user.update({
+      where: { id: MyId },
+      data: {
+        follows: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    throw new Error("Failed to Follow User.");
+  }
+  revalidatePath(`/profile/${username}`);
+  redirect(`/profile/${username}`);
+}
+
+// export async function UnFollow(){}
