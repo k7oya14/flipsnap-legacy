@@ -30,7 +30,7 @@ export default function Home() {
       <Image
         width={1200}
         height={628}
-        className="max-w-full min-w-[66.67vh] max-h-[66.67vh] object-contain"
+        className="mt-1 max-w-full min-w-[66.67vh] max-h-[66.67vh] object-contain"
         alt=""
         src="/hero.gif"
       />
