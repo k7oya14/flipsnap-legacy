@@ -6,17 +6,15 @@ import React from "react";
 
 const ProfileError = () => {
   return (
-    <Card className="m-4 shadow">
-      <CardContent className="flex flex-col items-center justify-center m-6">
+    <Card className="m-4 p-4 w-96 mx-auto shadow-lg">
+      <CardContent className="flex flex-col items-center justify-center mt-6">
         <ExclamationTriangleIcon className="text-yellow-300 w-12 h-12 mb-4" />
-        <h1 className="text-center text-2xl font-bold mb-4">
-          ログインが必要です
-        </h1>
-        <h1 className="text-center mb-4">
+        <h1 className="text-center text-2xl font-bold">ログインが必要です</h1>
+        <h1 className="text-center my-4">
           You need to be logged in to access this page.
         </h1>
         <Link href="/api/auth/signin">
-          <Button className="text-white px-4 py-2 rounded-lg">Login</Button>
+          <Button className="text-white rounded-lg">Login</Button>
         </Link>
       </CardContent>
     </Card>
