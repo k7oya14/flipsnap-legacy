@@ -1,4 +1,5 @@
 import CreatePostForm from "@/components/CreatePostForm";
+import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -10,7 +11,11 @@ const page = async () => {
   }
   return (
     <div className="my-4">
-      <CreatePostForm userId={session.user.id} />
+      <Card
+        className={`mx-auto p-4 max-w-5xl w-96 min-h-fit flex flex-col justify-center items-center border-slate-300`}
+      >
+        <CreatePostForm userId={session.user.id} />
+      </Card>
     </div>
   );
 };

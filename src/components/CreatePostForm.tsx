@@ -6,7 +6,7 @@ import { useFormState } from "react-dom";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Card, CardContent, CardHeader } from "./ui/card";
+import { CardContent, CardHeader } from "./ui/card";
 import { AutosizeTextarea } from "./ui/autosizeTextarea";
 import { Roboto_Slab } from "next/font/google";
 import { CameraIcon } from "@heroicons/react/24/outline";
@@ -21,9 +21,7 @@ function CreatePostForm({ userId }: { userId: string }) {
   const createPostWithId = createPost.bind(null, userId);
   const [state, dispatch] = useFormState(createPostWithId, initialState);
   return (
-    <Card
-      className={`${robotoSlab.className} mx-auto p-4 max-w-5xl w-96 min-h-fit flex flex-col justify-center items-center border-slate-300`}
-    >
+    <div className={robotoSlab.className}>
       <CardHeader className="flex items-center">
         <h1 className="text-xl">Create Post</h1>
         <CameraIcon className="w-8 h-8 text-black" />
@@ -103,7 +101,7 @@ function CreatePostForm({ userId }: { userId: string }) {
           </Button>
         </form>
       </CardContent>
-    </Card>
+    </div>
   );
 }
 
