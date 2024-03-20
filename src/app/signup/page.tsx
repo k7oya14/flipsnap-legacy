@@ -1,7 +1,6 @@
 import React from "react";
-import SignupForm from "@/components/SignupForm";
+import { SignupForm } from "@/components/SignupForm";
 import { auth } from "@/lib/auth";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const SignUp = async () => {
