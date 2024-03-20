@@ -4,45 +4,93 @@ import React from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
 
-export async function fetchUserById(id: string) {
+export async function fetchUserByUsername(username: string) {
   noStore();
   try {
     const data = await prisma.user.findUnique({
       where: {
-        id,
+        username,
       },
     });
     return data;
   } catch (error) {
-    throw new Error("Failed to fetch User info.");
+    throw new Error("Failed to fetch user info by username.");
   }
 }
 
-// Fetch Post API Usage :
-//
-// const data = await fetchLatestPosts(1, null);
-// const cursorPostId = useCursor(data);
-// const data2 = await fetchMoreLatestPosts(1, null,cursorPostId);
-//
+export async function fetchPost(postId: string) {
+  noStore();
+  try {
+    const data = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+      include: {
+        author: {
+          select: {
+            username: true,
+            image: true,
+            name: true,
+          },
+        },
+      },
+    });
+    // TODO: const author = data ? await isMutualFollow(data?.authorId) : null;
+    const post = data
+      ? {
+          ...data,
+          author: {
+            ...data.author,
+            isMutualFollow: false, // TODO: fix value to be dynamic by func
+          },
+        }
+      : null;
+    return post;
+  } catch (error) {
+    throw new Error("Failed to fetch a post.");
+  }
+}
 
-export async function fetchLatestPosts(take: number, myId: string | null) {
+// Fetch Posts API Usage at infinite scroll:
+//
+// const data = await fetchLatestPosts(12, session?.user.id);
+// const cursorPostId = useCursor(data);
+// const data2 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
+// const cursorPostId = useCursor(data);
+// const data3 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
+// ...
+
+export async function fetchLatestPosts(
+  take: number,
+  myId: string | undefined | null
+) {
   noStore();
   try {
     const data = await prisma.post.findMany({
       orderBy: {
         createdAt: "desc",
       },
+      include: {
+        author: {
+          select: {
+            username: true,
+            image: true,
+            name: true,
+          },
+        },
+      },
       take,
     });
     if (myId) {
       const posts = await Promise.all(
         data.map(async (post) => {
-          const author = await fetchUserById(post.authorId);
+          // TODO: const author = await isMutualFollow(post.authorId);
           return {
             ...post,
-            name: author?.name,
-            avatar: author?.image,
-            isMutualFollow: true, // TODO: fix value to be dynamic by func
+            author: {
+              ...post.author,
+              isMutualFollow: true, // TODO: fix value to be dynamic by func
+            },
           };
         })
       );
@@ -50,12 +98,12 @@ export async function fetchLatestPosts(take: number, myId: string | null) {
     } else {
       const posts = await Promise.all(
         data.map(async (post) => {
-          const author = await fetchUserById(post.authorId);
           return {
             ...post,
-            name: author?.name,
-            avatar: author?.image,
-            isMutualFollow: false,
+            author: {
+              ...post.author,
+              isMutualFollow: false,
+            },
           };
         })
       );
@@ -68,7 +116,7 @@ export async function fetchLatestPosts(take: number, myId: string | null) {
 
 export async function fetchMoreLatestPosts(
   take: number,
-  myId: string | null,
+  myId: string | undefined | null,
   cursorPostId: string
 ) {
   noStore();
@@ -76,6 +124,15 @@ export async function fetchMoreLatestPosts(
     const data = await prisma.post.findMany({
       orderBy: {
         createdAt: "desc",
+      },
+      include: {
+        author: {
+          select: {
+            username: true,
+            image: true,
+            name: true,
+          },
+        },
       },
       take,
       skip: 1, // Skip the cursor
@@ -86,12 +143,13 @@ export async function fetchMoreLatestPosts(
     if (myId) {
       const posts = await Promise.all(
         data.map(async (post) => {
-          const author = await fetchUserById(post.authorId);
+          // TODO: const author = await isMutualFollow(post.authorId);
           return {
             ...post,
-            name: author?.name,
-            avatar: author?.image,
-            isMutualFollow: true, // TODO: fix value to be dynamic by func
+            author: {
+              ...post.author,
+              isMutualFollow: true, // TODO: fix value to be dynamic by func
+            },
           };
         })
       );
@@ -99,12 +157,12 @@ export async function fetchMoreLatestPosts(
     } else {
       const posts = await Promise.all(
         data.map(async (post) => {
-          const author = await fetchUserById(post.authorId);
           return {
             ...post,
-            name: author?.name,
-            avatar: author?.image,
-            isMutualFollow: false,
+            author: {
+              ...post.author,
+              isMutualFollow: false,
+            },
           };
         })
       );
@@ -155,6 +213,6 @@ export async function fetchMoreUserPostsById(
     });
     return data;
   } catch (error) {
-    throw new Error("Failed to fetch first User posts.");
+    throw new Error("Failed to fetch more User posts.");
   }
 }

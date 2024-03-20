@@ -2,7 +2,7 @@ import { PostModal } from "@/components/detail/post-modal";
 import { Card, CardContent } from "@/components/ui/card";
 import React from "react";
 
-const Page = async () => {
+const Page = () => {
   return (
     <Card className="max-w-5xl mx-auto my-4">
       <CardContent>
