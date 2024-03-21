@@ -23,7 +23,7 @@ const ImageFront = (props: Props) => {
     <div>
       <div
         onClick={() => handleClick(col * 4 + row)}
-        className="group relative rounded-md my-2 overflow-hidden"
+        className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
       >
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
         <Image

@@ -1,19 +1,22 @@
 "use client";
 
 import React from "react";
-import ReactCardFlip from "react-card-flip";
 
-import ImageFront from "@/components/ImageFront";
-import ImageBack from "@/components/ImageBack";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
+import { fetchLatestPosts } from "@/lib/fetch";
+import { auth } from "@/lib/auth";
+import MainPage from "@/components/home/MainPage";
 
-export default function Home() {
+export default async function Home() {
+  //   const session = await auth();
   const searchParams = useSearchParams();
   const flipCard = Number(searchParams.get("flip"));
   const pathname = usePathname();
   const { replace } = useRouter();
   const params = new URLSearchParams(searchParams);
+
+  //   const data = await fetchLatestPosts(2, session?.user.id);
 
   const handleFront = (flipId: number) => {
     params.set("flip", flipId.toString());
@@ -35,38 +38,11 @@ export default function Home() {
         alt=""
         src="/hero.gif"
       />
-      <div className="lg:px-40 px-5 flex ">
-        {[0, 1, 2].map((col) => (
-          <div key={col} className="w-1/3 p-2">
-            {[0, 1, 2, 3].map((row) => (
-              <ReactCardFlip
-                key={row}
-                isFlipped={flipCard === col * 4 + row}
-                flipDirection="horizontal"
-                flipSpeedBackToFront={0.8}
-                flipSpeedFrontToBack={0.48}
-                infinite={true}
-                //   cardZIndex={`${index / 3}`}
-              >
-                <ImageFront
-                  col={col}
-                  row={row}
-                  handleClick={handleFront}
-                  src={`https://source.unsplash.com/collection/1346951/${
-                    col + (row % 3) + 3
-                  }00x500?sig=${col * 3 + row}`}
-                />
-                <ImageBack
-                  src={`https://source.unsplash.com/collection/1346951/${
-                    col + (row % 3) + 3
-                  }00x500?sig=${row}`}
-                  handleClick={handleBack}
-                />
-              </ReactCardFlip>
-            ))}
-          </div>
-        ))}
-      </div>
+      <MainPage
+        flipCard={flipCard}
+        handleFront={handleFront}
+        handleBack={handleBack}
+      />
     </div>
   );
 }
