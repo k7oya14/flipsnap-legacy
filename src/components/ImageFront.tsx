@@ -1,17 +1,26 @@
+"use client";
+
 import { ArrowsPointingOutIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { Post } from "@/lib/definitions";
+import { motion } from "framer-motion";
 
 type Props = {
+  index: number;
   post: Post;
   handleClick: (id: string) => void;
 };
 
 const ImageFront = (props: Props) => {
-  const { post, handleClick } = props;
+  const { index, post, handleClick } = props;
+
+  const variants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1 },
+  };
 
   const handleIconClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -19,7 +28,12 @@ const ImageFront = (props: Props) => {
     e.stopPropagation();
   };
   return (
-    <div>
+    <motion.div
+      variants={variants}
+      initial="hidden"
+      animate="visible"
+      transition={{ duration: 0.5, delay: index * 0.5 }}
+    >
       <div
         onClick={() => handleClick(post.id)}
         className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
@@ -54,7 +68,7 @@ const ImageFront = (props: Props) => {
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
