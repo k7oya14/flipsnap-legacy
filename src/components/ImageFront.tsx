@@ -33,22 +33,26 @@ const ImageFront = (props: Props) => {
           alt=""
           src={post.imgFront}
         />
-        <Link
-          href={`/profile/${post.author?.username}`}
-          onClick={(e) => handleIconClick(e)}
-        >
-          <Avatar className="absolute bottom-2 left-2 invisible group-hover:visible">
-            <AvatarImage src={post.author?.image!} />
-            <AvatarFallback>{post.author?.name}</AvatarFallback>
-          </Avatar>
-        </Link>
-        <Link
-          onClick={(e) => handleIconClick(e)}
-          href={`/posts/${post.id}`}
-          scroll={false}
-        >
-          <ArrowsPointingOutIcon className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200" />
-        </Link>
+        <div className="absolute inset-x-0 bottom-0 h-full w-full hover:bg-gradient-to-b from-transparent to-zinc-800 rounded-b">
+          <Link
+            href={`/profile/${post.author?.username}`}
+            onClick={(e) => handleIconClick(e)}
+            className="absolute bottom-2 left-2 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
+          >
+            <Avatar>
+              <AvatarImage src={post.author?.image!} />
+              <AvatarFallback>{post.author?.name}</AvatarFallback>
+            </Avatar>
+            <p className="text-lg">{post.author?.name}</p>
+          </Link>
+          <Link
+            onClick={(e) => handleIconClick(e)}
+            href={`/posts/${post.id}`}
+            scroll={false}
+          >
+            <ArrowsPointingOutIcon className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200" />
+          </Link>
+        </div>
       </div>
     </div>
   );
