@@ -3,6 +3,7 @@
 import React from "react";
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
+import { UserRelationship } from "./definitions";
 
 export async function fetchUserByUsername(username: string) {
   noStore();
@@ -18,7 +19,10 @@ export async function fetchUserByUsername(username: string) {
   }
 }
 
-export async function fetchPost(postId: string) {
+export async function fetchPost(
+  postId: string,
+  myId: string | undefined | null
+) {
   noStore();
   try {
     const data = await prisma.post.findUnique({
@@ -35,17 +39,26 @@ export async function fetchPost(postId: string) {
         },
       },
     });
-    // TODO: const author = data ? await isMutualFollow(data?.authorId) : null;
-    const post = data
-      ? {
-          ...data,
-          author: {
-            ...data.author,
-            isMutualFollow: false, // TODO: fix value to be dynamic by func
-          },
-        }
-      : null;
-    return post;
+    if (myId) {
+      // TODO: const relationship = data ? await fetchUserRelationship(myId, data?.authorId) : null;
+      const post = {
+        ...data,
+        author: {
+          ...data?.author,
+          relationship: UserRelationship.Mutual, // TODO: fix value to be dynamic by func
+        },
+      };
+      return post;
+    } else {
+      const post = {
+        ...data,
+        author: {
+          ...data?.author,
+          relationship: UserRelationship.NoSession,
+        },
+      };
+      return post;
+    }
   } catch (error) {
     throw new Error("Failed to fetch a post.");
   }
@@ -53,10 +66,10 @@ export async function fetchPost(postId: string) {
 
 // Fetch Posts API Usage at infinite scroll:
 //
-// const data = await fetchLatestPosts(12, session?.user.id);
-// const cursorPostId = useCursor(data);
+//const data = await fetchLatestPosts(2, session?.user.id);
+// let cursorPostId = useCursorById(data);
 // const data2 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
-// const cursorPostId = useCursor(data);
+// cursorPostId = useCursorById(data);
 // const data3 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
 // ...
 
@@ -84,12 +97,12 @@ export async function fetchLatestPosts(
     if (myId) {
       const posts = await Promise.all(
         data.map(async (post) => {
-          // TODO: const author = await isMutualFollow(post.authorId);
+          // TODO: const relationship = await fetchUserRelationship(myId, post.authorId);
           return {
             ...post,
             author: {
               ...post.author,
-              isMutualFollow: true, // TODO: fix value to be dynamic by func
+              relationship: UserRelationship.Mutual, // TODO: fix value to be dynamic by func
             },
           };
         })
@@ -102,7 +115,7 @@ export async function fetchLatestPosts(
             ...post,
             author: {
               ...post.author,
-              isMutualFollow: false,
+              relationship: UserRelationship.NoSession,
             },
           };
         })
@@ -143,12 +156,12 @@ export async function fetchMoreLatestPosts(
     if (myId) {
       const posts = await Promise.all(
         data.map(async (post) => {
-          // TODO: const author = await isMutualFollow(post.authorId);
+          // TODO: const relationship = await fetchUserRelationship(MyId, post.authorId);
           return {
             ...post,
             author: {
               ...post.author,
-              isMutualFollow: true, // TODO: fix value to be dynamic by func
+              relationship: UserRelationship.Mutual, // TODO: fix value to be dynamic by func
             },
           };
         })
@@ -161,7 +174,7 @@ export async function fetchMoreLatestPosts(
             ...post,
             author: {
               ...post.author,
-              isMutualFollow: false,
+              relationship: UserRelationship.NoSession,
             },
           };
         })

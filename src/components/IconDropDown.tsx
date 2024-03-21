@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { sessionUser } from "@/lib/types";
+import { sessionUser } from "@/lib/definitions";
 import Link from "next/link";
 import { Roboto_Slab } from "next/font/google";
 
