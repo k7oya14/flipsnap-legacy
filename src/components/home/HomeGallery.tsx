@@ -31,7 +31,7 @@ const HomeGallery = (props: Props) => {
     initialInView: undefined, // 初期状態を undefined に設定
   });
 
-  let cursorPostId: any;
+  let cursorPostId = useCursorById(firstPost);
 
   //   const data = await fetchLatestPosts(2, user.id);
 
@@ -48,23 +48,20 @@ const HomeGallery = (props: Props) => {
     setPosts(newPostsArray);
     cursorPostId = useCursorById(firstPost);
     setLoading(false);
-    console.log("cursorPostId", cursorPostId);
   }, []);
 
   useEffect(() => {
     if (inView && !loading) {
-      //   const fetchMorePosts = async () => {
-      //     const data = await fetchMoreLatestPosts(6, user.id, cursorPostId);
-      //     cursorPostId = useCursorById(data);
-      //     const newPostsArray = [
-      //       [data[0], data[1]],
-      //       [data[2], data[3]],
-      //       [data[4], data[5]],
-      //     ];
-      //     setPosts((prev) => [[data[0]], [], []]);
-      //   };
-      //   fetchMorePosts();
-      alert(cursorPostId);
+      const fetchMorePosts = async () => {
+        const data = await fetchMoreLatestPosts(6, user.id, cursorPostId);
+        cursorPostId = useCursorById(data);
+        setPosts((prevPosts) => [
+          [...prevPosts[0], data[0], data[1]],
+          [...prevPosts[1], data[2], data[3]],
+          [...prevPosts[2], data[4], data[5]],
+        ]);
+      };
+      fetchMorePosts();
     }
   }, [inView, loading]);
 
@@ -84,30 +81,32 @@ const HomeGallery = (props: Props) => {
       <div className="h-96 bg-slate-800"></div> */}
       {loading ? (
         <>
-          <div className="h-96"></div>
+          <div className="h-screen"></div>
         </>
       ) : (
-        <div className="lg:px-40 px-5 flex ">
+        <div className="lg:px-40 px-5 flex">
           {posts.map((colPosts: Post[], col) => (
-            <div key={col} className="w-1/3 p-2">
-              {colPosts.map((post: Post) => (
-                <ReactCardFlip
-                  key={post.id}
-                  isFlipped={flipCard === post.id}
-                  flipDirection="horizontal"
-                  flipSpeedBackToFront={0.8}
-                  flipSpeedFrontToBack={0.48}
-                  infinite={true}
-                >
-                  <ImageFront handleClick={handleFront} post={post} />
-                  <ImageBack post={post} handleClick={handleBack} />
-                </ReactCardFlip>
-              ))}
-            </div>
+            <>
+              <div key={col} className="w-1/3 p-2">
+                {colPosts.map((post: Post) => (
+                  <ReactCardFlip
+                    key={post.id}
+                    isFlipped={flipCard === post.id}
+                    flipDirection="horizontal"
+                    flipSpeedBackToFront={0.8}
+                    flipSpeedFrontToBack={0.48}
+                    infinite={true}
+                  >
+                    <ImageFront handleClick={handleFront} post={post} />
+                    <ImageBack post={post} handleClick={handleBack} />
+                  </ReactCardFlip>
+                ))}
+                <p className="bg-red-500 h-4" ref={ref} />
+              </div>
+            </>
           ))}
         </div>
       )}
-      <div ref={ref} className="w-full h-10 bg-red-500" />
     </>
   );
 };
