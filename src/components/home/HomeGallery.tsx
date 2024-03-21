@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
 import ImageFront from "../ImageFront";
 import ImageBack from "../ImageBack";
@@ -49,7 +49,7 @@ const HomeGallery = (props: Props) => {
     <div className="lg:px-40 px-5 flex ">
       {posts.map((colPosts: Post[], col) => (
         <div key={col} className="w-1/3 p-2">
-          {colPosts.map((post: Post, row: number) => (
+          {colPosts.map((post: Post) => (
             <ReactCardFlip
               key={post.id}
               isFlipped={flipCard === post.id}

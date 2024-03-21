@@ -38,8 +38,8 @@ const ImageFront = (props: Props) => {
           onClick={(e) => handleIconClick(e)}
         >
           <Avatar className="absolute bottom-2 left-2 invisible group-hover:visible">
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarImage src={post.author?.image!} />
+            <AvatarFallback>{post.author?.name}</AvatarFallback>
           </Avatar>
         </Link>
         <Link
