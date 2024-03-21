@@ -14,7 +14,6 @@ export async function getUsernameById(userId: string) {
       username: true,
     },
   });
-  console.log(data);
   return data;
 }
 
