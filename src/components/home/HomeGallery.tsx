@@ -73,6 +73,7 @@ const HomeGallery = (props: Props) => {
     params.delete("flip");
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
+
   return (
     <>
       {/* <div className="h-96 bg-slate-800"></div>
@@ -87,7 +88,7 @@ const HomeGallery = (props: Props) => {
           {posts.map((colPosts: Post[], col) => (
             <>
               <div key={col} className="w-1/3 p-2">
-                {colPosts.map((post: Post) => (
+                {colPosts.map((post: Post, index) => (
                   <ReactCardFlip
                     key={post.id}
                     isFlipped={flipCard === post.id}
@@ -96,11 +97,15 @@ const HomeGallery = (props: Props) => {
                     flipSpeedFrontToBack={0.48}
                     infinite={true}
                   >
-                    <ImageFront handleClick={handleFront} post={post} />
+                    <ImageFront
+                      index={index}
+                      handleClick={handleFront}
+                      post={post}
+                    />
                     <ImageBack post={post} handleClick={handleBack} />
                   </ReactCardFlip>
                 ))}
-                <p className="bg-red-500 h-4" ref={ref} />
+                <div ref={ref} />
               </div>
             </>
           ))}
