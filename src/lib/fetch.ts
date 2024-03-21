@@ -19,6 +19,106 @@ export async function fetchUserByUsername(username: string) {
   }
 }
 
+export async function fetchFollows(userId: string) {
+  noStore();
+  try {
+    const data = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        follows: {
+          select: {
+            username: true,
+            image: true,
+            name: true,
+          },
+        },
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch follows.");
+  }
+}
+
+export async function fetchFollowers(userId: string) {
+  noStore();
+  try {
+    const data = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      select: {
+        followers: {
+          select: {
+            username: true,
+            image: true,
+            name: true,
+          },
+        },
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch follows.");
+  }
+}
+
+export async function fetchUserRelationship(myId: string, userId: string) {
+  if (myId === userId) {
+    return UserRelationship.Me;
+  }
+  noStore();
+  try {
+    const existingFollow = await prisma.user.findUnique({
+      where: {
+        id: myId,
+        follows: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+      select: {
+        follows: {
+          where: {
+            id: userId,
+          },
+        },
+      },
+    });
+    const existingFollower = await prisma.user.findUnique({
+      where: {
+        id: myId,
+        followers: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+      select: {
+        followers: {
+          where: {
+            id: userId,
+          },
+        },
+      },
+    });
+    if (existingFollow && existingFollower) {
+      return UserRelationship.Mutual;
+    } else if (existingFollow) {
+      return UserRelationship.Following;
+    } else if (existingFollower) {
+      return UserRelationship.Follower;
+    } else {
+      return UserRelationship.None;
+    }
+  } catch (error) {
+    throw new Error("Failed to fetch user relationship.");
+  }
+}
+
 export async function fetchPost(
   postId: string,
   myId: string | undefined | null
@@ -40,12 +140,14 @@ export async function fetchPost(
       },
     });
     if (myId) {
-      // TODO: const relationship = data ? await fetchUserRelationship(myId, data?.authorId) : null;
+      const relationship = data
+        ? await fetchUserRelationship(myId, data?.authorId!)
+        : null;
       const post = {
         ...data,
         author: {
           ...data?.author,
-          relationship: UserRelationship.Mutual, // TODO: fix value to be dynamic by func
+          relationship,
         },
       };
       return post;
@@ -97,12 +199,12 @@ export async function fetchLatestPosts(
     if (myId) {
       const posts = await Promise.all(
         data.map(async (post) => {
-          // TODO: const relationship = await fetchUserRelationship(myId, post.authorId);
+          const relationship = await fetchUserRelationship(myId, post.authorId);
           return {
             ...post,
             author: {
               ...post.author,
-              relationship: UserRelationship.Mutual, // TODO: fix value to be dynamic by func
+              relationship,
             },
           };
         })
@@ -156,12 +258,12 @@ export async function fetchMoreLatestPosts(
     if (myId) {
       const posts = await Promise.all(
         data.map(async (post) => {
-          // TODO: const relationship = await fetchUserRelationship(MyId, post.authorId);
+          const relationship = await fetchUserRelationship(myId, post.authorId);
           return {
             ...post,
             author: {
               ...post.author,
-              relationship: UserRelationship.Mutual, // TODO: fix value to be dynamic by func
+              relationship,
             },
           };
         })

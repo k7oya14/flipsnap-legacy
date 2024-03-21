@@ -5,6 +5,7 @@ export enum UserRelationship {
   Follower = "Follower",
   Mutual = "Mutual",
   None = "None",
+  Me = "Me",
   NoSession = "NoSession",
 }
 
