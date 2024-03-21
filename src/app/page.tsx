@@ -11,9 +11,8 @@ export default async function Home({
   searchParams: { [key: string]: string | undefined };
 }) {
   const flipCard = Number(searchParams["flip"]);
-  //   const session = await auth();
-
-  //   const data = await fetchLatestPosts(2, session?.user.id);
+  const session = await auth();
+  const post = await fetchLatestPosts(2, session?.user.id);
 
   return (
     <div className="flex flex-col justify-center">
@@ -25,7 +24,7 @@ export default async function Home({
         alt=""
         src="/hero.gif"
       />
-      <HomeGallery flipCard={flipCard} />
+      <HomeGallery flipCard={flipCard} user={session?.user!} firstPost={post} />
     </div>
   );
 }
