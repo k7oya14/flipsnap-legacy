@@ -81,7 +81,7 @@ function CreatePostForm({ userId }: { userId: string }) {
               maxHeight={300}
               name="caption"
               id="caption"
-              className="min-h-[50px] border border-black p-2 focus-visible:ring-transparent focus:border-[1.5px]"
+              className="min-h-[50px] border border-slate-400 p-2 focus-visible:ring-transparent focus:border-[1.3px]"
               aria-describedby="caption-error"
             />
             <div id="caption-error" aria-live="polite" aria-atomic="true">
