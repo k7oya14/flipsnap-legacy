@@ -1,17 +1,17 @@
-"use client";
-
 import React from "react";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { fetchLatestPosts } from "@/lib/fetch";
 import { auth } from "@/lib/auth";
 import HomeGallery from "@/components/home/HomeGallery";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | undefined };
+}) {
+  const flipCard = Number(searchParams["flip"]);
   //   const session = await auth();
-  const searchParams = useSearchParams();
-  const flipCard = Number(searchParams.get("flip"));
 
   //   const data = await fetchLatestPosts(2, session?.user.id);
 
