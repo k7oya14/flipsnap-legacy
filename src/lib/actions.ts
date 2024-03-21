@@ -139,14 +139,21 @@ export async function Follow(MyId: string, userId: string) {
   revalidatePath(referer);
 }
 
-// export async function UnFollow(){}
-
-// fetch.ts
-// export async function fetchFollows(){}
-// export async function fetchFollowers(){}
-// export async function isFollowing(){}
-// export async function isFollower(){}
-
-// フォロー/フォロワー人数カウント
-// isFollower, isFollowing
-// はfetchUserByUsernameに統合（select{_count}を使う）
+export async function UnFollow(MyId: string, userId: string) {
+  try {
+    await prisma.user.update({
+      where: { id: MyId },
+      data: {
+        follows: {
+          disconnect: {
+            id: userId,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    throw new Error("Failed to unfollow user.");
+  }
+  const referer = headers().get("referer") ?? "/";
+  revalidatePath(referer);
+}
