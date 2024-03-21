@@ -1,3 +1,5 @@
+"use server";
+
 import { auth } from "@/lib/auth";
 import { getUsernameById } from "@/lib/fetch";
 import { redirect } from "next/navigation";
