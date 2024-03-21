@@ -22,7 +22,7 @@ const Page = ({ params }: { params: { username: string } }) => {
     replace(`${pathname}?${param.toString()}`, { scroll: false });
   };
   return (
-    <div>
+    <div className="my-2">
       <Profile
         flip={flipCard.toString()}
         handleFront={handleFront}
