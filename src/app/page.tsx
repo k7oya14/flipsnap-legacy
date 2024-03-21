@@ -12,21 +12,8 @@ export default async function Home() {
   //   const session = await auth();
   const searchParams = useSearchParams();
   const flipCard = Number(searchParams.get("flip"));
-  const pathname = usePathname();
-  const { replace } = useRouter();
-  const params = new URLSearchParams(searchParams);
 
   //   const data = await fetchLatestPosts(2, session?.user.id);
-
-  const handleFront = (flipId: number) => {
-    params.set("flip", flipId.toString());
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  };
-
-  const handleBack = () => {
-    params.delete("flip");
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  };
 
   return (
     <div className="flex flex-col justify-center">
@@ -38,11 +25,7 @@ export default async function Home() {
         alt=""
         src="/hero.gif"
       />
-      <HomeGallery
-        flipCard={flipCard}
-        handleFront={handleFront}
-        handleBack={handleBack}
-      />
+      <HomeGallery flipCard={flipCard} />
     </div>
   );
 }

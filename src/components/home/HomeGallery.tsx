@@ -4,15 +4,29 @@ import React from "react";
 import ReactCardFlip from "react-card-flip";
 import ImageFront from "../ImageFront";
 import ImageBack from "../ImageBack";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { Router } from "lucide-react";
 
 type Props = {
   flipCard: number;
-  handleFront: (flipId: number) => void;
-  handleBack: () => void;
 };
 
 const HomeGallery = (props: Props) => {
-  const { flipCard, handleFront, handleBack } = props;
+  const { flipCard } = props;
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const handleFront = (flipId: number) => {
+    params.set("flip", flipId.toString());
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
+
+  const handleBack = () => {
+    params.delete("flip");
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
   return (
     <div className="lg:px-40 px-5 flex ">
       {[0, 1, 2].map((col) => (
