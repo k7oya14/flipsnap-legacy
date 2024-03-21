@@ -69,7 +69,7 @@ export async function fetchPost(
 //const data = await fetchLatestPosts(2, session?.user.id);
 // let cursorPostId = useCursorById(data);
 // const data2 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
-// cursorPostId = useCursorById(data);
+// cursorPostId = useCursorById(data2);
 // const data3 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
 // ...
 
@@ -133,6 +133,7 @@ export async function fetchMoreLatestPosts(
   cursorPostId: string
 ) {
   noStore();
+  console.log(take, myId, cursorPostId);
   try {
     const data = await prisma.post.findMany({
       orderBy: {

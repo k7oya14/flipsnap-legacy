@@ -6,7 +6,11 @@ import ImageFront from "../ImageFront";
 import ImageBack from "../ImageBack";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Post, sessionUser } from "@/lib/definitions";
-import { fetchLatestPosts } from "@/lib/fetch";
+import { fetchLatestPosts, fetchMoreLatestPosts } from "@/lib/fetch";
+import { useInView } from "react-intersection-observer";
+import { useCursorById } from "@/lib/utils";
+import { set } from "zod";
+import { Divide } from "lucide-react";
 
 type Props = {
   flipCard: string;
@@ -21,21 +25,49 @@ const HomeGallery = (props: Props) => {
   const pathname = usePathname();
   const { replace } = useRouter();
   const [posts, setPosts] = useState<Post[][]>([[], [], []]);
+  const [loading, setLoading] = useState(true);
+  const { ref, inView } = useInView({
+    threshold: 0,
+    initialInView: undefined, // 初期状態を undefined に設定
+  });
+
+  let cursorPostId: any;
 
   //   const data = await fetchLatestPosts(2, user.id);
 
+  // let cursorPostId = useCursorById(data);
+  // const data2 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
+
   useEffect(() => {
+    setLoading(true);
     const newPostsArray = [
       [firstPost[0], firstPost[1]],
       [firstPost[2], firstPost[3]],
       [firstPost[4], firstPost[5]],
     ];
     setPosts(newPostsArray);
+    cursorPostId = useCursorById(firstPost);
+    setLoading(false);
+    console.log("cursorPostId", cursorPostId);
   }, []);
 
-  //   useEffect(() => {
-  //     console.log(firstPost.id);
-  //   }, []);
+  useEffect(() => {
+    if (inView && !loading) {
+      //   const fetchMorePosts = async () => {
+      //     const data = await fetchMoreLatestPosts(6, user.id, cursorPostId);
+      //     cursorPostId = useCursorById(data);
+      //     const newPostsArray = [
+      //       [data[0], data[1]],
+      //       [data[2], data[3]],
+      //       [data[4], data[5]],
+      //     ];
+      //     setPosts((prev) => [[data[0]], [], []]);
+      //   };
+      //   fetchMorePosts();
+      alert(cursorPostId);
+    }
+  }, [inView, loading]);
+
   const handleFront = (flipId: string) => {
     params.set("flip", flipId.toString());
     replace(`${pathname}?${params.toString()}`, { scroll: false });
@@ -46,26 +78,37 @@ const HomeGallery = (props: Props) => {
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
   return (
-    <div className="lg:px-40 px-5 flex ">
-      {posts.map((colPosts: Post[], col) => (
-        <div key={col} className="w-1/3 p-2">
-          {colPosts.map((post: Post) => (
-            <ReactCardFlip
-              key={post.id}
-              isFlipped={flipCard === post.id}
-              flipDirection="horizontal"
-              flipSpeedBackToFront={0.8}
-              flipSpeedFrontToBack={0.48}
-              infinite={true}
-              //   cardZIndex={`${index / 3}`}
-            >
-              <ImageFront handleClick={handleFront} post={post} />
-              <ImageBack post={post} handleClick={handleBack} />
-            </ReactCardFlip>
+    <>
+      {/* <div className="h-96 bg-slate-800"></div>
+      <div className="h-96 bg-slate-800"></div>
+      <div className="h-96 bg-slate-800"></div> */}
+      {loading ? (
+        <>
+          <div className="h-96"></div>
+        </>
+      ) : (
+        <div className="lg:px-40 px-5 flex ">
+          {posts.map((colPosts: Post[], col) => (
+            <div key={col} className="w-1/3 p-2">
+              {colPosts.map((post: Post) => (
+                <ReactCardFlip
+                  key={post.id}
+                  isFlipped={flipCard === post.id}
+                  flipDirection="horizontal"
+                  flipSpeedBackToFront={0.8}
+                  flipSpeedFrontToBack={0.48}
+                  infinite={true}
+                >
+                  <ImageFront handleClick={handleFront} post={post} />
+                  <ImageBack post={post} handleClick={handleBack} />
+                </ReactCardFlip>
+              ))}
+            </div>
           ))}
         </div>
-      ))}
-    </div>
+      )}
+      <div ref={ref} className="w-full h-10 bg-red-500" />
+    </>
   );
 };
 
