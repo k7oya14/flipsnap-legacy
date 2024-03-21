@@ -14,3 +14,18 @@ export type sessionUser = {
   email?: string | null | undefined;
   image?: string | null | undefined;
 };
+
+export type Post = {
+  author?: {
+    relationship: UserRelationship;
+    image: string | null;
+    name: string | null;
+    username: string | null;
+  };
+  id: string;
+  authorId: string;
+  imgFront: string;
+  imgBack: string;
+  caption: string;
+  createdAt: Date;
+};
