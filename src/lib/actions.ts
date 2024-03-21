@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { supabase } from "./supabseClient";
 import { v4 as uuidv4 } from "uuid";
 import { revalidatePath } from "next/cache";
-import { fetchUserById } from "./fetch";
+import { headers } from "next/headers";
 
 const path = require("path");
 
@@ -135,9 +135,8 @@ export async function Follow(MyId: string, userId: string) {
   } catch (error) {
     throw new Error("Failed to follow user.");
   }
-  const user = await fetchUserById(userId);
-  revalidatePath(`/profile/${user?.username}`);
-  redirect(`/profile/${user?.username}`);
+  const referer = headers().get("referer") ?? "/";
+  revalidatePath(referer);
 }
 
 // export async function UnFollow(){}
@@ -145,6 +144,9 @@ export async function Follow(MyId: string, userId: string) {
 // fetch.ts
 // export async function fetchFollows(){}
 // export async function fetchFollowers(){}
-// export async function isMutualFollow(){}
+// export async function isFollowing(){}
+// export async function isFollower(){}
 
-// フォロー/フォロワー人数カウントはfetchUserByIdに統合（select{_count{を使う）
+// フォロー/フォロワー人数カウント
+// isFollower, isFollowing
+// はfetchUserByUsernameに統合（select{_count}を使う）
