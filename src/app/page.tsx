@@ -12,7 +12,7 @@ export default async function Home({
 }) {
   const flipCard = Number(searchParams["flip"]);
   const session = await auth();
-  const post = await fetchLatestPosts(2, session?.user.id);
+  const post = await fetchLatestPosts(6, session?.user.id);
 
   return (
     <div className="flex flex-col justify-center">
