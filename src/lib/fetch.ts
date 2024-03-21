@@ -5,15 +5,39 @@ import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
 import { UserRelationship } from "./definitions";
 
-export async function fetchUserByUsername(username: string) {
+export async function fetchUserByUsername(
+  username: string,
+  myId: string | undefined | null
+) {
   noStore();
   try {
     const data = await prisma.user.findUnique({
       where: {
         username,
       },
+      include: {
+        _count: {
+          select: {
+            follows: true,
+            followers: true,
+            posts: true,
+          },
+        },
+      },
     });
-    return data;
+    let relationship: UserRelationship | undefined;
+    if (myId) {
+      relationship = data
+        ? await fetchUserRelationship(myId, data.id)
+        : undefined;
+    } else {
+      relationship = UserRelationship.NoSession;
+    }
+    const user = {
+      ...data,
+      relationship,
+    };
+    return user;
   } catch (error) {
     throw new Error("Failed to fetch user info by username.");
   }
@@ -139,28 +163,22 @@ export async function fetchPost(
         },
       },
     });
+    let relationship: UserRelationship | undefined;
     if (myId) {
-      const relationship = data
-        ? await fetchUserRelationship(myId, data?.authorId!)
-        : null;
-      const post = {
-        ...data,
-        author: {
-          ...data?.author,
-          relationship,
-        },
-      };
-      return post;
+      relationship = data
+        ? await fetchUserRelationship(myId, data.authorId)
+        : undefined;
     } else {
-      const post = {
-        ...data,
-        author: {
-          ...data?.author,
-          relationship: UserRelationship.NoSession,
-        },
-      };
-      return post;
+      relationship = UserRelationship.NoSession;
     }
+    const post = {
+      ...data,
+      author: {
+        ...data?.author,
+        relationship,
+      },
+    };
+    return post;
   } catch (error) {
     throw new Error("Failed to fetch a post.");
   }

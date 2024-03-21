@@ -157,7 +157,3 @@ export async function UnFollow(MyId: string, userId: string) {
   const referer = headers().get("referer") ?? "/";
   revalidatePath(referer);
 }
-
-// フォロー/フォロワー人数カウント
-// relationship判定
-// はfetchUserByUsernameに統合（select{_count}を使う）
