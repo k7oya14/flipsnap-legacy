@@ -5,6 +5,18 @@ import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
 import { UserRelationship } from "./definitions";
 
+export async function getUsernameById(userId: string) {
+  const data = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      username: true,
+    },
+  });
+  return data;
+}
+
 export async function fetchUserByUsername(
   username: string,
   myId: string | undefined | null
