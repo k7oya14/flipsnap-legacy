@@ -6,11 +6,9 @@ import ImageFront from "../ImageFront";
 import ImageBack from "../ImageBack";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Post, sessionUser } from "@/lib/definitions";
-import { fetchLatestPosts, fetchMoreLatestPosts } from "@/lib/fetch";
+import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useInView } from "react-intersection-observer";
 import { useCursorById } from "@/lib/utils";
-import { set } from "zod";
-import { Divide } from "lucide-react";
 
 type Props = {
   flipCard: string;
@@ -26,12 +24,13 @@ const HomeGallery = (props: Props) => {
   const { replace } = useRouter();
   const [posts, setPosts] = useState<Post[][]>([[], [], []]);
   const [loading, setLoading] = useState(true);
+  const [cursorPostId, setCursorPostId] = useState(useCursorById(firstPost));
   const { ref, inView } = useInView({
     threshold: 0,
-    initialInView: undefined, // 初期状態を undefined に設定
+    initialInView: undefined,
   });
 
-  let cursorPostId = useCursorById(firstPost);
+  //   let cursorPostId = useCursorById(firstPost);
 
   //   const data = await fetchLatestPosts(2, user.id);
 
@@ -46,7 +45,6 @@ const HomeGallery = (props: Props) => {
       [firstPost[4], firstPost[5]],
     ];
     setPosts(newPostsArray);
-    cursorPostId = useCursorById(firstPost);
     setLoading(false);
   }, []);
 
@@ -54,12 +52,13 @@ const HomeGallery = (props: Props) => {
     if (inView && !loading) {
       const fetchMorePosts = async () => {
         const data = await fetchMoreLatestPosts(6, user.id, cursorPostId);
-        cursorPostId = useCursorById(data);
         setPosts((prevPosts) => [
           [...prevPosts[0], data[0], data[1]],
           [...prevPosts[1], data[2], data[3]],
           [...prevPosts[2], data[4], data[5]],
         ]);
+        const newCursorId = await useCursorById(data);
+        setCursorPostId(newCursorId);
       };
       fetchMorePosts();
     }
