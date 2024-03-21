@@ -11,7 +11,7 @@ type Props = {
   handleBack: () => void;
 };
 
-const MainPage = (props: Props) => {
+const HomeGallery = (props: Props) => {
   const { flipCard, handleFront, handleBack } = props;
   return (
     <div className="lg:px-40 px-5 flex ">
@@ -49,4 +49,4 @@ const MainPage = (props: Props) => {
   );
 };
 
-export default MainPage;
+export default HomeGallery;

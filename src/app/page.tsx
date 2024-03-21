@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { fetchLatestPosts } from "@/lib/fetch";
 import { auth } from "@/lib/auth";
-import MainPage from "@/components/home/MainPage";
+import HomeGallery from "@/components/home/HomeGallery";
 
 export default async function Home() {
   //   const session = await auth();
@@ -38,7 +38,7 @@ export default async function Home() {
         alt=""
         src="/hero.gif"
       />
-      <MainPage
+      <HomeGallery
         flipCard={flipCard}
         handleFront={handleFront}
         handleBack={handleBack}
