@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import { supabase } from "./supabseClient";
 import { v4 as uuidv4 } from "uuid";
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 
 const path = require("path");
 
@@ -118,3 +119,34 @@ export async function createPost(
   revalidatePath("/profile/me");
   redirect("/profile/me");
 }
+
+export async function Follow(MyId: string, userId: string) {
+  try {
+    await prisma.user.update({
+      where: { id: MyId },
+      data: {
+        follows: {
+          connect: {
+            id: userId,
+          },
+        },
+      },
+    });
+  } catch (error) {
+    throw new Error("Failed to follow user.");
+  }
+  const referer = headers().get("referer") ?? "/";
+  revalidatePath(referer);
+}
+
+// export async function UnFollow(){}
+
+// fetch.ts
+// export async function fetchFollows(){}
+// export async function fetchFollowers(){}
+// export async function isFollowing(){}
+// export async function isFollower(){}
+
+// フォロー/フォロワー人数カウント
+// isFollower, isFollowing
+// はfetchUserByUsernameに統合（select{_count}を使う）

@@ -1,12 +1,11 @@
 // This file contains type definitions for your data.
 
-export type Post = {
-  id: string;
-  authorId: string;
-  imgFront: string;
-  imgBack: string;
-  caption: string;
-  createdAt: Date;
+export enum UserRelationship {
+  Following = "Following",
+  Follower = "Follower",
+  Mutual = "Mutual",
+  None = "None",
+  NoSession = "NoSession",
 }
 
 export type sessionUser = {
