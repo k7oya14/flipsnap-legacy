@@ -10,7 +10,7 @@ export default async function Home({
 }: {
   searchParams: { [key: string]: string | undefined };
 }) {
-  const flipCard = Number(searchParams["flip"]);
+  const flipCard = searchParams["flip"];
   const session = await auth();
   const post = await fetchLatestPosts(6, session?.user.id);
 
@@ -24,7 +24,11 @@ export default async function Home({
         alt=""
         src="/hero.gif"
       />
-      <HomeGallery flipCard={flipCard} user={session?.user!} firstPost={post} />
+      <HomeGallery
+        flipCard={flipCard!}
+        user={session?.user!}
+        firstPost={post}
+      />
     </div>
   );
 }

@@ -3,16 +3,15 @@ import Image from "next/image";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
+import { Post } from "@/lib/definitions";
 
 type Props = {
-  col: number;
-  row: number;
-  src: string;
-  handleClick: (id: number) => void;
+  post: Post;
+  handleClick: (id: string) => void;
 };
 
 const ImageFront = (props: Props) => {
-  const { col, row, src, handleClick } = props;
+  const { post, handleClick } = props;
 
   const handleIconClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -22,7 +21,7 @@ const ImageFront = (props: Props) => {
   return (
     <div>
       <div
-        onClick={() => handleClick(col * 4 + row)}
+        onClick={() => handleClick(post.id)}
         className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
       >
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
@@ -32,10 +31,10 @@ const ImageFront = (props: Props) => {
           priority={true}
           className="rounded-md"
           alt=""
-          src={src}
+          src={post.imgFront}
         />
         <Link
-          href={`/profile/${col * 4 + row}`}
+          href={`/profile/${post.author?.username}`}
           onClick={(e) => handleIconClick(e)}
         >
           <Avatar className="absolute bottom-2 left-2 invisible group-hover:visible">
@@ -45,7 +44,7 @@ const ImageFront = (props: Props) => {
         </Link>
         <Link
           onClick={(e) => handleIconClick(e)}
-          href={`/posts/${col * 4 + row}`}
+          href={`/posts/${post.id}`}
           scroll={false}
         >
           <ArrowsPointingOutIcon className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200" />

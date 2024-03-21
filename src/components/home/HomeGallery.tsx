@@ -9,7 +9,7 @@ import { Post, sessionUser } from "@/lib/definitions";
 import { fetchLatestPosts } from "@/lib/fetch";
 
 type Props = {
-  flipCard: number;
+  flipCard: string;
   user: sessionUser;
   firstPost: any;
 };
@@ -36,7 +36,7 @@ const HomeGallery = (props: Props) => {
   //   useEffect(() => {
   //     console.log(firstPost.id);
   //   }, []);
-  const handleFront = (flipId: number) => {
+  const handleFront = (flipId: string) => {
     params.set("flip", flipId.toString());
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
@@ -51,21 +51,16 @@ const HomeGallery = (props: Props) => {
         <div key={col} className="w-1/3 p-2">
           {colPosts.map((post: Post, row: number) => (
             <ReactCardFlip
-              key={row}
-              isFlipped={flipCard === col * 4 + row}
+              key={post.id}
+              isFlipped={flipCard === post.id}
               flipDirection="horizontal"
               flipSpeedBackToFront={0.8}
               flipSpeedFrontToBack={0.48}
               infinite={true}
               //   cardZIndex={`${index / 3}`}
             >
-              <ImageFront
-                col={col}
-                row={row}
-                handleClick={handleFront}
-                src={post.imgFront}
-              />
-              <ImageBack src={post.imgBack} handleClick={handleBack} />
+              <ImageFront handleClick={handleFront} post={post} />
+              <ImageBack post={post} handleClick={handleBack} />
             </ReactCardFlip>
           ))}
         </div>
