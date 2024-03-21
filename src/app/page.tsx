@@ -30,11 +30,12 @@ export default function Home() {
       <Image
         width={1200}
         height={628}
+        unoptimized
         className="mt-1 max-w-full min-w-[66.67vh] max-h-[66.67vh] object-contain"
         alt=""
         src="/hero.gif"
       />
-      <div className="lg:px-40 p-5 flex ">
+      <div className="lg:px-40 px-5 flex ">
         {[0, 1, 2].map((col) => (
           <div key={col} className="w-1/3 p-2">
             {[0, 1, 2, 3].map((row) => (
