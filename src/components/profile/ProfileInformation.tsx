@@ -11,6 +11,7 @@ type Props = {
 
 const ProfileInformation = (props: Props) => {
   const { userInfo, me } = props;
+  const FollowWithId = Follow.bind(null, me?.id!, userInfo.id!);
   return (
     <div className="flex flex-col items-center justify-center py-8">
       <Avatar className="w-28 h-28">
@@ -19,13 +20,7 @@ const ProfileInformation = (props: Props) => {
       <h2 className="text-2xl font-bold mt-4">{userInfo.name}</h2>
       <p className="font-medium mt-1">@{userInfo.username}</p>
       <p className="mt-2">{userInfo.bio}</p>
-      <Button
-        // formAction={async () => {
-        //   "use server";
-        //   await Follow(me?.id!, userInfo.id!);
-        // }}
-        className="m-4 rounded-full"
-      >
+      <Button formAction={FollowWithId} className="m-4 rounded-full">
         フォロー
       </Button>
       <div className="flex items-center justify-center space-x-5 mt-2">

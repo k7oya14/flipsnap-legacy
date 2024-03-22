@@ -121,6 +121,7 @@ export async function createPost(
 }
 
 export async function Follow(MyId: string, userId: string) {
+  console.log(MyId, userId);
   try {
     await prisma.user.update({
       where: { id: MyId },
