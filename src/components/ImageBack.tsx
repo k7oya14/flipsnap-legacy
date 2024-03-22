@@ -1,15 +1,16 @@
 import Image from "next/image";
 import React from "react";
 import LockedBack from "./LockedBack";
-import { Post } from "@/lib/definitions";
+import { Post, UserRelationship } from "@/lib/definitions";
 
 type Props = {
   post: Post;
+  myId: string | undefined;
   handleClick: () => void;
 };
 
 const ImageBack = (props: Props) => {
-  const { post, handleClick } = props;
+  const { post, myId, handleClick } = props;
   return (
     <div>
       <div
@@ -20,11 +21,20 @@ const ImageBack = (props: Props) => {
           width={500}
           height={500}
           priority={true}
-          className="rounded-md blur-lg py-2"
+          className={`rounded-md ${
+            post.author?.relationship === UserRelationship.Mutual ||
+            "filter blur-sm"
+          }`}
           alt=""
           src={post.imgBack}
         />
-        <LockedBack />
+        {post.author?.relationship === UserRelationship.Mutual || (
+          <LockedBack
+            relationship={post.author?.relationship!}
+            myId={myId}
+            userId={post.authorId}
+          />
+        )}
       </div>
     </div>
   );
