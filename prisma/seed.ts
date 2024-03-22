@@ -55,6 +55,14 @@ async function createFollowRelations(users: User[]) {
         },
       },
     });
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        follows: {
+          connect: [{ username: "k7oya14" }, { username: "hishiwat" }],
+        },
+      },
+    });
   }
 }
 
