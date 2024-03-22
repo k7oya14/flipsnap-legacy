@@ -30,3 +30,22 @@ export type Post = {
   caption: string;
   createdAt: Date;
 };
+
+export type UserInfo = {
+  relationship: UserRelationship | undefined;
+  _count?:
+    | {
+        followers: number;
+        follows: number;
+        posts: number;
+      }
+    | undefined;
+  id?: string | undefined;
+  username?: string | null | undefined;
+  created_at?: Date | undefined;
+  email?: string | null;
+  emailVerified?: Date | null;
+  image?: string | null;
+  name?: string | null;
+  bio?: string;
+};
