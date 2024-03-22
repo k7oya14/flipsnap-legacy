@@ -31,13 +31,6 @@ const HomeGallery = (props: Props) => {
     initialInView: undefined,
   });
 
-  //   let cursorPostId = useCursorById(firstPost);
-
-  //   const data = await fetchLatestPosts(2, user.id);
-
-  // let cursorPostId = useCursorById(data);
-  // const data2 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
-
   useEffect(() => {
     setLoading(true);
     const newPostsArray = [
