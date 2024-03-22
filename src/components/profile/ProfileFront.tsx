@@ -8,7 +8,7 @@ type Props = {
   index: number;
   src: string;
   postId: string;
-  handleClick: (id: number) => void;
+  handleClick: (id: string) => void;
 };
 
 const ProfileFront = (props: Props) => {
@@ -31,7 +31,7 @@ const ProfileFront = (props: Props) => {
       initial="hidden"
       animate="visible"
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      onClick={() => handleClick(index)}
+      onClick={() => handleClick(postId)}
       className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
     >
       <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>

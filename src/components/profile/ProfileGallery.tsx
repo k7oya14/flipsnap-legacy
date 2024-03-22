@@ -65,7 +65,7 @@ export function ProfileGallery(props: Props) {
     }
   }, [inView, loading, postLimit]);
 
-  const handleFront = (flipId: number) => {
+  const handleFront = (flipId: string) => {
     params.set("flip", flipId.toString());
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   };
@@ -81,7 +81,7 @@ export function ProfileGallery(props: Props) {
       {posts.map((post, index) => (
         <ReactCardFlip
           key={index}
-          isFlipped={flip === index.toString()}
+          isFlipped={flip === post.id}
           flipDirection="horizontal"
           flipSpeedBackToFront={0.6}
           flipSpeedFrontToBack={0.6}
