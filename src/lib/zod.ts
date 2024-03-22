@@ -4,7 +4,7 @@ export const UserSchema = z.object({
   id: z.string().cuid(),
   username: z
     .string()
-    .regex(/^[a-zA-Z0-9_-\.]+$/, {
+    .regex(/^[\.a-zA-Z0-9_-]+$/, {
       message: "Username can only contain alphabets, numbers, '_','-' and '.'.",
     })
     .min(3, { message: "Username must be at least 3 characters long." }),
