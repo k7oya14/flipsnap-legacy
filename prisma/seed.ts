@@ -14,7 +14,7 @@ type User = {
   created_at: Date;
 };
 
-const userCount = 1;
+const userCount = 100; // TODO : Change this parameter
 
 async function createUsers() {
   const users = [];
@@ -73,7 +73,7 @@ async function createPosts(users: User[]) {
       data: {
         posts: {
           create: Array.from({
-            length: faker.number.int({ min: 1, max: 5 }),
+            length: faker.number.int({ min: 1, max: 100 }), // TODO : Change this parameter
           }).map(() => {
             const imgSize = [
               [1080, 1080],
