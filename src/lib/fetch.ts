@@ -265,7 +265,6 @@ export async function fetchMoreLatestPosts(
   cursorPostId: string
 ) {
   noStore();
-  console.log(take, myId, cursorPostId);
   try {
     const data = await prisma.post.findMany({
       orderBy: {
