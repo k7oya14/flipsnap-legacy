@@ -20,9 +20,11 @@ const ProfileInformation = (props: Props) => {
       <h2 className="text-2xl font-bold mt-4">{userInfo.name}</h2>
       <p className="font-medium mt-1">@{userInfo.username}</p>
       <p className="mt-2">{userInfo.bio}</p>
-      <Button formAction={FollowWithId} className="m-4 rounded-full">
-        フォロー
-      </Button>
+      <form action={FollowWithId}>
+        <Button type="submit" className="m-4 rounded-full">
+          フォロー
+        </Button>
+      </form>
       <div className="flex items-center justify-center space-x-5 mt-2">
         <div className="text-center">
           <span className="block font-bold">{userInfo._count?.posts}</span>
