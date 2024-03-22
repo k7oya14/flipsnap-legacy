@@ -25,11 +25,7 @@ export default async function Home({
         alt=""
         src="/hero.gif"
       />
-      <HomeGallery
-        flipCard={flipCard!}
-        user={session?.user!}
-        firstPost={post}
-      />
+      <HomeGallery flipCard={flipCard!} user={session?.user} firstPost={post} />
     </div>
   );
 }
