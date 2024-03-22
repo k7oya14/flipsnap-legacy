@@ -4,9 +4,8 @@ export const UserSchema = z.object({
   id: z.string().cuid(),
   username: z
     .string()
-    .regex(/^[a-z0-9_-]+$/, {
-      message:
-        "sername can only contain lowercase letters, numbers, '_', and '-'.",
+    .regex(/^[a-zA-Z0-9_-\.]+$/, {
+      message: "Username can only contain alphabets, numbers, '_','-' and '.'.",
     })
     .min(3, { message: "Username must be at least 3 characters long." }),
   email: z.string().email(),
