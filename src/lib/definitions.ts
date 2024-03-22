@@ -31,6 +31,21 @@ export type Post = {
   createdAt: Date;
 };
 
+export type OnePost = {
+  author: {
+    relationship: UserRelationship | undefined;
+    image?: string | null | undefined;
+    name?: string | null | undefined;
+    username?: string | null | undefined;
+  };
+  id?: string | undefined;
+  authorId?: string | undefined;
+  imgFront?: string | undefined;
+  imgBack?: string | undefined;
+  caption?: string | undefined;
+  createdAt?: Date | undefined;
+};
+
 export type UserInfo = {
   relationship: UserRelationship | undefined;
   _count?:
