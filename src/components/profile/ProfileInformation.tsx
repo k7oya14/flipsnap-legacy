@@ -1,9 +1,16 @@
 import React from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
-import { UserInfo } from "@/lib/definitions";
+import { UserInfo, sessionUser } from "@/lib/definitions";
+import { Follow } from "@/lib/actions";
 
-const ProfileInformation = ({ userInfo }: { userInfo: UserInfo }) => {
+type Props = {
+  userInfo: UserInfo;
+  me: sessionUser | null | undefined;
+};
+
+const ProfileInformation = (props: Props) => {
+  const { userInfo, me } = props;
   return (
     <div className="flex flex-col items-center justify-center py-8">
       <Avatar className="w-28 h-28">
@@ -12,7 +19,15 @@ const ProfileInformation = ({ userInfo }: { userInfo: UserInfo }) => {
       <h2 className="text-2xl font-bold mt-4">{userInfo.name}</h2>
       <p className="font-medium mt-1">@{userInfo.username}</p>
       <p className="mt-2">{userInfo.bio}</p>
-      <Button className="m-4 rounded-full">フォロー</Button>
+      <Button
+        // formAction={async () => {
+        //   "use server";
+        //   await Follow(me?.id!, userInfo.id!);
+        // }}
+        className="m-4 rounded-full"
+      >
+        フォロー
+      </Button>
       <div className="flex items-center justify-center space-x-5 mt-2">
         <div className="text-center">
           <span className="block font-bold">{userInfo._count?.posts}</span>

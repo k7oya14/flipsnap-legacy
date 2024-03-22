@@ -1,8 +1,8 @@
+import { ProfileGallery } from "@/components/profile/ProfileGallery";
 import ProfileInformation from "@/components/profile/ProfileInformation";
-import { Profile } from "@/components/profile/profile";
 import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
-import { fetchUserByUsername } from "@/lib/fetch";
+import { fetchUserByUsername, fetchUserPostsById } from "@/lib/fetch";
 import React from "react";
 
 type PageProps = {
@@ -20,12 +20,13 @@ const Page = async (props: PageProps) => {
   const flipCard = searchParams["flip"];
   const session = await auth();
   const userInfo = await fetchUserByUsername(username, session?.user.id);
+  const firstPosts = await fetchUserPostsById(userInfo.id!, 6);
 
   return (
     <div className="my-2 max-w-5xl mx-auto">
       <Card>
-        <ProfileInformation userInfo={userInfo} />
-        <Profile flip={flipCard!} />
+        <ProfileInformation userInfo={userInfo} me={session?.user} />
+        <ProfileGallery flip={flipCard!} firstPosts={firstPosts} userInfo={userInfo}/>
       </Card>
     </div>
   );
