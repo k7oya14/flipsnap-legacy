@@ -13,7 +13,6 @@ type Props = {
 const BackFollowButton = (props: Props) => {
   const { myId, userId, relationship } = props;
   const FollowWithId = Follow.bind(null, myId!, userId);
-
   switch (relationship) {
     case UserRelationship.Following:
       return (

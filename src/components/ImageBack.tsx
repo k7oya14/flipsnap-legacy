@@ -23,7 +23,7 @@ const ImageBack = (props: Props) => {
           priority={true}
           className={`rounded-md ${
             post.author?.relationship === UserRelationship.Mutual ||
-            "filter blur-sm"
+            "filter blur-lg"
           }`}
           alt=""
           src={post.imgBack}

@@ -15,10 +15,11 @@ import { useRouter } from "next/navigation";
 
 type Props = {
   post: OnePost;
+  myId: string | undefined;
 };
 
 export function PostModal(props: Props) {
-  const { post } = props;
+  const { post, myId } = props;
   const [isFlipped, setIsFlipped] = useState(false);
 
   const router = useRouter();
@@ -36,7 +37,13 @@ export function PostModal(props: Props) {
           infinite={true}
         >
           <DetailFront src={post.imgFront!} handleClick={handleClick} />
-          <DetailBack src={post.imgBack!} handleClick={handleClick} />
+          <DetailBack
+            src={post.imgBack!}
+            myId={myId}
+            userId={post.authorId!}
+            relationship={post.author?.relationship!}
+            handleClick={handleClick}
+          />
         </ReactCardFlip>
       </div>
       <div className="w-2/5 flex flex-col">
