@@ -1,6 +1,8 @@
 "use client";
 
+import ProfileInformation from "@/components/profile/ProfileInformation";
 import { Profile } from "@/components/profile/profile";
+import { Card } from "@/components/ui/card";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
@@ -22,12 +24,15 @@ const Page = ({ params }: { params: { username: string } }) => {
     replace(`${pathname}?${param.toString()}`, { scroll: false });
   };
   return (
-    <div className="my-2">
-      <Profile
-        flip={flipCard.toString()}
-        handleFront={handleFront}
-        handleBack={handleBack}
-      />
+    <div className="my-2 max-w-5xl mx-auto">
+      <Card>
+        <ProfileInformation />
+        <Profile
+          flip={flipCard.toString()}
+          handleFront={handleFront}
+          handleBack={handleBack}
+        />
+      </Card>
     </div>
   );
 };
