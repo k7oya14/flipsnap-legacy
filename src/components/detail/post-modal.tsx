@@ -10,14 +10,15 @@ import ReactCardFlip from "react-card-flip";
 import { useState } from "react";
 import DetailFront from "./DetailFront";
 import DetailBack from "./DetailBack";
+import { OnePost } from "@/lib/definitions";
+import Link from "next/link";
 
 type Props = {
-  alt: string;
-  src: string;
+  post: OnePost;
 };
 
 export function PostModal(props: Props) {
-  const { alt, src } = props;
+  const { post } = props;
   const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClick = () => setIsFlipped((isFlipped) => !isFlipped);
@@ -32,26 +33,34 @@ export function PostModal(props: Props) {
           flipSpeedFrontToBack={0.6}
           infinite={true}
         >
-          <DetailFront src={src} handleClick={handleClick} />
-          <DetailBack src={src} handleClick={handleClick} />
+          <DetailFront src={post.imgFront!} handleClick={handleClick} />
+          <DetailBack src={post.imgBack!} handleClick={handleClick} />
         </ReactCardFlip>
       </div>
       <div className="w-2/5 flex flex-col">
         <div className="flex items-center p-4 border-b">
-          <Avatar>
-            <AvatarImage
-              alt="User avatar"
-              src="https://github.com/shadcn.png"
-            />
-            <AvatarFallback>U</AvatarFallback>
-          </Avatar>
-          <div className="ml-3">
-            <p className="font-semibold">username</p>
-            <p className="text-xs text-gray-500">Location</p>
+          <div
+            // href={`/profile/${post.author?.username}`}
+            className="flex items-center"
+          >
+            <Avatar>
+              <AvatarImage
+                alt="User avatar"
+                src={
+                  post.author?.image || "/placeholder.svg?height=32&width=32"
+                }
+              />
+              <AvatarFallback>{post.author?.name}</AvatarFallback>
+            </Avatar>
+            <div className="ml-3">
+              <p className="font-semibold">{post.author?.name}</p>
+              <p className="text-xs text-gray-500">{post.author?.username}</p>
+            </div>
           </div>
           <MoreHorizontalIcon className="ml-auto text-gray-600" />
         </div>
-        <div className="flex-grow overflow-y-auto">
+        <p className="m-4">{post.caption}</p>
+        {/* <div className="flex-grow overflow-y-auto">
           <div className="flex items-start space-x-3 p-4">
             <Avatar>
               <AvatarImage
@@ -67,8 +76,8 @@ export function PostModal(props: Props) {
               <p className="text-xs text-gray-500">2d</p>
             </div>
           </div>
-        </div>
-        <div className="flex items-center justify-between p-4 border-t">
+        </div> */}
+        {/* <div className="flex items-center justify-between p-4 border-t">
           <div className="flex space-x-4">
             <HeartIcon className="text-gray-600" />
             <ReplyIcon className="text-gray-600" />
@@ -82,7 +91,7 @@ export function PostModal(props: Props) {
         </div>
         <div className="px-4 pb-4">
           <Input placeholder="Add a comment..." type="text" />
-        </div>
+        </div> */}
       </div>
     </div>
   );
