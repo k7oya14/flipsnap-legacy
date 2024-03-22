@@ -52,6 +52,7 @@ const HomeGallery = (props: Props) => {
     if (inView && !loading) {
       const fetchMorePosts = async () => {
         const data = await fetchMoreLatestPosts(6, user.id, cursorPostId);
+        if (data.length < 6) return;
         setPosts((prevPosts) => [
           [...prevPosts[0], data[0], data[1]],
           [...prevPosts[1], data[2], data[3]],
