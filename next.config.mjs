@@ -12,15 +12,18 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "lh3.googleusercontent.com",
+        hostname:
+          "lh3.googleusercontent.com",
       },
       {
         protocol: "https",
-        hostname: "loremflickr.com",
+        hostname:
+          "loremflickr.com",
       },
       {
         protocol: "https",
-        hostname: "picsum.photos",
+        hostname:
+          "picsum.photos",
       },
     ],
   },
