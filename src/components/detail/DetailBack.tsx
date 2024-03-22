@@ -15,6 +15,8 @@ type Props = {
 
 const DetailBack = (props: Props) => {
   const { src, myId, userId, relationship, handleClick } = props;
+  const hidden =
+    relationship === UserRelationship.Mutual || UserRelationship.Me;
 
   return (
     <div>
@@ -24,9 +26,7 @@ const DetailBack = (props: Props) => {
       >
         <Image
           alt=""
-          className={`h-auto rounded ${
-            relationship === UserRelationship.Mutual || "filter blur-lg"
-          }`}
+          className={`h-auto rounded ${hidden || "filter blur-lg"}`}
           height="758"
           src={src}
           style={{
@@ -35,7 +35,7 @@ const DetailBack = (props: Props) => {
           }}
           width="902"
         />
-        {relationship === UserRelationship.Mutual || (
+        {hidden || (
           <LockedBack myId={myId} userId={userId} relationship={relationship} />
         )}
       </div>

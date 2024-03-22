@@ -11,6 +11,9 @@ type Props = {
 
 const ImageBack = (props: Props) => {
   const { post, myId, handleClick } = props;
+  const hidden =
+    post.author?.relationship === UserRelationship.Mutual ||
+    UserRelationship.Me;
   return (
     <div>
       <div
@@ -21,14 +24,11 @@ const ImageBack = (props: Props) => {
           width={500}
           height={500}
           priority={true}
-          className={`rounded-md ${
-            post.author?.relationship === UserRelationship.Mutual ||
-            "filter blur-lg"
-          }`}
+          className={`rounded-md ${hidden || "filter blur-lg"}`}
           alt=""
           src={post.imgBack}
         />
-        {post.author?.relationship === UserRelationship.Mutual || (
+        {hidden || (
           <LockedBack
             relationship={post.author?.relationship!}
             myId={myId}
