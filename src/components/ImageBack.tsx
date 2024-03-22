@@ -1,14 +1,15 @@
 import Image from "next/image";
 import React from "react";
 import LockedBack from "./LockedBack";
+import { Post } from "@/lib/definitions";
 
 type Props = {
-  src: string;
+  post: Post;
   handleClick: () => void;
 };
 
 const ImageBack = (props: Props) => {
-  const { src, handleClick } = props;
+  const { post, handleClick } = props;
   return (
     <div>
       <div
@@ -21,7 +22,7 @@ const ImageBack = (props: Props) => {
           priority={true}
           className="rounded-md blur-lg py-2"
           alt=""
-          src={src}
+          src={post.imgBack}
         />
         <LockedBack />
       </div>
