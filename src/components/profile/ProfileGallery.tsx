@@ -57,7 +57,7 @@ export function ProfileGallery(props: Props) {
           return;
         }
         setPosts((prevPosts) => [...prevPosts, ...data]);
-        const newCursorId = await useCursorById(data);
+        const newCursorId = useCursorById(data);
         setCursorPostId(newCursorId);
       };
       fetchMorePosts();

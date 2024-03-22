@@ -55,7 +55,7 @@ const HomeGallery = (props: Props) => {
           [...prevPosts[1], data[2], data[3]],
           [...prevPosts[2], data[4], data[5]],
         ]);
-        const newCursorId = await useCursorById(data);
+        const newCursorId = useCursorById(data);
         setCursorPostId(newCursorId);
       };
       fetchMorePosts();
