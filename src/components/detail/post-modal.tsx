@@ -11,7 +11,7 @@ import { useState } from "react";
 import DetailFront from "./DetailFront";
 import DetailBack from "./DetailBack";
 import { OnePost } from "@/lib/definitions";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 type Props = {
   post: OnePost;
@@ -20,6 +20,8 @@ type Props = {
 export function PostModal(props: Props) {
   const { post } = props;
   const [isFlipped, setIsFlipped] = useState(false);
+
+  const router = useRouter();
 
   const handleClick = () => setIsFlipped((isFlipped) => !isFlipped);
 
@@ -40,8 +42,11 @@ export function PostModal(props: Props) {
       <div className="w-2/5 flex flex-col">
         <div className="flex items-center p-4 border-b">
           <div
-            // href={`/profile/${post.author?.username}`}
-            className="flex items-center"
+            onClick={() => {
+              router.push(`/profile/${post.author?.username}`);
+              router.refresh();
+            }}
+            className="flex items-center hover:cursor-pointer"
           >
             <Avatar>
               <AvatarImage
