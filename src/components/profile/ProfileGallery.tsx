@@ -15,10 +15,11 @@ type Props = {
   flip: string;
   firstPosts: Post[];
   userInfo: UserInfo;
+  myId: string | undefined;
 };
 
 export function ProfileGallery(props: Props) {
-  const { flip, firstPosts, userInfo } = props;
+  const { flip, firstPosts, userInfo, myId } = props;
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
@@ -92,7 +93,13 @@ export function ProfileGallery(props: Props) {
             postId={post.id}
             handleClick={handleFront}
           />
-          <ProfileBack src={post.imgBack} handleClick={handleBack} />
+          <ProfileBack
+            src={post.imgBack}
+            handleClick={handleBack}
+            userId={post.authorId}
+            myId={myId}
+            relationship={userInfo.relationship!}
+          />
         </ReactCardFlip>
       ))}
       <div ref={ref}></div>
