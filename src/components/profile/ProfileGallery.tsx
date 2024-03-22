@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import { useCursorById } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
 import { fetchMoreUserPostsById } from "@/lib/fetch";
+import Loading from "../Loading";
 
 type Props = {
   flip: string;
@@ -26,7 +27,7 @@ export function ProfileGallery(props: Props) {
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<Post[]>([]);
   const [postLimit, setPostLimit] = useState(false);
-  const [cursorPostId, setCursorPostId] = useState(useCursorById(firstPosts));
+  const [cursorPostId, setCursorPostId] = useState("");
 
   const { ref, inView } = useInView({
     threshold: 0,
@@ -34,8 +35,12 @@ export function ProfileGallery(props: Props) {
   });
 
   useEffect(() => {
-    setLoading(true);
     setPosts(firstPosts);
+    if (firstPosts.length == 0) {
+      setPostLimit(true);
+    } else {
+      setCursorPostId(useCursorById(firstPosts));
+    }
     setLoading(false);
   }, []);
 
@@ -57,7 +62,7 @@ export function ProfileGallery(props: Props) {
       };
       fetchMorePosts();
     }
-  }, [inView, loading]);
+  }, [inView, loading, postLimit]);
 
   const handleFront = (flipId: number) => {
     params.set("flip", flipId.toString());
@@ -71,6 +76,7 @@ export function ProfileGallery(props: Props) {
 
   return (
     <div className="grid sm:grid-cols-3 grid-cols-2 px-1 gap-4 mt-8">
+      {loading && <Loading />}
       {posts.map((post, index) => (
         <ReactCardFlip
           key={index}
@@ -83,6 +89,7 @@ export function ProfileGallery(props: Props) {
           <ProfileFront
             index={index}
             src={post.imgFront}
+            postId={post.id}
             handleClick={handleFront}
           />
           <ProfileBack src={post.imgBack} handleClick={handleBack} />

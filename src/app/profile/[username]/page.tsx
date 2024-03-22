@@ -24,9 +24,13 @@ const Page = async (props: PageProps) => {
 
   return (
     <div className="my-2 max-w-5xl mx-auto">
-      <Card>
+      <Card className="min-h-screen">
         <ProfileInformation userInfo={userInfo} me={session?.user} />
-        <ProfileGallery flip={flipCard!} firstPosts={firstPosts} userInfo={userInfo}/>
+        <ProfileGallery
+          flip={flipCard!}
+          firstPosts={firstPosts}
+          userInfo={userInfo}
+        />
       </Card>
     </div>
   );

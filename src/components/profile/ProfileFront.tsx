@@ -7,11 +7,12 @@ import { motion } from "framer-motion";
 type Props = {
   index: number;
   src: string;
+  postId: string;
   handleClick: (id: number) => void;
 };
 
 const ProfileFront = (props: Props) => {
-  const { index, src, handleClick } = props;
+  const { index, src, postId, handleClick } = props;
 
   const handleIconClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -47,7 +48,7 @@ const ProfileFront = (props: Props) => {
       />
       <Link
         onClick={(e) => handleIconClick(e)}
-        href={`/posts/${index}`}
+        href={`/posts/${postId}`}
         scroll={false}
       >
         <ArrowsPointingOutIcon className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200" />
