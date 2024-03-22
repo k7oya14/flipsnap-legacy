@@ -1,35 +1,33 @@
 import React from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { UserInfo } from "@/lib/definitions";
 
-const ProfileInformation = () => {
+const ProfileInformation = ({ userInfo }: { userInfo: UserInfo }) => {
   return (
     <div className="flex flex-col items-center justify-center py-8">
       <Avatar className="w-28 h-28">
-        <AvatarImage
-          alt="Profile picture"
-          src="https://github.com/shadcn.png"
-        />
+        <AvatarImage alt={userInfo.username!} src={userInfo.image!} />
       </Avatar>
-      <h2 className="text-2xl font-bold mt-4">akasoeiji</h2>
+      <h2 className="text-2xl font-bold mt-4">{userInfo.name}</h2>
+      <p className="font-medium mt-1">@{userInfo.username}</p>
+      <p className="mt-2">{userInfo.bio}</p>
       <Button className="m-4 rounded-full">フォロー</Button>
-      <div className="flex justify-center space-x-4 mt-2">
+      <div className="flex items-center justify-center space-x-5 mt-2">
         <div className="text-center">
-          <span className="block font-bold">627件</span>
-          <span className="block text-sm">Posts</span>
+          <span className="block font-bold">{userInfo._count?.posts}</span>
+          <span className="block text-sm">
+            &nbsp;&nbsp;&nbsp;&nbsp;Posts&nbsp;&nbsp;&nbsp;&nbsp;
+          </span>
         </div>
         <div className="text-center">
-          <span className="block font-bold">114.8万人</span>
+          <span className="block font-bold">{userInfo._count?.followers}</span>
           <span className="block text-sm">Followers</span>
         </div>
         <div className="text-center">
-          <span className="block font-bold">328人</span>
+          <span className="block font-bold">{userInfo._count?.follows}</span>
           <span className="block text-sm">Following</span>
         </div>
-      </div>
-      <div className="mt-4 text-center">
-        <p className="font-medium">@akasoeiji</p>
-        <p className="mt-1">デジタルです。</p>
       </div>
     </div>
   );
