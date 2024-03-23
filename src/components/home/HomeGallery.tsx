@@ -9,7 +9,6 @@ import { Post, sessionUser } from "@/lib/definitions";
 import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useInView } from "react-intersection-observer";
 import { useCursorById } from "@/lib/utils";
-import { set } from "zod";
 
 type Props = {
   flipCard: string;
@@ -34,34 +33,70 @@ const HomeGallery = (props: Props) => {
   });
 
   useEffect(() => {
+    const fetchMorePosts = async () => {
+      const data = await fetchMoreLatestPosts(2, user?.id, cursorPostId);
+      setPosts((prevPost) => [[...prevPost[0]], [data[0]], [data[1]]]);
+      const newCursorId = cursorById(data);
+      setCursorPostId(newCursorId);
+    };
     setLoading(true);
     const newPostsArray = [[firstPost[0]], [], []];
     setPosts(newPostsArray);
     setLoading(false);
+    fetchMorePosts();
   }, []);
 
   useEffect(() => {
     if (inView && !loading && !postLimit) {
       const fetchMorePosts = async () => {
         if (posts[1].length === 0) {
-          const data = await fetchMoreLatestPosts(2, user?.id, cursorPostId);
+          const data = await fetchMoreLatestPosts(1, user?.id, cursorPostId);
           setPosts((prevPost) => [[...prevPost[0]], [data[0]], [data[1]]]);
           const newCursorId = cursorById(data);
           setCursorPostId(newCursorId);
           return;
         }
-        const data = await fetchMoreLatestPosts(3, user?.id, cursorPostId);
-        if (data.length < 3) {
+        const data1 = await fetchMoreLatestPosts(1, user?.id, cursorPostId);
+        if (data1.length === 0) {
           setPostLimit(true);
+          alert("No more posts to show");
           return;
         }
         setPosts((prevPosts) => [
-          [...prevPosts[0], data[0]],
-          [...prevPosts[1], data[1]],
-          [...prevPosts[2], data[2]],
+          [...prevPosts[0], data1[0]],
+          [...prevPosts[1]],
+          [...prevPosts[2]],
         ]);
-        const newCursorId = cursorById(data);
-        setCursorPostId(newCursorId);
+        const newCursorId1 = cursorById(data1);
+        setCursorPostId(newCursorId1);
+
+        const data2 = await fetchMoreLatestPosts(1, user?.id, newCursorId1);
+        if (data2.length === 0) {
+          setPostLimit(true);
+          alert("No more posts to show");
+          return;
+        }
+        setPosts((prevPosts) => [
+          [...prevPosts[0]],
+          [...prevPosts[1], data2[0]],
+          [...prevPosts[2]],
+        ]);
+        const newCursorId2 = cursorById(data2);
+        setCursorPostId(newCursorId2);
+
+        const data3 = await fetchMoreLatestPosts(1, user?.id, newCursorId2);
+        if (data3.length === 0) {
+          setPostLimit(true);
+          alert("No more posts to show");
+          return;
+        }
+        setPosts((prevPosts) => [
+          [...prevPosts[0]],
+          [...prevPosts[1]],
+          [...prevPosts[2], data3[0]],
+        ]);
+        const newCursorId3 = cursorById(data3);
+        setCursorPostId(newCursorId3);
       };
       fetchMorePosts();
     }
