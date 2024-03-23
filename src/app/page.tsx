@@ -31,11 +31,14 @@
 // }
 
 import { auth } from "@/lib/auth";
+import { fetchLatestPosts } from "@/lib/fetch";
 import React from "react";
 
 const page = async () => {
   const session = await auth();
+  const post = await fetchLatestPosts(6, session?.user.id);
   console.log(session);
+  console.log(post);
   return <div>page</div>;
 };
 
