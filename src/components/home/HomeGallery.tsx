@@ -9,6 +9,7 @@ import { Post, sessionUser } from "@/lib/definitions";
 import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useInView } from "react-intersection-observer";
 import { useCursorById } from "@/lib/utils";
+import { set } from "zod";
 
 type Props = {
   flipCard: string;
@@ -34,7 +35,7 @@ const HomeGallery = (props: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    const newPostsArray = [[firstPost[0]], [firstPost[1]], [firstPost[2]]];
+    const newPostsArray = [[firstPost[0]], [], []];
     setPosts(newPostsArray);
     setLoading(false);
   }, []);
@@ -42,6 +43,13 @@ const HomeGallery = (props: Props) => {
   useEffect(() => {
     if (inView && !loading && !postLimit) {
       const fetchMorePosts = async () => {
+        if (posts[1].length === 0) {
+          const data = await fetchMoreLatestPosts(2, user?.id, cursorPostId);
+          setPosts((prevPost) => [[...prevPost[0]], [data[0]], [data[1]]]);
+          const newCursorId = cursorById(data);
+          setCursorPostId(newCursorId);
+          return;
+        }
         const data = await fetchMoreLatestPosts(3, user?.id, cursorPostId);
         if (data.length < 3) {
           setPostLimit(true);
