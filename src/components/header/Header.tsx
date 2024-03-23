@@ -35,7 +35,9 @@ const Header = async () => {
               <IconDropDown user={user!} />
             </>
           ) : (
-            <Link href="/api/auth/signin">SignIn</Link>
+            <Link href="/api/auth/signin" prefetch={false}>
+              SignIn
+            </Link>
           )}
         </div>
       </nav>
