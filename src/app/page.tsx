@@ -32,14 +32,29 @@
 
 import { auth } from "@/lib/auth";
 import { fetchLatestPosts } from "@/lib/fetch";
+import Image from "next/image";
 import React from "react";
+import { Post } from "@/lib/definitions";
 
 const page = async () => {
   const session = await auth();
-  const post = await fetchLatestPosts(6, session?.user.id);
+  const posts = await fetchLatestPosts(1, session?.user.id);
   console.log(session);
-  console.log(post);
-  return <div>page</div>;
+  console.log(posts);
+  return (
+    <div>
+      <p>Page</p>
+      {posts.map((post: Post) => (
+        <Image
+          width={500}
+          height={500}
+          key={post.id}
+          src={post.imgFront}
+          alt=""
+        />
+      ))}
+    </div>
+  );
 };
 
 export default page;
