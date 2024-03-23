@@ -1,9 +1,11 @@
 import React from "react";
 
 import Image from "next/image";
-import { fetchLatestPosts } from "@/lib/fetch";
+import { fetchLatestPosts, fetchMoreLatestPosts } from "@/lib/fetch";
 import { auth } from "@/lib/auth";
 import HomeGallery from "@/components/home/HomeGallery";
+import { useCursorById } from "@/lib/utils";
+import { Post } from "@/lib/definitions";
 
 export default async function Home({
   searchParams,
@@ -12,7 +14,7 @@ export default async function Home({
 }) {
   const flipCard = searchParams["flip"];
   const session = await auth();
-  const post = await fetchLatestPosts(3, session?.user.id);
+  const posts = await fetchLatestPosts(1, session?.user.id);
 
   return (
     <div className="flex flex-col justify-center">
@@ -25,7 +27,11 @@ export default async function Home({
         alt=""
         src="/hero.gif"
       />
-      <HomeGallery flipCard={flipCard!} user={session?.user} firstPost={post} />
+      <HomeGallery
+        flipCard={flipCard!}
+        user={session?.user}
+        firstPost={posts}
+      />
     </div>
   );
 }
