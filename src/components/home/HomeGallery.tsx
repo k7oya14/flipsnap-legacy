@@ -5,14 +5,14 @@ import ReactCardFlip from "react-card-flip";
 import ImageFront from "./ImageFront";
 import ImageBack from "./ImageBack";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Post } from "@/lib/definitions";
+import { GalleyPost } from "@/lib/definitions";
 import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useInView } from "react-intersection-observer";
 import { useCursorById } from "@/lib/utils";
 
 type Props = {
   flipCard: string;
-  firstPost: any;
+  firstPost: GalleyPost[];
 };
 
 const HomeGallery = (props: Props) => {
@@ -22,7 +22,7 @@ const HomeGallery = (props: Props) => {
   const pathname = usePathname();
   const { replace } = useRouter();
   const { cursorById } = useCursorById();
-  const [posts, setPosts] = useState<Post[][]>([[], [], []]);
+  const [posts, setPosts] = useState<GalleyPost[][]>([[], [], []]);
   const [loading, setLoading] = useState(true);
   const [cursorPostId, setCursorPostId] = useState(cursorById(firstPost));
   const [postLimit, setPostLimit] = useState(false);
@@ -33,7 +33,7 @@ const HomeGallery = (props: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    const newPostsArray = [[firstPost[0]], [[firstPost[1]]], [firstPost[2]]];
+    const newPostsArray = [[firstPost[0]], [firstPost[1]], [firstPost[2]]];
     setPosts(newPostsArray);
     setLoading(false);
   }, []);
@@ -76,10 +76,10 @@ const HomeGallery = (props: Props) => {
         </>
       ) : (
         <div className="lg:px-40 px-5 flex">
-          {posts.map((colPosts: Post[], col) => (
+          {posts.map((colPosts: GalleyPost[], col) => (
             <>
               <div key={col} className="w-1/3 p-2">
-                {colPosts.map((post: Post, index) => (
+                {colPosts.map((post: GalleyPost, index) => (
                   <ReactCardFlip
                     key={post.id}
                     isFlipped={flipCard === post.id}

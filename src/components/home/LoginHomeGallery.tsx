@@ -1,6 +1,6 @@
 "use client";
 
-import { Post } from "@/lib/definitions";
+import { GalleyPost } from "@/lib/definitions";
 import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useCursorById } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
@@ -9,16 +9,15 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Expand } from "lucide-react";
 
 type Props = {
-  firstPost: Post[];
+  firstPost: GalleyPost[];
 };
 
 const LoginHomeGallery = (props: Props) => {
   const { firstPost } = props;
   const { cursorById } = useCursorById();
-  const [posts, setPosts] = useState<Post[][]>([[], [], []]);
+  const [posts, setPosts] = useState<GalleyPost[][]>([[], [], []]);
   const [loading, setLoading] = useState(true);
   const [cursorPostId, setCursorPostId] = useState(cursorById(firstPost));
   const [postLimit, setPostLimit] = useState(false);
@@ -72,10 +71,10 @@ const LoginHomeGallery = (props: Props) => {
         </>
       ) : (
         <div className="lg:px-40 px-5 flex">
-          {posts.map((colPosts: Post[], col) => (
+          {posts.map((colPosts: GalleyPost[], col) => (
             <>
               <div key={col} className="w-1/3 p-2">
-                {colPosts.map((post: Post, index) => (
+                {colPosts.map((post: GalleyPost, index) => (
                   <motion.div
                     key={post.id}
                     variants={variants}
