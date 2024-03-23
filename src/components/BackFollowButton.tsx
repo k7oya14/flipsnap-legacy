@@ -21,7 +21,8 @@ const BackFollowButton = (props: Props) => {
         </p>
       );
       break;
-    case UserRelationship.Follower || UserRelationship.None:
+    case UserRelationship.Follower:
+    case UserRelationship.None:
       return (
         <form
           action={FollowWithId}
