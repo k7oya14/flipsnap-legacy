@@ -33,12 +33,12 @@ const IconDropDown = ({ user }: { user: sessionUser }) => {
           {user?.name}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <Link href={"/profile/me"}>
+        <Link href="/profile/me" prefetch={false}>
           <DropdownMenuItem className="hover:cursor-pointer flex justify-center">
             Profile
           </DropdownMenuItem>
         </Link>
-        <Link href="/api/auth/signout">
+        <Link href="/api/auth/signout" prefetch={false}>
           <DropdownMenuItem className="hover:cursor-pointer flex justify-center">
             Sign out
           </DropdownMenuItem>
