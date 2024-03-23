@@ -24,6 +24,7 @@ export function ProfileGallery(props: Props) {
   const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
   const { replace } = useRouter();
+  const { cursorById } = useCursorById();
 
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState<Post[]>([]);
@@ -40,7 +41,7 @@ export function ProfileGallery(props: Props) {
     if (firstPosts.length == 0) {
       setPostLimit(true);
     } else {
-      setCursorPostId(useCursorById(firstPosts));
+      setCursorPostId(cursorById(firstPosts));
     }
     setLoading(false);
   }, []);
@@ -58,7 +59,7 @@ export function ProfileGallery(props: Props) {
           return;
         }
         setPosts((prevPosts) => [...prevPosts, ...data]);
-        const newCursorId = useCursorById(data);
+        const newCursorId = cursorById(data);
         setCursorPostId(newCursorId);
       };
       fetchMorePosts();

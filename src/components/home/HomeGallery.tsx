@@ -22,9 +22,10 @@ const HomeGallery = (props: Props) => {
   const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
   const { replace } = useRouter();
+  const { cursorById } = useCursorById();
   const [posts, setPosts] = useState<Post[][]>([[], [], []]);
   const [loading, setLoading] = useState(true);
-  const [cursorPostId, setCursorPostId] = useState(useCursorById(firstPost));
+  const [cursorPostId, setCursorPostId] = useState(cursorById(firstPost));
   const [postLimit, setPostLimit] = useState(false);
   const { ref, inView } = useInView({
     threshold: 0,
@@ -55,7 +56,7 @@ const HomeGallery = (props: Props) => {
           [...prevPosts[1], data[2], data[3]],
           [...prevPosts[2], data[4], data[5]],
         ]);
-        const newCursorId = useCursorById(data);
+        const newCursorId = cursorById(data);
         setCursorPostId(newCursorId);
       };
       fetchMorePosts();
