@@ -28,7 +28,10 @@ const LoginHomeGallery = (props: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    const newPostsArray = [[firstPost[0]], [firstPost[1]], [firstPost[2]]];
+    const newPostsArray: GalleyPost[][] = [[], [], []];
+    firstPost.forEach((post: GalleyPost, i) => {
+      newPostsArray[i % 3] = [...newPostsArray[i % 3], post];
+    });
     setPosts(newPostsArray);
     setLoading(false);
   }, []);
