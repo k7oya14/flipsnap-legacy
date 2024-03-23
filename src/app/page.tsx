@@ -45,7 +45,13 @@ const page = async () => {
     <div>
       <p>Page</p>
       {posts.map((post: Post) => (
-        <Image key={post.id} src={post.imgFront} alt="" />
+        <Image
+          width={500}
+          height={500}
+          key={post.id}
+          src={post.imgFront}
+          alt=""
+        />
       ))}
     </div>
   );
