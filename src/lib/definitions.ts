@@ -31,9 +31,23 @@ export type Post = {
   createdAt: Date;
 };
 
+export type GalleyPost = {
+  author?: {
+    image: string | null;
+    name: string | null;
+    username: string | null;
+  };
+  id: string;
+  authorId: string;
+  imgFront: string;
+  imgBack: string;
+  caption: string;
+  createdAt: Date;
+};
+
 export type OnePost = {
   author: {
-    relationship: UserRelationship | undefined;
+    relationship?: UserRelationship | undefined;
     image?: string | null | undefined;
     name?: string | null | undefined;
     username?: string | null | undefined;

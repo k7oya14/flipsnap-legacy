@@ -5,25 +5,24 @@ import ReactCardFlip from "react-card-flip";
 import ImageFront from "./ImageFront";
 import ImageBack from "./ImageBack";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Post, sessionUser } from "@/lib/definitions";
+import { GalleyPost } from "@/lib/definitions";
 import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useInView } from "react-intersection-observer";
 import { useCursorById } from "@/lib/utils";
 
 type Props = {
   flipCard: string;
-  user: sessionUser | undefined;
-  firstPost: any;
+  firstPost: GalleyPost[];
 };
 
 const HomeGallery = (props: Props) => {
-  const { flipCard, user, firstPost } = props;
+  const { flipCard, firstPost } = props;
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
   const { replace } = useRouter();
   const { cursorById } = useCursorById();
-  const [posts, setPosts] = useState<Post[][]>([[], [], []]);
+  const [posts, setPosts] = useState<GalleyPost[][]>([[], [], []]);
   const [loading, setLoading] = useState(true);
   const [cursorPostId, setCursorPostId] = useState(cursorById(firstPost));
   const [postLimit, setPostLimit] = useState(false);
@@ -33,70 +32,30 @@ const HomeGallery = (props: Props) => {
   });
 
   useEffect(() => {
-    const fetchMorePosts = async () => {
-      const data = await fetchMoreLatestPosts(2, user?.id, cursorPostId);
-      setPosts((prevPost) => [[...prevPost[0]], [data[0]], [data[1]]]);
-      const newCursorId = cursorById(data);
-      setCursorPostId(newCursorId);
-    };
     setLoading(true);
-    const newPostsArray = [[firstPost[0]], [], []];
+    const newPostsArray: GalleyPost[][] = [[], [], []];
+    firstPost.forEach((post: GalleyPost, i) => {
+      newPostsArray[i % 3] = [...newPostsArray[i % 3], post];
+    });
     setPosts(newPostsArray);
     setLoading(false);
-    fetchMorePosts();
   }, []);
 
   useEffect(() => {
     if (inView && !loading && !postLimit) {
       const fetchMorePosts = async () => {
-        if (posts[1].length === 0) {
-          const data = await fetchMoreLatestPosts(1, user?.id, cursorPostId);
-          setPosts((prevPost) => [[...prevPost[0]], [data[0]], [data[1]]]);
-          const newCursorId = cursorById(data);
-          setCursorPostId(newCursorId);
-          return;
-        }
-        const data1 = await fetchMoreLatestPosts(1, user?.id, cursorPostId);
-        if (data1.length === 0) {
+        const newPosts = await fetchMoreLatestPosts(3, null, cursorPostId);
+        if (newPosts.length < 3) {
           setPostLimit(true);
-          alert("No more posts to show");
-          return;
+        } else {
+          setPosts((prevPosts) => [
+            [...prevPosts[0], newPosts[0]],
+            [...prevPosts[1], newPosts[1]],
+            [...prevPosts[2], newPosts[2]],
+          ]);
+          const newCursorPostId = cursorById(newPosts);
+          setCursorPostId(newCursorPostId);
         }
-        setPosts((prevPosts) => [
-          [...prevPosts[0], data1[0]],
-          [...prevPosts[1]],
-          [...prevPosts[2]],
-        ]);
-        const newCursorId1 = cursorById(data1);
-        setCursorPostId(newCursorId1);
-
-        const data2 = await fetchMoreLatestPosts(1, user?.id, newCursorId1);
-        if (data2.length === 0) {
-          setPostLimit(true);
-          alert("No more posts to show");
-          return;
-        }
-        setPosts((prevPosts) => [
-          [...prevPosts[0]],
-          [...prevPosts[1], data2[0]],
-          [...prevPosts[2]],
-        ]);
-        const newCursorId2 = cursorById(data2);
-        setCursorPostId(newCursorId2);
-
-        const data3 = await fetchMoreLatestPosts(1, user?.id, newCursorId2);
-        if (data3.length === 0) {
-          setPostLimit(true);
-          alert("No more posts to show");
-          return;
-        }
-        setPosts((prevPosts) => [
-          [...prevPosts[0]],
-          [...prevPosts[1]],
-          [...prevPosts[2], data3[0]],
-        ]);
-        const newCursorId3 = cursorById(data3);
-        setCursorPostId(newCursorId3);
       };
       fetchMorePosts();
     }
@@ -120,10 +79,10 @@ const HomeGallery = (props: Props) => {
         </>
       ) : (
         <div className="lg:px-40 px-5 flex">
-          {posts.map((colPosts: Post[], col) => (
+          {posts.map((colPosts: GalleyPost[], col) => (
             <>
               <div key={col} className="w-1/3 p-2">
-                {colPosts.map((post: Post, index) => (
+                {colPosts.map((post: GalleyPost, index) => (
                   <ReactCardFlip
                     key={post.id}
                     isFlipped={flipCard === post.id}
@@ -137,11 +96,7 @@ const HomeGallery = (props: Props) => {
                       handleClick={handleFront}
                       post={post}
                     />
-                    <ImageBack
-                      post={post}
-                      myId={user?.id}
-                      handleClick={handleBack}
-                    />
+                    <ImageBack post={post} handleClick={handleBack} />
                   </ReactCardFlip>
                 ))}
                 <div ref={ref} />

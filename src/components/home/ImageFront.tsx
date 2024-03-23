@@ -5,12 +5,12 @@ import Image from "next/image";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
-import { Post } from "@/lib/definitions";
+import { GalleyPost } from "@/lib/definitions";
 import { motion } from "framer-motion";
 
 type Props = {
   index: number;
-  post: Post;
+  post: GalleyPost;
   handleClick: (id: string) => void;
 };
 

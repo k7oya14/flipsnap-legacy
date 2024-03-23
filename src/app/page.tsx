@@ -4,8 +4,7 @@ import Image from "next/image";
 import { fetchLatestPosts, fetchMoreLatestPosts } from "@/lib/fetch";
 import { auth } from "@/lib/auth";
 import HomeGallery from "@/components/home/HomeGallery";
-import { useCursorById } from "@/lib/utils";
-import { Post } from "@/lib/definitions";
+import LoginHomeGallery from "@/components/home/LoginHomeGallery";
 
 export default async function Home({
   searchParams,
@@ -14,7 +13,7 @@ export default async function Home({
 }) {
   const flipCard = searchParams["flip"];
   const session = await auth();
-  const posts = await fetchLatestPosts(1, session?.user.id);
+  const posts = await fetchLatestPosts(12, session?.user.id);
 
   return (
     <div className="flex flex-col justify-center">
@@ -27,11 +26,11 @@ export default async function Home({
         alt=""
         src="/hero.gif"
       />
-      <HomeGallery
-        flipCard={flipCard!}
-        user={session?.user}
-        firstPost={posts}
-      />
+      {!session ? (
+        <HomeGallery flipCard={flipCard!} firstPost={posts} />
+      ) : (
+        <LoginHomeGallery firstPost={posts} />
+      )}
     </div>
   );
 }

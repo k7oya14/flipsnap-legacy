@@ -1,19 +1,16 @@
 import Image from "next/image";
 import React from "react";
 import LockedBack from "../LockedBack";
-import { Post, UserRelationship } from "@/lib/definitions";
+import { GalleyPost, UserRelationship } from "@/lib/definitions";
 
 type Props = {
-  post: Post;
-  myId: string | undefined;
+  post: GalleyPost;
   handleClick: () => void;
 };
 
 const ImageBack = (props: Props) => {
-  const { post, myId, handleClick } = props;
-  const hidden =
-    post.author?.relationship === UserRelationship.Mutual ||
-    post.author?.relationship === UserRelationship.Me;
+  const { post, handleClick } = props;
+
   return (
     <div>
       <div
@@ -24,17 +21,11 @@ const ImageBack = (props: Props) => {
           width={500}
           height={500}
           priority={true}
-          className={`rounded-md ${hidden || "filter blur-lg"}`}
+          className={`rounded-md filter blur-lg`}
           alt=""
           src={post.imgBack}
         />
-        {hidden || (
-          <LockedBack
-            relationship={post.author?.relationship!}
-            myId={myId}
-            userId={post.authorId}
-          />
-        )}
+        <LockedBack relationship={UserRelationship.NoSession} />
       </div>
     </div>
   );
