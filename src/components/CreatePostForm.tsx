@@ -5,11 +5,11 @@ import React from "react";
 import { useFormState } from "react-dom";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
-import { Button } from "./ui/button";
 import { CardContent, CardHeader } from "./ui/card";
 import { AutosizeTextarea } from "./ui/autosizeTextarea";
 import { Roboto_Slab } from "next/font/google";
-import { CameraIcon } from "@heroicons/react/24/outline";
+import { Camera } from "lucide-react";
+import PostButton from "./PostButton";
 
 const robotoSlab = Roboto_Slab({ weight: "400", subsets: ["latin"] });
 
@@ -24,7 +24,7 @@ function CreatePostForm({ userId }: { userId: string }) {
     <div className={robotoSlab.className}>
       <CardHeader className="flex items-center">
         <h1 className="text-xl">Create Post</h1>
-        <CameraIcon className="w-8 h-8 text-black" />
+        <Camera className="w-8 h-8 text-black" />
       </CardHeader>
       <CardContent className="flex items-center justify-center">
         <form action={dispatch} className="w-full">
@@ -93,12 +93,7 @@ function CreatePostForm({ userId }: { userId: string }) {
                 ))}
             </div>
           </div>
-          <Button
-            type="submit"
-            className="w-full border border-black py-0 my-0 rounded-md hover:bg-gray-800"
-          >
-            Create Post
-          </Button>
+          <PostButton />
         </form>
       </CardContent>
     </div>
