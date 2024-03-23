@@ -1,4 +1,4 @@
-import CreatePostForm from "@/components/CreatePostForm";
+import CreatePostForm from "@/components/create-post/CreatePostForm";
 import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";

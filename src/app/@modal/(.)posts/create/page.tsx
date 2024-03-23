@@ -1,4 +1,4 @@
-import CreatePostForm from "@/components/CreatePostForm";
+import CreatePostForm from "@/components/create-post/CreatePostForm";
 import InterceptedDialogContent from "@/components/ui/InterceptedDialogContent";
 import { Dialog } from "@/components/ui/dialog";
 import { auth } from "@/lib/auth";

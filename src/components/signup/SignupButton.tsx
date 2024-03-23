@@ -3,7 +3,7 @@
 import { useFormStatus } from "react-dom";
 import { LoaderCircle } from "lucide-react";
 import { ChevronsRight } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 function SignupButton() {
   const { pending } = useFormStatus();
