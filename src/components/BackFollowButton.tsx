@@ -6,13 +6,13 @@ import Link from "next/link";
 
 type Props = {
   myId: string | undefined;
-  userId: string;
+  userId: string | undefined;
   relationship: UserRelationship;
 };
 
 const BackFollowButton = (props: Props) => {
   const { myId, userId, relationship } = props;
-  const FollowWithId = Follow.bind(null, myId!, userId);
+  const FollowWithId = Follow.bind(null, myId!, userId!);
   switch (relationship) {
     case UserRelationship.Following:
       return (

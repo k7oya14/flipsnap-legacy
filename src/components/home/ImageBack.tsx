@@ -5,12 +5,11 @@ import { Post, UserRelationship } from "@/lib/definitions";
 
 type Props = {
   post: Post;
-  myId: string | undefined;
   handleClick: () => void;
 };
 
 const ImageBack = (props: Props) => {
-  const { post, myId, handleClick } = props;
+  const { post, handleClick } = props;
   const hidden =
     post.author?.relationship === UserRelationship.Mutual ||
     post.author?.relationship === UserRelationship.Me;
@@ -30,9 +29,7 @@ const ImageBack = (props: Props) => {
         />
         {hidden || (
           <LockedBack
-            relationship={post.author?.relationship!}
-            myId={myId}
-            userId={post.authorId}
+            relationship={UserRelationship.NoSession}
           />
         )}
       </div>
