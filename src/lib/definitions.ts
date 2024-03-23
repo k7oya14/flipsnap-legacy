@@ -33,7 +33,7 @@ export type Post = {
 
 export type OnePost = {
   author: {
-    relationship: UserRelationship | undefined;
+    relationship?: UserRelationship | undefined;
     image?: string | null | undefined;
     name?: string | null | undefined;
     username?: string | null | undefined;

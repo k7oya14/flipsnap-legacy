@@ -4,6 +4,7 @@ import Image from "next/image";
 import { fetchLatestPosts, fetchMoreLatestPosts } from "@/lib/fetch";
 import { auth } from "@/lib/auth";
 import HomeGallery from "@/components/home/HomeGallery";
+import LoginHomeGallery from "@/components/home/LoginHomeGallery";
 
 export default async function Home({
   searchParams,
@@ -28,7 +29,7 @@ export default async function Home({
       {!session ? (
         <HomeGallery flipCard={flipCard!} firstPost={posts} />
       ) : (
-        <p>Log in to see more</p>
+        <LoginHomeGallery firstPost={posts} />
       )}
     </div>
   );
