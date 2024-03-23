@@ -2,13 +2,11 @@
 
 import React from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { ChevronDoubleRightIcon } from "@heroicons/react/24/solid";
 import { updateUsername } from "@/lib/actions";
 import { useFormState } from "react-dom";
+import SignupButton from "./SignupButton";
 
 export function SignupForm({ userId }: { userId: string }) {
-
   const initialState = { message: "", errors: { username: [] } };
   const updateUsernameWithId = updateUsername.bind(null, userId);
   const [state, dispatch] = useFormState(updateUsernameWithId, initialState);
@@ -42,15 +40,7 @@ export function SignupForm({ userId }: { userId: string }) {
                   ))}
               </div>
             </div>
-            <Button
-              type="submit"
-              className="group w-full bg-black hover:bg-black text-white"
-            >
-              <div className="flex items-center justify-center">
-                Sign up
-                <ChevronDoubleRightIcon className="w-6 h-6 ml-2 transition-transform transform-gpu group-hover:translate-x-1" />
-              </div>
-            </Button>
+            <SignupButton />
           </div>
         </div>
       </form>

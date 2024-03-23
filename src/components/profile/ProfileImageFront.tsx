@@ -1,4 +1,4 @@
-import { ArrowsPointingOutIcon } from "@heroicons/react/24/solid";
+import { Expand } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import Link from "next/link";
@@ -51,7 +51,7 @@ const ProfileImageFront = (props: Props) => {
         href={`/posts/${postId}`}
         scroll={false}
       >
-        <ArrowsPointingOutIcon className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200" />
+        <Expand className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
       </Link>
     </motion.div>
   );
