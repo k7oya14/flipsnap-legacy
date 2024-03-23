@@ -1,4 +1,4 @@
-import { PostModal } from "@/components/detail/post-modal";
+import { PostDetail } from "@/components/detail/PostDetail";
 import InterceptedDialogContent from "@/components/ui/InterceptedDialogContent";
 import { Dialog } from "@/components/ui/dialog";
 import { auth } from "@/lib/auth";
@@ -16,7 +16,7 @@ export default async function DetailPage({
     <Dialog open>
       <InterceptedDialogContent className="rounded-lg">
         <div className="max-w-5xl mx-auto h-4/5 w-4/5 relative">
-          <PostModal post={postData} myId={session?.user.id} />
+          <PostDetail post={postData} myId={session?.user.id} />
         </div>
       </InterceptedDialogContent>
     </Dialog>

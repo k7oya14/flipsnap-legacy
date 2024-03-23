@@ -2,8 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import ReactCardFlip from "react-card-flip";
-import ImageFront from "../ImageFront";
-import ImageBack from "../ImageBack";
+import ImageFront from "./ImageFront";
+import ImageBack from "./ImageBack";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Post, sessionUser } from "@/lib/definitions";
 import { fetchMoreLatestPosts } from "@/lib/fetch";

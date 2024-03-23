@@ -8,7 +8,7 @@ type Props = {
   handleClick: () => void;
 };
 
-const DetailFront = (props: Props) => {
+const DetailImageFront = (props: Props) => {
   const { src, handleClick } = props;
 
   return (
@@ -33,4 +33,4 @@ const DetailFront = (props: Props) => {
   );
 };
 
-export default DetailFront;
+export default DetailImageFront;
