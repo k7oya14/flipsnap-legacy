@@ -35,11 +35,7 @@ const HomeGallery = (props: Props) => {
 
   useEffect(() => {
     setLoading(true);
-    const newPostsArray = [
-      [firstPost[0], firstPost[1]],
-      [firstPost[2], firstPost[3]],
-      [firstPost[4], firstPost[5]],
-    ];
+    const newPostsArray = [[firstPost[0]], [], []];
     setPosts(newPostsArray);
     setLoading(false);
   }, []);
@@ -47,15 +43,22 @@ const HomeGallery = (props: Props) => {
   useEffect(() => {
     if (inView && !loading && !postLimit) {
       const fetchMorePosts = async () => {
-        const data = await fetchMoreLatestPosts(6, user?.id, cursorPostId);
-        if (data.length < 6) {
+        if (posts[1].length === 0) {
+          const data = await fetchMoreLatestPosts(2, user?.id, cursorPostId);
+          setPosts((prevPost) => [[...prevPost[0]], [data[0]], [data[1]]]);
+          const newCursorId = cursorById(data);
+          setCursorPostId(newCursorId);
+          return;
+        }
+        const data = await fetchMoreLatestPosts(3, user?.id, cursorPostId);
+        if (data.length < 3) {
           setPostLimit(true);
           return;
         }
         setPosts((prevPosts) => [
-          [...prevPosts[0], data[0], data[1]],
-          [...prevPosts[1], data[2], data[3]],
-          [...prevPosts[2], data[4], data[5]],
+          [...prevPosts[0], data[0]],
+          [...prevPosts[1], data[1]],
+          [...prevPosts[2], data[2]],
         ]);
         const newCursorId = cursorById(data);
         setCursorPostId(newCursorId);
