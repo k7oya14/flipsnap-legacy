@@ -38,18 +38,21 @@ import { Post } from "@/lib/definitions";
 
 const page = async () => {
   const session = await auth();
-  const posts = await fetchLatestPosts(1, session?.user.id);
-  console.log(session);
-  console.log(posts);
+  //   const posts = await fetchLatestPosts(1, session?.user.id);
+  //   console.log(session);
+  //   console.log(posts);
   return (
     <div>
       <p>Page</p>
-      {posts.map((post: Post) => (
+      {[
+        0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+        1, 1,
+      ].map((_, index) => (
         <Image
           width={500}
           height={500}
-          key={post.id}
-          src={post.imgFront}
+          key={index}
+          src={`https://source.unsplash.com/random/500x500?sig=${index}`}
           alt=""
         />
       ))}
