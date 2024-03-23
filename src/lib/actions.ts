@@ -21,7 +21,7 @@ export async function uploadFile(file: File) {
   if (error) {
     throw new Error(error.message);
   } else {
-    const fullpath = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/image-bucket/${data.path}`;
+    const fullpath = `${process.env.SUPABASE_URL}/storage/v1/object/public/image-bucket/${data.path}`;
     return fullpath;
   }
 }
