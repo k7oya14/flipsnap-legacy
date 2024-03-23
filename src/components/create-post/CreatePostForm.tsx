@@ -3,10 +3,10 @@
 import { createPost } from "@/lib/actions";
 import React from "react";
 import { useFormState } from "react-dom";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { CardContent, CardHeader } from "./ui/card";
-import { AutosizeTextarea } from "./ui/autosizeTextarea";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { CardContent, CardHeader } from "../ui/card";
+import { AutosizeTextarea } from "../ui/autosizeTextarea";
 import { Roboto_Slab } from "next/font/google";
 import { Camera } from "lucide-react";
 import PostButton from "./PostButton";
