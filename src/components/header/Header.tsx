@@ -22,18 +22,18 @@ const Header = async () => {
           </Link>
         </div>
         <div className={`${robotoSlab.className} flex sm:space-x-8 space-x-6`}>
-          <Link
-            href="/posts/create"
-            scroll={false}
-            className="flex items-center"
-          >
-            <p className="text-xl text-black">Post</p>
-            <ImageUp className="ml-[5px] w-7 h-7 text-black" />
-            {/* <LucidePlusSquare className="ml-[1px] w-8 h-8 text-black" /> */}
-            {/* <CameraIcon className="ml-[1px] w-8 h-8 text-black" /> */}
-          </Link>
           {session ? (
-            <IconDropDown user={user!} />
+            <>
+              <Link
+                href="/posts/create"
+                scroll={false}
+                className="flex items-center"
+              >
+                <p className="text-xl text-black">Post</p>
+                <ImageUp className="ml-[5px] w-7 h-7 text-black" />
+              </Link>
+              <IconDropDown user={user!} />
+            </>
           ) : (
             <Link href="/api/auth/signin">SignIn</Link>
           )}

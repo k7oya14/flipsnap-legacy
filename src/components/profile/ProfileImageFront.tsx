@@ -11,7 +11,7 @@ type Props = {
   handleClick: (id: string) => void;
 };
 
-const ProfileFront = (props: Props) => {
+const ProfileImageFront = (props: Props) => {
   const { index, src, postId, handleClick } = props;
 
   const handleIconClick = (
@@ -57,4 +57,4 @@ const ProfileFront = (props: Props) => {
   );
 };
 
-export default ProfileFront;
+export default ProfileImageFront;

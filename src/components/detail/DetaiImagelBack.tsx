@@ -13,7 +13,7 @@ type Props = {
   handleClick: () => void;
 };
 
-const DetailBack = (props: Props) => {
+const DetailImageBack = (props: Props) => {
   const { src, myId, userId, relationship, handleClick } = props;
   const hidden =
     relationship === UserRelationship.Mutual ||
@@ -44,4 +44,4 @@ const DetailBack = (props: Props) => {
   );
 };
 
-export default DetailBack;
+export default DetailImageBack;

@@ -1,4 +1,4 @@
-import { PostModal } from "@/components/detail/post-modal";
+import { PostDetail } from "@/components/detail/PostDetail";
 import { Card, CardContent } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { fetchPost } from "@/lib/fetch";
@@ -12,7 +12,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
     <Card className="max-w-5xl mx-auto my-4">
       <CardContent>
         <div className="max-w-5xl mx-auto relative">
-          <PostModal post={postData} myId={session?.user.id} />
+          <PostDetail post={postData} myId={session?.user.id} />
         </div>
       </CardContent>
     </Card>

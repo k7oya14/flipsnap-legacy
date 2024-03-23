@@ -1,8 +1,6 @@
 "use client";
 
 import ReactCardFlip from "react-card-flip";
-import ProfileFront from "./ProfileFront";
-import ProfileBack from "./ProfileBack";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Post, UserInfo } from "@/lib/definitions";
 import { useEffect, useState } from "react";
@@ -10,6 +8,8 @@ import { useCursorById } from "@/lib/utils";
 import { useInView } from "react-intersection-observer";
 import { fetchMoreUserPostsById } from "@/lib/fetch";
 import Loading from "../Loading";
+import ProfileImageFront from "./ProfileImageFront";
+import ProfileImageBack from "./ProfileImageBack";
 
 type Props = {
   flip: string;
@@ -87,13 +87,13 @@ export function ProfileGallery(props: Props) {
           flipSpeedFrontToBack={0.6}
           infinite={true}
         >
-          <ProfileFront
+          <ProfileImageFront
             index={index}
             src={post.imgFront}
             postId={post.id}
             handleClick={handleFront}
           />
-          <ProfileBack
+          <ProfileImageBack
             src={post.imgBack}
             handleClick={handleBack}
             userId={post.authorId}

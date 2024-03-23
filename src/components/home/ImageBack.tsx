@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import LockedBack from "./LockedBack";
+import LockedBack from "../LockedBack";
 import { Post, UserRelationship } from "@/lib/definitions";
 
 type Props = {

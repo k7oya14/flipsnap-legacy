@@ -3,7 +3,7 @@
 import { Expand } from "lucide-react";
 import Image from "next/image";
 import React from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { Post } from "@/lib/definitions";
 import { motion } from "framer-motion";

@@ -11,7 +11,7 @@ type Props = {
   handleClick: () => void;
 };
 
-const ProfileBack = (props: Props) => {
+const ProfileImageBack = (props: Props) => {
   const { src, myId, userId, relationship, handleClick } = props;
   const hidden =
     relationship === UserRelationship.Mutual ||
@@ -41,4 +41,4 @@ const ProfileBack = (props: Props) => {
   );
 };
 
-export default ProfileBack;
+export default ProfileImageBack;
