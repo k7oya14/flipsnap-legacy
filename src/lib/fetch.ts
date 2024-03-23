@@ -229,12 +229,12 @@ export async function fetchLatestPosts(
     if (myId) {
       const posts = await Promise.all(
         data.map(async (post) => {
-          const relationship = await fetchUserRelationship(myId, post.authorId);
+          // const relationship = await fetchUserRelationship(myId, post.authorId);
           return {
             ...post,
             author: {
               ...post.author,
-              relationship,
+              // relationship,
             },
           };
         })
@@ -247,7 +247,7 @@ export async function fetchLatestPosts(
             ...post,
             author: {
               ...post.author,
-              relationship: UserRelationship.NoSession,
+              // relationship: UserRelationship.NoSession,
             },
           };
         })
@@ -288,12 +288,12 @@ export async function fetchMoreLatestPosts(
     if (myId) {
       const posts = await Promise.all(
         data.map(async (post) => {
-          const relationship = await fetchUserRelationship(myId, post.authorId);
+          // const relationship = await fetchUserRelationship(myId, post.authorId);
           return {
             ...post,
             author: {
               ...post.author,
-              relationship,
+              // relationship,
             },
           };
         })
@@ -306,7 +306,7 @@ export async function fetchMoreLatestPosts(
             ...post,
             author: {
               ...post.author,
-              relationship: UserRelationship.NoSession,
+              // relationship: UserRelationship.NoSession,
             },
           };
         })
