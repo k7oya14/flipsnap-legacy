@@ -13,7 +13,7 @@ const ImageBack = (props: Props) => {
   const { post, myId, handleClick } = props;
   const hidden =
     post.author?.relationship === UserRelationship.Mutual ||
-    UserRelationship.Me;
+    post.author?.relationship === UserRelationship.Me;
   return (
     <div>
       <div

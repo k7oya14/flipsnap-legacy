@@ -16,7 +16,8 @@ type Props = {
 const DetailBack = (props: Props) => {
   const { src, myId, userId, relationship, handleClick } = props;
   const hidden =
-    relationship === UserRelationship.Mutual || UserRelationship.Me;
+    relationship === UserRelationship.Mutual ||
+    relationship === UserRelationship.Me;
 
   return (
     <div>
