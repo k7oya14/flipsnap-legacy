@@ -1,7 +1,5 @@
-import { LockClosedIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import React from "react";
-import { Button } from "../ui/button";
 import LockedBack from "../LockedBack";
 
 type Props = {

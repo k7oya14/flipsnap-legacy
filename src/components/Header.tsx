@@ -3,14 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Pacifico, Roboto_Slab } from "next/font/google";
-import { BanknotesIcon, CameraIcon } from "@heroicons/react/24/outline";
+import { ImageUp } from "lucide-react";
 import IconDropDown from "./IconDropDown";
-import {
-  LucidePlusSquare,
-  PlusIcon,
-  PlusSquare,
-  PlusSquareIcon,
-} from "lucide-react";
 
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
 const robotoSlab = Roboto_Slab({ weight: "400", subsets: ["latin"] });
@@ -34,7 +28,7 @@ const Header = async () => {
             className="flex items-center"
           >
             <p className="text-xl text-black">Post</p>
-            <BanknotesIcon className="ml-[1px] w-8 h-8 text-black" />
+            <ImageUp className="ml-[5px] w-7 h-7 text-black" />
             {/* <LucidePlusSquare className="ml-[1px] w-8 h-8 text-black" /> */}
             {/* <CameraIcon className="ml-[1px] w-8 h-8 text-black" /> */}
           </Link>
