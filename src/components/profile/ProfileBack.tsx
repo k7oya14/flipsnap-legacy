@@ -1,16 +1,21 @@
-import { LockClosedIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import React from "react";
-import { Button } from "../ui/button";
 import LockedBack from "../LockedBack";
+import { UserRelationship } from "@/lib/definitions";
 
 type Props = {
   src: string;
+  userId: string;
+  myId: string | undefined;
+  relationship: UserRelationship;
   handleClick: () => void;
 };
 
 const ProfileBack = (props: Props) => {
-  const { src, handleClick } = props;
+  const { src, myId, userId, relationship, handleClick } = props;
+  const hidden =
+    relationship === UserRelationship.Mutual ||
+    relationship === UserRelationship.Me;
   return (
     <div>
       <div
@@ -18,8 +23,8 @@ const ProfileBack = (props: Props) => {
         className="relative hover:cursor-pointer rounded-lg border-[3px] border-gray-200 "
       >
         <Image
-          alt="Post image"
-          className="w-full rounded blur-lg"
+          alt=""
+          className={`w-full rounded ${hidden || "filter blur-lg"}`}
           height="293"
           src={src}
           style={{
@@ -28,7 +33,9 @@ const ProfileBack = (props: Props) => {
           }}
           width="293"
         />
-        <LockedBack />
+        {hidden || (
+          <LockedBack myId={myId} userId={userId} relationship={relationship} />
+        )}
       </div>
     </div>
   );

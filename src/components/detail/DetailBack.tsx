@@ -3,14 +3,21 @@
 import React from "react";
 import Image from "next/image";
 import LockedBack from "../LockedBack";
+import { UserRelationship } from "@/lib/definitions";
 
 type Props = {
   src: string;
+  myId: string | undefined;
+  userId: string;
+  relationship: UserRelationship;
   handleClick: () => void;
 };
 
 const DetailBack = (props: Props) => {
-  const { src, handleClick } = props;
+  const { src, myId, userId, relationship, handleClick } = props;
+  const hidden =
+    relationship === UserRelationship.Mutual ||
+    relationship === UserRelationship.Me;
 
   return (
     <div>
@@ -20,7 +27,7 @@ const DetailBack = (props: Props) => {
       >
         <Image
           alt=""
-          className="h-auto rounded blur-lg"
+          className={`h-auto rounded ${hidden || "filter blur-lg"}`}
           height="758"
           src={src}
           style={{
@@ -29,7 +36,9 @@ const DetailBack = (props: Props) => {
           }}
           width="902"
         />
-        <LockedBack />
+        {hidden || (
+          <LockedBack myId={myId} userId={userId} relationship={relationship} />
+        )}
       </div>
     </div>
   );

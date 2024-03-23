@@ -74,9 +74,6 @@ const HomeGallery = (props: Props) => {
 
   return (
     <>
-      {/* <div className="h-96 bg-slate-800"></div>
-      <div className="h-96 bg-slate-800"></div>
-      <div className="h-96 bg-slate-800"></div> */}
       {loading ? (
         <>
           <div className="h-screen"></div>
@@ -100,7 +97,11 @@ const HomeGallery = (props: Props) => {
                       handleClick={handleFront}
                       post={post}
                     />
-                    <ImageBack post={post} handleClick={handleBack} />
+                    <ImageBack
+                      post={post}
+                      myId={user?.id}
+                      handleClick={handleBack}
+                    />
                   </ReactCardFlip>
                 ))}
                 <div ref={ref} />

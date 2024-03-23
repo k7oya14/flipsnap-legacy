@@ -22,7 +22,7 @@ const FollowStatusButton = (props: Props) => {
             type="submit"
             className="my-2 rounded-full bg-slate-300 hover:bg-slate-400 text-black"
           >
-            フォロー解除
+            Unfollow
           </Button>
         </form>
       );
@@ -31,9 +31,9 @@ const FollowStatusButton = (props: Props) => {
       return (
         <form action={FollowWithId} className="my-2 flex flex-col">
           <Button type="submit" className="my-2 rounded-full">
-            フォロー
+            Follow
           </Button>
-          <p className="text-sm font-normal">フォローされています</p>
+          <p className="text-sm font-normal">You are being followed</p>
         </form>
       );
       break;
@@ -44,9 +44,9 @@ const FollowStatusButton = (props: Props) => {
             type="submit"
             className="my-2 rounded-full bg-slate-300 hover:bg-slate-400 text-black"
           >
-            フォロー解除
+            Unfollow
           </Button>
-          <p className="text-sm font-normal">フォローされています</p>
+          <p className="text-sm font-normal">You are being followed</p>
         </form>
       );
       break;
@@ -54,7 +54,7 @@ const FollowStatusButton = (props: Props) => {
       return (
         <form action={FollowWithId} className="my-2 flex flex-col">
           <Button type="submit" className="my-2 rounded-full">
-            フォロー
+            Follow
           </Button>
         </form>
       );
