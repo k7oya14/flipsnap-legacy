@@ -16,7 +16,7 @@ export default async function DetailPage({
     <Dialog open>
       <InterceptedDialogContent className="rounded-lg">
         <div className="max-w-5xl mx-auto h-4/5 w-4/5 relative">
-          <PostModal post={postData} />
+          <PostModal post={postData} myId={session?.user.id} />
         </div>
       </InterceptedDialogContent>
     </Dialog>

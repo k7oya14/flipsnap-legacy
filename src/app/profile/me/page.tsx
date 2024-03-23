@@ -3,7 +3,6 @@
 import { auth } from "@/lib/auth";
 import { getUsernameById } from "@/lib/fetch";
 import { redirect } from "next/navigation";
-import React from "react";
 
 async function Page() {
   const session = await auth();

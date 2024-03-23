@@ -12,7 +12,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
     <Card className="max-w-5xl mx-auto my-4">
       <CardContent>
         <div className="max-w-5xl mx-auto relative">
-          <PostModal post={postData} />
+          <PostModal post={postData} myId={session?.user.id} />
         </div>
       </CardContent>
     </Card>

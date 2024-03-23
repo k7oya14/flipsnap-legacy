@@ -30,6 +30,7 @@ const Page = async (props: PageProps) => {
           flip={flipCard!}
           firstPosts={firstPosts}
           userInfo={userInfo}
+          myId={session?.user.id}
         />
       </Card>
     </div>
