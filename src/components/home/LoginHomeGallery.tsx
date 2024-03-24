@@ -39,14 +39,14 @@ const LoginHomeGallery = (props: Props) => {
   useEffect(() => {
     if (inView && !loading && !postLimit) {
       const fetchMorePosts = async () => {
-        const newPosts = await fetchMoreLatestPosts(3, null, cursorPostId);
-        if (newPosts.length < 3) {
+        const newPosts = await fetchMoreLatestPosts(6, null, cursorPostId);
+        if (newPosts.length < 6) {
           setPostLimit(true);
         } else {
           setPosts((prevPosts) => [
-            [...prevPosts[0], newPosts[0]],
-            [...prevPosts[1], newPosts[1]],
-            [...prevPosts[2], newPosts[2]],
+            [...prevPosts[0], newPosts[0], newPosts[3]],
+            [...prevPosts[1], newPosts[1], newPosts[4]],
+            [...prevPosts[2], newPosts[2], newPosts[5]],
           ]);
           const newCursorPostId = cursorById(newPosts);
           setCursorPostId(newCursorPostId);
