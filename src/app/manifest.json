@@ -1,4 +1,8 @@
 {
     "name": "FlipSnap",
-    "display": "standalone"
+    "display": "standalone",
+    "icons":
+        {
+          "src": "/logo.svg"
+        }
 }
