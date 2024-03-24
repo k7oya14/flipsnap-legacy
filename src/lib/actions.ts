@@ -63,7 +63,7 @@ export async function updateUsername(
       message: "Database Error: Failed to update username.",
     };
   }
-  redirect(`/`);
+  redirect("/profile/me");
 }
 
 export type createPostState = {

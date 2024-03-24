@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 
 const SignUp = async () => {
   const session = await auth();
-  if (!session?.user?.email) {
+  if (!session) {
     redirect("/profile/error");
   }
 
