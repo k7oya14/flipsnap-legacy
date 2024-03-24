@@ -106,10 +106,28 @@ async function createPosts(users: User[]) {
   }
 }
 
+async function hishiwatPosts() {
+  for (let i = 0; i < 9; i++) {
+    await prisma.user.update({
+      where: { username: "hishiwat" },
+      data: {
+        posts: {
+          create: {
+            imgFront: "",
+            imgBack: "",
+            caption: faker.lorem.lines(),
+          },
+        },
+      },
+    });
+  }
+}
+
 async function main() {
   const users = await createUsers();
   await createFollowRelations(users);
   await createPosts(users);
+  // hishiwatPosts();
 }
 
 main()
