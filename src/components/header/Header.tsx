@@ -16,7 +16,7 @@ const Header = async () => {
     <header className="sm:px-10 px-2 border-b border-gray-300 shadow-sm shadow-gray-300">
       <nav className="flex items-center justify-between p-2">
         <div className={`${pacifico.className} flex items-center`}>
-          <Image src="/logo.png" alt="FlipSnap" width={60} height={60} />
+          <Image src="/logo.svg" alt="FlipSnap" width={60} height={60} />
           <Link href="/" className="font-bold text-xl">
             FlipSnap
           </Link>
