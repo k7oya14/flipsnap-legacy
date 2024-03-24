@@ -14,7 +14,7 @@ type User = {
   created_at: Date;
 };
 
-const userCount = 100; // TODO : Change this parameter
+const userCount = 64; // TODO : Change this parameter
 
 async function createUsers() {
   const users = [];
@@ -30,7 +30,7 @@ async function createUsers() {
         image: faker.image.avatar(),
         name: faker.person.fullName(),
         bio: faker.person.bio(),
-        created_at: faker.date.anytime(),
+        created_at: faker.date.past(),
       },
     });
 
@@ -59,36 +59,47 @@ async function createFollowRelations(users: User[]) {
       where: { id: user.id },
       data: {
         follows: {
-          connect: [{ username: "k7oya14" }, { username: "hishiwat" }],
+          connect: [
+            // { username: "k7oya14" },
+            { username: "hishiwat" },
+          ],
         },
       },
     });
   }
 }
 
+const postUserCount = 11; // TODO : Change this parameter
+
 async function createPosts(users: User[]) {
-  for (const user of users) {
+  for (const user of users.slice(0, postUserCount)) {
     await prisma.user.update({
       where: { id: user.id },
       data: {
         posts: {
-          create: Array.from({
-            length: faker.number.int({ min: 1, max: 100 }), // TODO : Change this parameter
-          }).map(() => {
-            const imgSize = [
-              [1080, 1080],
-              [1080, 566],
-              [1080, 1350],
-            ];
-            const [width, height] =
-              imgSize[faker.number.int({ min: 0, max: 2 })];
-            return {
-              imgFront: faker.image.url({ width, height }),
-              imgBack: faker.image.url({ width, height }),
-              caption: faker.lorem.lines(),
-              createdAt: faker.date.anytime(),
-            };
-          }),
+          // create: Array.from({
+          //   length: faker.number.int({ min: 1, max: 100 }), // TODO : Change this parameter
+          // }).map(() => {
+          //   const imgSize = [
+          //     [1080, 1080],
+          //     [1080, 566],
+          //     [1080, 1350],
+          //   ];
+          //   const [width, height] =
+          //     imgSize[faker.number.int({ min: 0, max: 2 })];
+          //   return {
+          //     imgFront: faker.image.url({ width, height }),
+          //     imgBack: faker.image.url({ width, height }),
+          //     caption: faker.lorem.lines(),
+          //     createdAt: faker.date.past(),
+          //   };
+          // }),
+          create: {
+            imgFront: "",
+            imgBack: "",
+            caption: faker.lorem.lines(),
+            createdAt: faker.date.past(),
+          },
         },
       },
     });
