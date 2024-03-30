@@ -35,7 +35,7 @@ const ImageFront = (props: Props) => {
       transition={{ duration: 0.5, delay: index * 0.5 }}
     >
       <div
-        // onClick={() => handleClick(post.id)}
+        onClick={() => handleClick(post.id)}
         className="w-full group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
       >
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
