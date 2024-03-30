@@ -10,6 +10,8 @@ import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useInView } from "react-intersection-observer";
 import { useCursorById } from "@/lib/utils";
 
+import ReactFlipCard from "reactjs-flip-card";
+
 type Props = {
   flipCard: string;
   firstPost: GalleyPost[];
@@ -98,6 +100,24 @@ const HomeGallery = (props: Props) => {
                     />
                     <ImageBack post={post} handleClick={handleBack} />
                   </ReactCardFlip>
+                  //   <div style={{ width: "100%", height: "auto" }}>
+                  //     <ReactFlipCard
+                  //       key={post.id}
+                  //       containerCss={"resizeBasedOnParent"}
+                  //       flipTrigger={"onClick"}
+                  //       direction="diagonal"
+                  //       frontComponent={
+                  //         <ImageFront
+                  //           index={index}
+                  //           handleClick={handleFront}
+                  //           post={post}
+                  //         />
+                  //       }
+                  //       backComponent={
+                  //         <ImageBack post={post} handleClick={handleBack} />
+                  //       }
+                  //     />
+                  //   </div>
                 ))}
                 <div ref={ref} />
               </div>
