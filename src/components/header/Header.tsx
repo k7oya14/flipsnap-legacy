@@ -14,14 +14,20 @@ const Header = async () => {
   const user = session?.user;
   return (
     <header className="sm:px-10 px-2 border-b border-gray-300 shadow-sm shadow-gray-300">
-      <nav className="flex items-center justify-between p-2">
+      <nav className="flex items-center justify-between p-1 sm:p-2">
         <div className={`${pacifico.className} flex items-center`}>
-          <Image src="/logo.svg" alt="FlipSnap" width={60} height={60} />
-          <Link href="/" className="font-bold text-xl">
+          <Image
+            src="/logo.svg"
+            alt="FlipSnap"
+            width={45}
+            height={45}
+            className="sm:w-[75px] sm:h-[75px]"
+          />
+          <Link href="/" className="sm:font-bold text-lg sm:text-xl">
             FlipSnap
           </Link>
         </div>
-        <div className={`${robotoSlab.className} flex sm:space-x-8 space-x-6`}>
+        <div className={`${robotoSlab.className} flex sm:space-x-8 space-x-4`}>
           {session ? (
             <>
               <Link
@@ -29,8 +35,8 @@ const Header = async () => {
                 scroll={false}
                 className="flex items-center"
               >
-                <p className="text-xl text-black">Post</p>
-                <ImageUp className="ml-[5px] w-7 h-7 text-black" />
+                <p className="sm:text-xl text-black">Post</p>
+                <ImageUp className="ml:ml-[1.5px] sm:ml-[5px] sm:w-7 sm:h-7 text-black" />
               </Link>
               <IconDropDown user={user!} />
             </>

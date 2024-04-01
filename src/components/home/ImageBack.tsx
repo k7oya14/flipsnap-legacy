@@ -14,7 +14,7 @@ const ImageBack = (props: Props) => {
   return (
     <div>
       <div
-        // onClick={() => handleClick()}
+        onClick={() => handleClick()}
         className="overflow-hidden w-full h-auto hover:cursor-pointer sm;rounded-lg "
       >
         <Image

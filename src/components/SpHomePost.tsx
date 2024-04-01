@@ -38,7 +38,11 @@ export function SpHomePost(props: Props) {
         <div className="flex flex-col gap-4 pt-2 pb-4">
           <ReactFlipCard
             flipTrigger={"onClick"}
-            containerStyle={{ width: "100%", height: "auto" }}
+            containerStyle={{
+              width: "100%",
+              height: "auto",
+              cursor: "pointer",
+            }}
             direction="horizontal"
             frontComponent={
               <Image
@@ -65,7 +69,7 @@ export function SpHomePost(props: Props) {
               //     width={500}
               //     height={500}
               //   />
-              <ImageBack post={post} onClick={() => console.log("a")} />
+              <ImageBack post={post} handleClick={() => console.log("a")} />
             }
           />
           <div className="px-4 gap-2 flex flex-col">

@@ -20,7 +20,7 @@ const IconDropDown = ({ user }: { user: sessionUser }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <Avatar className="h-12 w-12">
+        <Avatar className="w-8 h-8 sm:h-12 sm:w-12">
           <AvatarImage src={user?.image!} />
           <AvatarFallback>{user?.name!}</AvatarFallback>
         </Avatar>
