@@ -5,18 +5,14 @@ import { GalleyPost, UserRelationship } from "@/lib/definitions";
 
 type Props = {
   post: GalleyPost;
-  handleClick: () => void;
 };
 
 const ImageBack = (props: Props) => {
-  const { post, handleClick } = props;
+  const { post } = props;
 
   return (
     <div>
-      <div
-        onClick={() => handleClick()}
-        className="overflow-hidden w-full h-auto hover:cursor-pointer sm;rounded-lg "
-      >
+      <div className="overflow-hidden w-full h-auto hover:cursor-pointer sm:rounded-lg ">
         <Image
           width={500}
           height={500}

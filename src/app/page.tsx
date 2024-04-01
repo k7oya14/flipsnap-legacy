@@ -1,19 +1,14 @@
 import React from "react";
 
 import Image from "next/image";
-import { fetchLatestPosts, fetchMoreLatestPosts } from "@/lib/fetch";
+import { fetchLatestPosts } from "@/lib/fetch";
 import { auth } from "@/lib/auth";
 import HomeGallery from "@/components/home/HomeGallery";
 import LoginHomeGallery from "@/components/home/LoginHomeGallery";
-import SpHome from "@/components/smartphone/SpHome";
+// import SpHome from "@/components/smartphone/SpHome";
 import SpHome2 from "@/components/smartphone/SpHome2";
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) {
-  const flipCard = searchParams["flip"];
+export default async function Home() {
   const session = await auth();
   const posts = await fetchLatestPosts(12, session?.user.id);
 
@@ -34,7 +29,7 @@ export default async function Home({
           src="/hero.gif"
         />
         {!session ? (
-          <HomeGallery flipCard={flipCard!} firstPost={posts} />
+          <HomeGallery firstPost={posts} />
         ) : (
           <LoginHomeGallery firstPost={posts} />
         )}

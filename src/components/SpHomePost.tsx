@@ -69,7 +69,7 @@ export function SpHomePost(props: Props) {
               //     width={500}
               //     height={500}
               //   />
-              <ImageBack post={post} handleClick={() => console.log("a")} />
+              <ImageBack post={post} />
             }
           />
           <div className="px-4 gap-2 flex flex-col">
