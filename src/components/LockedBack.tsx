@@ -14,8 +14,8 @@ type Props = {
 const LockedBack = (props: Props) => {
   const { myId = undefined, userId, relationship } = props;
   return (
-    <div className="absolute inset-x-0 bottom-0 h-full w-full bg-gradient-to-b from-transparent to-black rounded-b">
-      <div className="absolute  flex flex-col justify-center items-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+    <div className="absolute inset-x-0 bottom-0 h-full w-full bg-gradient-to-b from-transparent to-black rounded-t rounded-b">
+      <div className="absolute flex flex-col justify-center items-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <EyeOff className="h-10 w-10 left-1/2 text-white" />
         {relationship === UserRelationship.NoSession ? (
           <div className="my-2 flex flex-col justify-center">

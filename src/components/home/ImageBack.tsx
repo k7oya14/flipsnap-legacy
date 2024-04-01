@@ -14,14 +14,19 @@ const ImageBack = (props: Props) => {
   return (
     <div>
       <div
-        onClick={() => handleClick()}
-        className="relative hover:cursor-pointer rounded-lg border-[3px] border-gray-200 "
+        // onClick={() => handleClick()}
+        className="overflow-hidden w-full h-auto hover:cursor-pointer sm;rounded-lg "
       >
         <Image
           width={500}
           height={500}
           priority={true}
-          className={`rounded-md filter blur-lg`}
+          className={`rounded-md filter blur-lg relative`}
+          style={{
+            objectFit: "cover",
+            width: "100%",
+            height: "auto",
+          }}
           alt=""
           src={post.imgBack}
         />

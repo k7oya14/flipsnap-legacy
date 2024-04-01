@@ -85,39 +85,41 @@ const HomeGallery = (props: Props) => {
             <>
               <div key={col} className="w-1/3 p-2">
                 {colPosts.map((post: GalleyPost, index) => (
-                  <ReactCardFlip
-                    key={post.id}
-                    isFlipped={flipCard === post.id}
-                    flipDirection="horizontal"
-                    flipSpeedBackToFront={0.8}
-                    flipSpeedFrontToBack={0.48}
-                    infinite={true}
-                  >
-                    <ImageFront
-                      index={index}
-                      handleClick={handleFront}
-                      post={post}
-                    />
-                    <ImageBack post={post} handleClick={handleBack} />
-                  </ReactCardFlip>
-                  //   <div style={{ width: "100%", height: "auto" }}>
-                  //     <ReactFlipCard
-                  //       key={post.id}
-                  //       containerCss={"resizeBasedOnParent"}
-                  //       flipTrigger={"onClick"}
-                  //       direction="diagonal"
-                  //       frontComponent={
-                  //         <ImageFront
-                  //           index={index}
-                  //           handleClick={handleFront}
-                  //           post={post}
-                  //         />
-                  //       }
-                  //       backComponent={
-                  //         <ImageBack post={post} handleClick={handleBack} />
-                  //       }
+                  //   <ReactCardFlip
+                  //     key={post.id}
+                  //     isFlipped={flipCard === post.id}
+                  //     flipDirection="horizontal"
+                  //     flipSpeedBackToFront={0.8}
+                  //     flipSpeedFrontToBack={0.48}
+                  //     infinite={true}
+                  //   >
+                  //     <ImageFront
+                  //       index={index}
+                  //       handleClick={handleFront}
+                  //       post={post}
                   //     />
-                  //   </div>
+                  //     <ImageBack post={post} handleClick={handleBack} />
+                  //   </ReactCardFlip>
+                  <ReactFlipCard
+                    key={post.id}
+                    containerStyle={{
+                      width: "100%",
+                      height: "auto",
+                      marginBottom: "8px",
+                    }}
+                    flipTrigger={"onClick"}
+                    direction="horizontal"
+                    frontComponent={
+                      <ImageFront
+                        index={index}
+                        handleClick={handleFront}
+                        post={post}
+                      />
+                    }
+                    backComponent={
+                      <ImageBack post={post} handleClick={handleBack} />
+                    }
+                  />
                 ))}
                 <div ref={ref} />
               </div>
