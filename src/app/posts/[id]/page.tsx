@@ -29,7 +29,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
         </CardContent>
       </Card>
       <div className="sm:hidden flex flex-col">
-        <SpDetailPost post={postData} />
+        <SpDetailPost post={postData} myId={session?.user.id!} />
       </div>
     </>
   );

@@ -8,14 +8,19 @@ import Link from "next/link";
 
 import { formatDistance } from "date-fns";
 import ImageBack from "../home/ImageBack";
-import { OnePost } from "@/lib/definitions";
+import { OnePost, UserRelationship } from "@/lib/definitions";
+import LockedBack from "../LockedBack";
 
 type Props = {
   post: OnePost;
+  myId: string;
 };
 
 export function SpDetailPost(props: Props) {
-  const { post } = props;
+  const { post, myId } = props;
+  const hidden =
+    post.author.relationship === UserRelationship.Mutual ||
+    post.author.relationship === UserRelationship.Me;
   return (
     <div className="w-full h-full flex flex-col">
       <Link
@@ -58,17 +63,27 @@ export function SpDetailPost(props: Props) {
               />
             }
             backComponent={
-              <Image
-                alt=""
-                src={post.imgBack!}
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "auto",
-                }}
-                width={500}
-                height={500}
-              />
+              <div className="overflow-hidden">
+                <Image
+                  alt=""
+                  src={post.imgBack!}
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "auto",
+                  }}
+                  className={`${hidden || "filter blur-lg"}`}
+                  width={500}
+                  height={500}
+                />
+                {hidden || (
+                  <LockedBack
+                    myId={myId}
+                    userId={post.authorId}
+                    relationship={post.author.relationship!}
+                  />
+                )}
+              </div>
               //   <ImageBack post={post} />
             }
           />

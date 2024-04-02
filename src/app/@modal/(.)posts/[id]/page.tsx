@@ -21,7 +21,7 @@ export default async function DetailPage({
             <PostDetail post={postData} myId={session?.user.id} />
           </div>
           <div className="sm:hidden flex flex-col dialog-scroll overflow-y-scroll">
-            <SpDetailPost post={postData} />
+            <SpDetailPost post={postData} myId={session?.user.id!} />
           </div>
         </InterceptedDialogContent>
       </DialogOverlay>
