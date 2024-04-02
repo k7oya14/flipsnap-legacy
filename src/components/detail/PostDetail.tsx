@@ -24,7 +24,7 @@ export function PostDetail(props: Props) {
 
   return (
     <div className="flex">
-      <div className="w-3/5 flex justify-center relative top-3 -left-3">
+      <div className="w-3/5 flex justify-center">
         <ReactCardFlip
           isFlipped={isFlipped}
           flipDirection="horizontal"

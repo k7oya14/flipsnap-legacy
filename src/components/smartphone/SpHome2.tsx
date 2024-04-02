@@ -1,5 +1,5 @@
 import React from "react";
-import { SpHomePost } from "../SpHomePost";
+import { SpHomePost } from "./SpHomePost";
 import { GalleyPost } from "@/lib/definitions";
 import { Card } from "../ui/card";
 

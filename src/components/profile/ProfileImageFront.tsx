@@ -49,7 +49,7 @@ const ProfileImageFront = (props: Props) => {
         href={`/posts/${postId}`}
         scroll={false}
       >
-        <Expand className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
+        <Expand className="absolute bottom-2 right-2 visible sm:invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
       </Link>
     </motion.div>
   );

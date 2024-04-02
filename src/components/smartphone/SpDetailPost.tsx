@@ -1,23 +1,23 @@
 "use client";
 
-import { GalleyPost } from "@/lib/definitions";
 import { Avatar } from "@radix-ui/react-avatar";
 import Image from "next/image";
 import ReactFlipCard from "reactjs-flip-card";
-import { AvatarFallback, AvatarImage } from "./ui/avatar";
+import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 
 import { formatDistance } from "date-fns";
-import ImageBack from "./home/ImageBack";
+import ImageBack from "../home/ImageBack";
+import { OnePost } from "@/lib/definitions";
 
 type Props = {
-  post: GalleyPost;
+  post: OnePost;
 };
 
-export function SpHomePost(props: Props) {
+export function SpDetailPost(props: Props) {
   const { post } = props;
   return (
-    <div className="w-full h-full flex flex-col min-w-[360px] max-w-[960px] border-b-2">
+    <div className="w-full h-full flex flex-col">
       <Link
         href={`/profile/${post.author?.username}`}
         className="pl-3 pt-3 flex items-center hover:cursor-pointer"
@@ -47,7 +47,7 @@ export function SpHomePost(props: Props) {
             frontComponent={
               <Image
                 alt=""
-                src={post.imgFront}
+                src={post.imgFront!}
                 style={{
                   objectFit: "cover",
                   width: "100%",
@@ -58,18 +58,18 @@ export function SpHomePost(props: Props) {
               />
             }
             backComponent={
-              //   <Image
-              //     alt=""
-              //     src={post.imgBack}
-              //     style={{
-              //       objectFit: "cover",
-              //       width: "100%",
-              //       height: "auto",
-              //     }}
-              //     width={500}
-              //     height={500}
-              //   />
-              <ImageBack post={post} />
+              <Image
+                alt=""
+                src={post.imgBack!}
+                style={{
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "auto",
+                }}
+                width={500}
+                height={500}
+              />
+              //   <ImageBack post={post} />
             }
           />
           <div className="px-4 gap-2 flex flex-col">
