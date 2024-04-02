@@ -1,3 +1,4 @@
+import ErrorCard from "@/components/ErrorCard";
 import { PostDetail } from "@/components/detail/PostDetail";
 import { SpDetailPost } from "@/components/smartphone/SpDetailPost";
 import { Card, CardContent } from "@/components/ui/card";
@@ -9,6 +10,15 @@ const Page = async ({ params }: { params: { id: string } }) => {
   const session = await auth();
   const postId = params.id;
   const postData = await fetchPost(postId, session?.user.id);
+  if (!postData.authorId)
+    return (
+      <ErrorCard
+        heading="Post not found"
+        message="投稿が見つかりません"
+        button="go back"
+        link="/"
+      />
+    );
   return (
     <>
       <Card className="hidden sm:block max-w-5xl mx-auto my-4">

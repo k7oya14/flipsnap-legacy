@@ -1,4 +1,3 @@
-import { SpHomePost } from "@/components/smartphone/SpHomePost";
 import { PostDetail } from "@/components/detail/PostDetail";
 import InterceptedDialogContent from "@/components/ui/InterceptedDialogContent";
 import { Dialog, DialogOverlay } from "@/components/ui/dialog";
