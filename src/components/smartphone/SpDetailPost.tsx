@@ -42,7 +42,6 @@ export function SpDetailPost(props: Props) {
               width: "100%",
               height: "auto",
               cursor: "pointer",
-              zIndex: -1,
             }}
             direction="horizontal"
             frontComponent={

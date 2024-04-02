@@ -86,7 +86,7 @@
   }
 
   .dialog-scroll::-webkit-scrollbar-thumb {
-    background-color: #d1d5db;
+    background-color: transparent;
     border-radius: 5px;
   }
 }
