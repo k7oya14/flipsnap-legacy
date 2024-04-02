@@ -7,7 +7,6 @@ import { AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 
 import { formatDistance } from "date-fns";
-import ImageBack from "../home/ImageBack";
 import { OnePost, UserRelationship } from "@/lib/definitions";
 import LockedBack from "../LockedBack";
 
