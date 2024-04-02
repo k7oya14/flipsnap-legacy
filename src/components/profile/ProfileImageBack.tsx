@@ -8,20 +8,16 @@ type Props = {
   userId: string;
   myId: string | undefined;
   relationship: UserRelationship;
-  handleClick: () => void;
 };
 
 const ProfileImageBack = (props: Props) => {
-  const { src, myId, userId, relationship, handleClick } = props;
+  const { src, myId, userId, relationship } = props;
   const hidden =
     relationship === UserRelationship.Mutual ||
     relationship === UserRelationship.Me;
   return (
     <div>
-      <div
-        onClick={handleClick}
-        className="relative hover:cursor-pointer rounded-lg border-[3px] border-gray-200 "
-      >
+      <div className="relative overflow-hidden hover:cursor-pointer rounded-lg ">
         <Image
           alt=""
           className={`w-full rounded ${hidden || "filter blur-lg"}`}

@@ -1,7 +1,5 @@
 "use client";
 
-import ReactCardFlip from "react-card-flip";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Post, UserInfo } from "@/lib/definitions";
 import { useEffect, useState } from "react";
 import { useCursorById } from "@/lib/utils";
@@ -10,20 +8,16 @@ import { fetchMoreUserPostsById } from "@/lib/fetch";
 import Loading from "../Loading";
 import ProfileImageFront from "./ProfileImageFront";
 import ProfileImageBack from "./ProfileImageBack";
+import ReactFlipCard from "reactjs-flip-card";
 
 type Props = {
-  flip: string;
   firstPosts: Post[];
   userInfo: UserInfo;
   myId: string | undefined;
 };
 
 export function ProfileGallery(props: Props) {
-  const { flip, firstPosts, userInfo, myId } = props;
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-  const pathname = usePathname();
-  const { replace } = useRouter();
+  const { firstPosts, userInfo, myId } = props;
   const { cursorById } = useCursorById();
 
   const [loading, setLoading] = useState(true);
@@ -66,42 +60,35 @@ export function ProfileGallery(props: Props) {
     }
   }, [inView, loading, postLimit]);
 
-  const handleFront = (flipId: string) => {
-    params.set("flip", flipId.toString());
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  };
-
-  const handleBack = () => {
-    params.delete("flip");
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  };
-
   return (
-    <div className="grid sm:grid-cols-3 grid-cols-2 px-1 gap-4 mt-8">
+    <div className="grid sm:grid-cols-3 grid-cols-2 px-1 gap-1 sm:gap-4 sm:mt-8">
       {loading && <Loading />}
       {posts.map((post, index) => (
-        <ReactCardFlip
-          key={index}
-          isFlipped={flip === post.id}
-          flipDirection="horizontal"
-          flipSpeedBackToFront={0.6}
-          flipSpeedFrontToBack={0.6}
-          infinite={true}
-        >
-          <ProfileImageFront
-            index={index}
-            src={post.imgFront}
-            postId={post.id}
-            handleClick={handleFront}
-          />
-          <ProfileImageBack
-            src={post.imgBack}
-            handleClick={handleBack}
-            userId={post.authorId}
-            myId={myId}
-            relationship={userInfo.relationship!}
-          />
-        </ReactCardFlip>
+        <ReactFlipCard
+          key={post.id}
+          containerStyle={{
+            width: "100%",
+            height: "auto",
+            //   marginBottom: "8px",
+          }}
+          flipTrigger={"onClick"}
+          direction="horizontal"
+          frontComponent={
+            <ProfileImageFront
+              index={index}
+              src={post.imgFront}
+              postId={post.id}
+            />
+          }
+          backComponent={
+            <ProfileImageBack
+              src={post.imgBack}
+              userId={post.authorId}
+              myId={myId}
+              relationship={userInfo.relationship!}
+            />
+          }
+        />
       ))}
       <div ref={ref}></div>
     </div>
