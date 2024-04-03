@@ -11,11 +11,10 @@ import { motion } from "framer-motion";
 type Props = {
   index: number;
   post: GalleyPost;
-  handleClick: (id: string) => void;
 };
 
 const ImageFront = (props: Props) => {
-  const { index, post, handleClick } = props;
+  const { index, post } = props;
 
   const variants = {
     hidden: { opacity: 0 },
@@ -34,16 +33,18 @@ const ImageFront = (props: Props) => {
       animate="visible"
       transition={{ duration: 0.5, delay: index * 0.5 }}
     >
-      <div
-        onClick={() => handleClick(post.id)}
-        className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
-      >
+      <div className="w-full group relative rounded-md overflow-hidden hover:cursor-pointer">
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
         <Image
           width={500}
           height={500}
           priority={true}
           className="rounded-md"
+          style={{
+            objectFit: "cover",
+            width: "100%",
+            height: "auto",
+          }}
           alt=""
           src={post.imgFront}
         />

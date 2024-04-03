@@ -1,26 +1,21 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import ReactCardFlip from "react-card-flip";
 import ImageFront from "./ImageFront";
 import ImageBack from "./ImageBack";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { GalleyPost } from "@/lib/definitions";
 import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useInView } from "react-intersection-observer";
 import { useCursorById } from "@/lib/utils";
 
+import ReactFlipCard from "reactjs-flip-card";
+
 type Props = {
-  flipCard: string;
   firstPost: GalleyPost[];
 };
 
 const HomeGallery = (props: Props) => {
-  const { flipCard, firstPost } = props;
-  const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
-  const pathname = usePathname();
-  const { replace } = useRouter();
+  const { firstPost } = props;
   const { cursorById } = useCursorById();
   const [posts, setPosts] = useState<GalleyPost[][]>([[], [], []]);
   const [loading, setLoading] = useState(true);
@@ -61,16 +56,6 @@ const HomeGallery = (props: Props) => {
     }
   }, [inView, loading]);
 
-  const handleFront = (flipId: string) => {
-    params.set("flip", flipId.toString());
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  };
-
-  const handleBack = () => {
-    params.delete("flip");
-    replace(`${pathname}?${params.toString()}`, { scroll: false });
-  };
-
   return (
     <>
       {loading ? (
@@ -83,21 +68,18 @@ const HomeGallery = (props: Props) => {
             <>
               <div key={col} className="w-1/3 p-2">
                 {colPosts.map((post: GalleyPost, index) => (
-                  <ReactCardFlip
+                  <ReactFlipCard
                     key={post.id}
-                    isFlipped={flipCard === post.id}
-                    flipDirection="horizontal"
-                    flipSpeedBackToFront={0.8}
-                    flipSpeedFrontToBack={0.48}
-                    infinite={true}
-                  >
-                    <ImageFront
-                      index={index}
-                      handleClick={handleFront}
-                      post={post}
-                    />
-                    <ImageBack post={post} handleClick={handleBack} />
-                  </ReactCardFlip>
+                    containerStyle={{
+                      width: "100%",
+                      height: "auto",
+                      marginBottom: "8px",
+                    }}
+                    flipTrigger={"onClick"}
+                    direction="horizontal"
+                    frontComponent={<ImageFront index={index} post={post} />}
+                    backComponent={<ImageBack post={post} />}
+                  />
                 ))}
                 <div ref={ref} />
               </div>

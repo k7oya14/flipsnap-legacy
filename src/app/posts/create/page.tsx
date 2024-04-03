@@ -12,7 +12,7 @@ const page = async () => {
   return (
     <div className="my-4">
       <Card
-        className={`mx-auto p-3 max-w-5xl w-96 flex flex-col justify-center items-center border-slate-300`}
+        className={`mx-auto p-3 max-w-[90vw] w-96 flex flex-col justify-center items-center border-slate-300`}
       >
         <CreatePostForm userId={session.user.id} />
       </Card>

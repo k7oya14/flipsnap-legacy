@@ -8,11 +8,10 @@ type Props = {
   index: number;
   src: string;
   postId: string;
-  handleClick: (id: string) => void;
 };
 
 const ProfileImageFront = (props: Props) => {
-  const { index, src, postId, handleClick } = props;
+  const { index, src, postId } = props;
 
   const handleIconClick = (
     e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
@@ -31,8 +30,7 @@ const ProfileImageFront = (props: Props) => {
       initial="hidden"
       animate="visible"
       transition={{ duration: 0.5, delay: index * 0.2 }}
-      onClick={() => handleClick(postId)}
-      className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
+      className="group relative rounded-md overflow-hidden hover:cursor-pointer"
     >
       <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
       <Image
@@ -51,7 +49,7 @@ const ProfileImageFront = (props: Props) => {
         href={`/posts/${postId}`}
         scroll={false}
       >
-        <Expand className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
+        <Expand className="absolute bottom-2 right-2 visible sm:invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
       </Link>
     </motion.div>
   );
