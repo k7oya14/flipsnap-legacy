@@ -16,7 +16,7 @@ export default async function DetailPage({
   return (
     <Dialog open>
       <DialogOverlay>
-        <InterceptedDialogContent className="sm:rounded-lg w-full max-h-full sm:w-[90%] sm:max-h-[95%] overflow-hidden">
+        <InterceptedDialogContent className="sm:rounded-lg w-full outline-none focus:ring-0 max-h-full sm:w-[90%] sm:max-h-[95%] overflow-hidden">
           <div className="hidden sm:block max-w-5xl mx-auto w-[90%] relative">
             <PostDetail post={postData} myId={session?.user.id} />
           </div>

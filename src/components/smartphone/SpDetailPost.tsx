@@ -83,7 +83,6 @@ export function SpDetailPost(props: Props) {
                   />
                 )}
               </div>
-              //   <ImageBack post={post} />
             }
           />
           <div className="px-4 gap-2 flex flex-col">
@@ -101,9 +100,7 @@ export function SpDetailPost(props: Props) {
                 <BookmarkIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
               </button>
             </div>
-            <p className="truncate hover:overflow-visible hover:whitespace-normal">
-              {post.caption}
-            </p>
+            <p className="">{post.caption}</p>
             <p className="text-sm text-gray-500">
               Liked by
               <strong className="font-medium text-gray-600">
