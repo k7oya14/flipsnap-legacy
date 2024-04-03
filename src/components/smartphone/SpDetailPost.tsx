@@ -1,14 +1,8 @@
-"use client";
-
-import { Avatar } from "@radix-ui/react-avatar";
-import Image from "next/image";
-import ReactFlipCard from "reactjs-flip-card";
-import { AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
-
 import { formatDistance } from "date-fns";
 import { OnePost, UserRelationship } from "@/lib/definitions";
-import LockedBack from "../LockedBack";
+import SpDetailFlipImage from "./SpDetailFlipImage";
 
 type Props = {
   post: OnePost;
@@ -40,51 +34,7 @@ export function SpDetailPost(props: Props) {
       </Link>
       <main className="flex-grow overflow-y-auto">
         <div className="flex flex-col gap-4 pt-2 pb-4">
-          <ReactFlipCard
-            flipTrigger={"onClick"}
-            containerStyle={{
-              width: "100%",
-              height: "auto",
-              cursor: "pointer",
-            }}
-            direction="horizontal"
-            frontComponent={
-              <Image
-                alt=""
-                src={post.imgFront!}
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "auto",
-                }}
-                width={500}
-                height={500}
-              />
-            }
-            backComponent={
-              <div className="overflow-hidden">
-                <Image
-                  alt=""
-                  src={post.imgBack!}
-                  style={{
-                    objectFit: "cover",
-                    width: "100%",
-                    height: "auto",
-                  }}
-                  className={`${hidden || "filter blur-lg"}`}
-                  width={500}
-                  height={500}
-                />
-                {hidden || (
-                  <LockedBack
-                    myId={myId}
-                    userId={post.authorId}
-                    relationship={post.author.relationship!}
-                  />
-                )}
-              </div>
-            }
-          />
+          <SpDetailFlipImage post={post} myId={myId} hidden={hidden} />
           <div className="px-4 gap-2 flex flex-col">
             <div className="flex items-center gap-2">
               <button className="focus:outline-none">
