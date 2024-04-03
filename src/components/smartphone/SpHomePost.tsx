@@ -1,14 +1,8 @@
-"use client";
-
 import { GalleyPost } from "@/lib/definitions";
-import { Avatar } from "@radix-ui/react-avatar";
-import Image from "next/image";
-import ReactFlipCard from "reactjs-flip-card";
-import { AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
-
 import { formatDistance } from "date-fns";
-import ImageBack from "../home/ImageBack";
+import SpFlipImage from "./SpFlipImage";
 
 type Props = {
   post: GalleyPost;
@@ -36,42 +30,7 @@ export function SpHomePost(props: Props) {
       </Link>
       <main className="flex-grow overflow-y-auto">
         <div className="flex flex-col gap-4 pt-2 pb-4">
-          <ReactFlipCard
-            flipTrigger={"onClick"}
-            containerStyle={{
-              width: "100%",
-              height: "auto",
-              cursor: "pointer",
-            }}
-            direction="horizontal"
-            frontComponent={
-              <Image
-                alt=""
-                src={post.imgFront}
-                style={{
-                  objectFit: "cover",
-                  width: "100%",
-                  height: "auto",
-                }}
-                width={500}
-                height={500}
-              />
-            }
-            backComponent={
-              //   <Image
-              //     alt=""
-              //     src={post.imgBack}
-              //     style={{
-              //       objectFit: "cover",
-              //       width: "100%",
-              //       height: "auto",
-              //     }}
-              //     width={500}
-              //     height={500}
-              //   />
-              <ImageBack post={post} />
-            }
-          />
+          <SpFlipImage post={post} />
           <div className="px-4 gap-2 flex flex-col">
             <div className="flex items-center gap-2">
               <button className="focus:outline-none">
