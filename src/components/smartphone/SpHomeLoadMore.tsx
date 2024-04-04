@@ -43,7 +43,7 @@ const SpHomeLoadMore = (props: Props) => {
       {posts.map((post: GalleyPost) => (
         <SpHomePost key={post.id} post={post} />
       ))}
-      <div ref={ref}></div>
+      <div className="h-[1px]" ref={ref}></div>
     </div>
   );
 };
