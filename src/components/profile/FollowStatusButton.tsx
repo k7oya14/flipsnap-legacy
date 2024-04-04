@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useOptimistic } from "react";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { Follow, UnFollow } from "@/lib/actions";
 import { UserRelationship } from "@/lib/definitions";
 
