@@ -120,10 +120,10 @@ export async function createPost(
   redirect("/profile/me");
 }
 
-export async function Follow(MyId: string, userId: string) {
+export async function Follow(myId: string, userId: string) {
   try {
     await prisma.user.update({
-      where: { id: MyId },
+      where: { id: myId },
       data: {
         follows: {
           connect: {
@@ -134,15 +134,16 @@ export async function Follow(MyId: string, userId: string) {
     });
   } catch (error) {
     throw new Error("Failed to follow user.");
+  } finally {
+    const referer = headers().get("referer") ?? "/";
+    revalidatePath(referer);
   }
-  const referer = headers().get("referer") ?? "/";
-  revalidatePath(referer);
 }
 
-export async function UnFollow(MyId: string, userId: string) {
+export async function UnFollow(myId: string, userId: string) {
   try {
     await prisma.user.update({
-      where: { id: MyId },
+      where: { id: myId },
       data: {
         follows: {
           disconnect: {
@@ -153,7 +154,8 @@ export async function UnFollow(MyId: string, userId: string) {
     });
   } catch (error) {
     throw new Error("Failed to unfollow user.");
+  } finally {
+    const referer = headers().get("referer") ?? "/";
+    revalidatePath(referer);
   }
-  const referer = headers().get("referer") ?? "/";
-  revalidatePath(referer);
 }
