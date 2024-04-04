@@ -17,6 +17,7 @@ const SpHomeLoadMore = (props: Props) => {
   const [posts, setPosts] = useState<GalleyPost[]>([]);
   const [postLimit, setPostLimit] = useState(false);
   const [cursorPostId, setCursorPostId] = useState(cursorId);
+  const [loading, setLoading] = useState(false);
   const { ref, inView } = useInView({
     threshold: 0,
     initialInView: undefined,
@@ -25,6 +26,7 @@ const SpHomeLoadMore = (props: Props) => {
   useEffect(() => {
     if (inView && !postLimit) {
       const fetchMorePosts = async () => {
+        setLoading(true);
         const data = await fetchMoreLatestPosts(6, null, cursorPostId);
         if (data.length == 0) {
           setPostLimit(true);
@@ -33,6 +35,7 @@ const SpHomeLoadMore = (props: Props) => {
         setPosts((prevPosts) => [...prevPosts, ...data]);
         const newCursorId = cursorById(data);
         setCursorPostId(newCursorId);
+        setLoading(false);
       };
       fetchMorePosts();
     }
@@ -44,6 +47,9 @@ const SpHomeLoadMore = (props: Props) => {
         <SpHomePost key={post.id} post={post} />
       ))}
       <div className="h-[1px]" ref={ref}></div>
+      {loading && !postLimit && (
+        <div className="mx-auto m-4 animate-spin size-10 border-4 border-slate-200 rounded-full border-t-transparent"></div>
+      )}
     </div>
   );
 };
