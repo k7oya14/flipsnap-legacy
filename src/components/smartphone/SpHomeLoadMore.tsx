@@ -6,7 +6,7 @@ import { useCursorById } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { SpHomePost } from "./SpHomePost";
-import { BadgeCheck, Divide } from "lucide-react";
+import { BadgeCheck } from "lucide-react";
 import { Card } from "../ui/card";
 
 type Props = {
