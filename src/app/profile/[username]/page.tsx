@@ -6,14 +6,7 @@ import { auth } from "@/lib/auth";
 import { fetchUserByUsername, fetchUserPostsById } from "@/lib/fetch";
 import React from "react";
 
-type PageProps = {
-  params: {
-    username: string;
-  };
-};
-
-const Page = async (props: PageProps) => {
-  const { params } = props;
+const Page = async ({ params }: { params: { username: string } }) => {
   const username = params.username;
   const session = await auth();
   const userInfo = await fetchUserByUsername(username, session?.user.id);
