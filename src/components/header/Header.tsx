@@ -5,6 +5,7 @@ import React from "react";
 import { Pacifico, Roboto_Slab } from "next/font/google";
 import { ImageUp } from "lucide-react";
 import IconDropDown from "./IconDropDown";
+import SignInButton from "./SignInbutton";
 
 const pacifico = Pacifico({ weight: "400", subsets: ["latin"] });
 const robotoSlab = Roboto_Slab({ weight: "400", subsets: ["latin"] });
@@ -14,7 +15,7 @@ const Header = async () => {
   const user = session?.user;
   return (
     <header className="sm:px-10 px-2 border-b border-gray-300 shadow-sm shadow-gray-300">
-      <nav className="flex items-center justify-between p-1 sm:p-2">
+      <nav className="flex items-center justify-between p-1">
         <div className={`${pacifico.className} flex items-center`}>
           <Link
             href="/"
@@ -25,7 +26,7 @@ const Header = async () => {
               alt="FlipSnap"
               width={45}
               height={45}
-              className="sm:w-[75px] sm:h-[75px]"
+              className="sm:size-[60px]"
             />
             FlipSnap
           </Link>
@@ -44,9 +45,7 @@ const Header = async () => {
               <IconDropDown user={user!} />
             </>
           ) : (
-            <Link href="/api/auth/signin" prefetch={false}>
-              SignIn
-            </Link>
+            <SignInButton />
           )}
         </div>
       </nav>
