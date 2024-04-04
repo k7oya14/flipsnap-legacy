@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Follow } from "@/lib/actions";
 import { UserRelationship } from "@/lib/definitions";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 type Props = {
   myId: string | undefined;
@@ -53,15 +54,14 @@ const BackFollowButton = (props: Props) => {
           <p className="whitespace-nowrap text-lg text-white text-center">
             You have to sign in
           </p>
-          <Link
-            onClick={(e) => e.stopPropagation()}
-            href="/api/auth/signin"
-            className="mx-auto"
-          >
-            <Button className="mt-2 bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit">
+          <div className="mx-auto" onClick={(e) => e.stopPropagation()}>
+            <Button
+              onClick={() => signIn("google")}
+              className="mt-2 bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit"
+            >
               Sign in
             </Button>
-          </Link>
+          </div>
         </div>
       );
     default:
