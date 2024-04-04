@@ -45,11 +45,12 @@ const ProfileImageFront = (props: Props) => {
         width="293"
       />
       <Link
+        className="pl-6 pt-6 pb-2 pr-2 absolute bottom-0 right-0 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
         onClick={(e) => handleIconClick(e)}
         href={`/posts/${postId}`}
         scroll={false}
       >
-        <Expand className="absolute bottom-2 right-2 visible sm:invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
+        <Expand className=" visible sm:invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
       </Link>
     </motion.div>
   );
