@@ -14,19 +14,20 @@ datasource db {
   directUrl = env("DIRECT_URL")
   // shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/d/migrate-shado
 }
+
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -59,20 +60,33 @@ model Post {
   createdAt DateTime @default(now())
 
   @@unique([id, authorId])
+  @@index([authorId])
+  @@index([createdAt])
 }
 
 model User {
-  id         String   @id @default(cuid())
-  username   String?   @unique
-  email         String?   @unique
+  id            String              @id @default(cuid())
+  username      String?             @unique
+  email         String?             @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  name       String?
-  bio        String   @default("")
-  created_at DateTime @default(now())
-  followers  User[]   @relation(name: "Followers")
-  follows    User[]   @relation(name: "Followers")
-  posts      Post[]
+  name          String?
+  bio           String              @default("")
+  created_at    DateTime            @default(now())
+  following     User_User_Follows[] @relation("Following")
+  followedBy    User_User_Follows[] @relation("FollowedBy")
+  posts         Post[]
+}
+
+model User_User_Follows {
+  followerId  String @unique
+  followingId String @unique
+  follower    User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  following   User   @relation("FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+
+  @@id([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
 }
