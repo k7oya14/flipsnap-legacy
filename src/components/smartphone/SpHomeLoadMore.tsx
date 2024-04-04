@@ -55,7 +55,7 @@ const SpHomeLoadMore = (props: Props) => {
       {postLimit && (
         <Card className="flex flex-col items-center p-4 m-4 mx-auto w-96 max-w-[80vw]">
           <BadgeCheck className="size-20 mb-2" />
-          <p>You're all caught up</p>
+          <p>You&apos;re all caught up</p>
         </Card>
       )}
     </div>
