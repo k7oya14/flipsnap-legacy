@@ -1,12 +1,12 @@
 // This file contains type definitions for your data.
 
 export enum UserRelationship {
+  Me,
+  NoSession,
+  None,
   Following,
   Follower,
   Mutual,
-  None,
-  Me,
-  NoSession,
 }
 
 export type sessionUser = {

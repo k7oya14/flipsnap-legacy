@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useOptimistic } from "react";
 import { Button } from "./ui/button";
 import { Follow } from "@/lib/actions";
 import { UserRelationship } from "@/lib/definitions";
@@ -12,8 +12,12 @@ type Props = {
 
 const BackFollowButton = (props: Props) => {
   const { myId, userId, relationship } = props;
-  const FollowWithId = Follow.bind(null, myId!, userId!);
-  switch (relationship) {
+  const [optimisticRelationship, updateOptimisticRelationship] = useOptimistic<
+    UserRelationship,
+    UserRelationship
+  >(relationship, (state, newState: UserRelationship) => newState);
+
+  switch (optimisticRelationship) {
     case UserRelationship.Following:
       return (
         <p className="whitespace-nowrap text-lg text-white text-center">
@@ -25,7 +29,10 @@ const BackFollowButton = (props: Props) => {
     case UserRelationship.None:
       return (
         <form
-          action={FollowWithId}
+          action={async () => {
+            updateOptimisticRelationship(relationship + 1);
+            await Follow(myId!, userId!);
+          }}
           className="my-2 flex flex-col justify-center"
         >
           <p className="whitespace-nowrap text-lg text-white text-center">
