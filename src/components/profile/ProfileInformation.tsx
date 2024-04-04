@@ -2,6 +2,7 @@ import React from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { UserInfo, sessionUser } from "@/lib/definitions";
 import FollowStatusButton from "../FollowStatusButton";
+import Link from "next/link";
 
 type Props = {
   userInfo: UserInfo;
@@ -30,14 +31,20 @@ const ProfileInformation = (props: Props) => {
             &nbsp;&nbsp;&nbsp;&nbsp;Posts&nbsp;&nbsp;&nbsp;&nbsp;
           </span>
         </div>
-        <div className="text-center">
+        <Link
+          href={`/profile/${userInfo.username}/follower`}
+          className="text-center"
+        >
           <span className="block font-bold">{userInfo._count?.followers}</span>
           <span className="block text-sm">Followers</span>
-        </div>
-        <div className="text-center">
+        </Link>
+        <Link
+          href={`/profile/${userInfo.username}/following`}
+          className="text-center"
+        >
           <span className="block font-bold">{userInfo._count?.follows}</span>
           <span className="block text-sm">Following</span>
-        </div>
+        </Link>
       </div>
     </div>
   );
