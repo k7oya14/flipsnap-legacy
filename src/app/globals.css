@@ -80,3 +80,22 @@
     display: none;
   }
 }
+
+.gsi-material-button {
+  @apply bg-white border border-gray-700 rounded-full px-2 sm:px-3 sm:py-1 flex items-center justify-center;
+  color: #1f1f1f;
+  cursor: pointer;
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 14px;
+  height: 40px;
+  letter-spacing: 0.25px;
+  outline: none;
+  overflow: hidden;
+  position: relative;
+  text-align: center;
+  transition: background-color 0.218s, border-color 0.218s, box-shadow 0.218s;
+  white-space: nowrap;
+  width: auto;
+  max-width: 400px;
+  min-width: min-content;
+}

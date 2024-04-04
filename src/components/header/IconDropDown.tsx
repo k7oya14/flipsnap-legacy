@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { sessionUser } from "@/lib/definitions";
 import Link from "next/link";
 import { Roboto_Slab } from "next/font/google";
+import { signOut } from "next-auth/react";
 
 const robotoSlab = Roboto_Slab({ weight: "400", subsets: ["latin"] });
 
@@ -38,11 +39,9 @@ const IconDropDown = ({ user }: { user: sessionUser }) => {
             Profile
           </DropdownMenuItem>
         </Link>
-        <Link href="/api/auth/signout" prefetch={false}>
-          <DropdownMenuItem className="hover:cursor-pointer flex justify-center">
-            Sign out
-          </DropdownMenuItem>
-        </Link>
+        <DropdownMenuItem className="hover:cursor-pointer flex justify-center">
+          <button onClick={() => signOut()}>Sign out</button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
