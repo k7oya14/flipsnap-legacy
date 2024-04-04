@@ -29,7 +29,7 @@ const Follower = async ({ params }: { params: { username: string } }) => {
                 } py-2`}
               >
                 <div className="flex items-center space-x-4">
-                  <Avatar>
+                  <Avatar className="size-[50px]">
                     <AvatarImage src={follower.image || "/default_icon.png"} />
                     <AvatarFallback>{follower.name}</AvatarFallback>
                   </Avatar>
