@@ -35,7 +35,7 @@ const InterceptedDialogContent = React.forwardRef<
         {children}
         <button
           onClick={onDismiss}
-          className="ring-offset-background p-[14px] data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none"
+          className="ring-offset-background data-[state=open]:bg-accent data-[state=open]:text-muted-foreground absolute p-3 right-1 top-1 rounded-sm opacity-70 transition-opacity hover:opacity-100 disabled:pointer-events-none"
         >
           <X className="h-6 w-6" />
           <span className="sr-only">Close</span>
