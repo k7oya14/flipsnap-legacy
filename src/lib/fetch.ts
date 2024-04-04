@@ -55,12 +55,12 @@ export async function fetchUserByUsername(
   }
 }
 
-export async function fetchFollows(userId: string) {
+export async function fetchFollows(username: string) {
   noStore();
   try {
     const data = await prisma.user.findUnique({
       where: {
-        id: userId,
+        username,
       },
       select: {
         follows: {
@@ -72,18 +72,19 @@ export async function fetchFollows(userId: string) {
         },
       },
     });
-    return data;
+    const follows = data?.follows ? data.follows : [];
+    return follows;
   } catch (error) {
     throw new Error("Failed to fetch follows.");
   }
 }
 
-export async function fetchFollowers(userId: string) {
+export async function fetchFollowers(username: string) {
   noStore();
   try {
     const data = await prisma.user.findUnique({
       where: {
-        id: userId,
+        username,
       },
       select: {
         followers: {
@@ -95,7 +96,8 @@ export async function fetchFollowers(userId: string) {
         },
       },
     });
-    return data;
+    const followers = data?.followers ? data.followers : [];
+    return followers;
   } catch (error) {
     throw new Error("Failed to fetch follows.");
   }
