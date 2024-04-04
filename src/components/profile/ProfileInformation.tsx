@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import { UserInfo, sessionUser } from "@/lib/definitions";
-import FollowStatusButton from "../FollowStatusButton";
+import FollowStatusButton from "./FollowStatusButton";
 import Link from "next/link";
 
 type Props = {

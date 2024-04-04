@@ -2,7 +2,6 @@ import React, { useOptimistic } from "react";
 import { Button } from "./ui/button";
 import { Follow } from "@/lib/actions";
 import { UserRelationship } from "@/lib/definitions";
-import Link from "next/link";
 import { signIn } from "next-auth/react";
 
 type Props = {
@@ -25,7 +24,6 @@ const BackFollowButton = (props: Props) => {
           You are not being followed
         </p>
       );
-      break;
     case UserRelationship.Follower:
     case UserRelationship.None:
       return (
@@ -39,15 +37,16 @@ const BackFollowButton = (props: Props) => {
           <p className="whitespace-nowrap text-lg text-white text-center">
             You have to follow
           </p>
-          <Button
-            type="submit"
-            className="mt-2 mx-auto bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit"
-          >
-            Follow
-          </Button>
+          <div className="mx-auto" onClick={(e) => e.stopPropagation()}>
+            <Button
+              type="submit"
+              className="mt-2 mx-auto bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit"
+            >
+              Follow
+            </Button>
+          </div>
         </form>
       );
-      break;
     case UserRelationship.NoSession:
       return (
         <div className="my-2 flex flex-col justify-center">
