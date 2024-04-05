@@ -14,9 +14,11 @@ export default async function DetailPage({
     <Dialog open>
       <DialogOverlay>
         <InterceptedDialogContent className="sm:rounded-lg w-full outline-none focus:ring-0 max-h-full sm:w-[90%] sm:max-h-[95%] overflow-hidden">
-          {/* <div className="hidden sm:block max-w-5xl mx-auto w-[90%] relative">
-            <PostDetail postId={postId} />
-          </div> */}
+          <div className="hidden sm:block max-w-5xl mx-auto w-[90%] relative">
+            <Suspense fallback={<p>loading</p>}>
+              <PostDetail postId={params.id} />
+            </Suspense>
+          </div>
           <div className="sm:hidden flex flex-col dialog-scroll overflow-y-scroll">
             <Suspense fallback={<SpOnePostSkeleton />}>
               <SpDetailPost postId={params.id} />

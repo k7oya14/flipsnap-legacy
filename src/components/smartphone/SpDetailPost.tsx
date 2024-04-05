@@ -1,11 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import Link from "next/link";
 import { formatDistance } from "date-fns";
 import { UserRelationship } from "@/lib/definitions";
 import SpDetailFlipImage from "./SpDetailFlipImage";
 import { fetchPost } from "@/lib/fetch";
 import ErrorCard from "../ErrorCard";
 import { auth } from "@/lib/auth";
+import ModalLink from "../detail/ModalLink";
 
 type Props = {
   postId: string;
@@ -30,7 +30,7 @@ export async function SpDetailPost(props: Props) {
     post.author.relationship === UserRelationship.Me;
   return (
     <div className="w-full h-full flex flex-col">
-      <Link
+      <ModalLink
         href={`/profile/${post.author?.username}`}
         className="pl-3 pt-3 flex items-center hover:cursor-pointer"
       >
@@ -45,7 +45,7 @@ export async function SpDetailPost(props: Props) {
           <p className="font-semibold">{post.author?.name}</p>
           <p className="ml-1 text-xs text-gray-500">{post.author?.username}</p>
         </div>
-      </Link>
+      </ModalLink>
       <main className="flex-grow overflow-y-auto">
         <div className="flex flex-col gap-4 pt-2 pb-4">
           <SpDetailFlipImage post={post} myId={myId!} hidden={hidden} />
