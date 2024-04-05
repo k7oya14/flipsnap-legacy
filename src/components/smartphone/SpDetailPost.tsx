@@ -1,16 +1,30 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { formatDistance } from "date-fns";
-import { OnePost, UserRelationship } from "@/lib/definitions";
+import { UserRelationship } from "@/lib/definitions";
 import SpDetailFlipImage from "./SpDetailFlipImage";
+import { fetchPost } from "@/lib/fetch";
+import ErrorCard from "../ErrorCard";
+import { auth } from "@/lib/auth";
 
 type Props = {
-  post: OnePost;
-  myId: string;
+  postId: string;
 };
 
-export function SpDetailPost(props: Props) {
-  const { post, myId } = props;
+export async function SpDetailPost(props: Props) {
+  const { postId } = props;
+  const session = await auth();
+  const myId = session?.user.id;
+  const post = await fetchPost(postId, myId);
+  if (!post.authorId)
+    return (
+      <ErrorCard
+        heading="Post not found"
+        message="投稿が見つかりません"
+        button="go back"
+        link="/"
+      />
+    );
   const hidden =
     post.author.relationship === UserRelationship.Mutual ||
     post.author.relationship === UserRelationship.Me;
@@ -34,7 +48,7 @@ export function SpDetailPost(props: Props) {
       </Link>
       <main className="flex-grow overflow-y-auto">
         <div className="flex flex-col gap-4 pt-2 pb-4">
-          <SpDetailFlipImage post={post} myId={myId} hidden={hidden} />
+          <SpDetailFlipImage post={post} myId={myId!} hidden={hidden} />
           <div className="px-4 gap-2 flex flex-col">
             <div className="flex items-center gap-2">
               <button className="focus:outline-none">

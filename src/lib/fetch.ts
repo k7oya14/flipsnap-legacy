@@ -217,7 +217,6 @@ export async function fetchLatestPosts(
 ) {
   noStore();
   try {
-    await delay(3000);
     const data = await prisma.post.findMany({
       orderBy: {
         createdAt: "desc",
