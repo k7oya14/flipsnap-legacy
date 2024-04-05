@@ -1,17 +1,15 @@
 import React, { Suspense } from "react";
 
 import Image from "next/image";
-import { fetchLatestPosts } from "@/lib/fetch";
 import { auth } from "@/lib/auth";
-import HomeGallery from "@/components/home/HomeGallery";
-import LoginHomeGallery from "@/components/home/LoginHomeGallery";
 // import SpHome from "@/components/smartphone/SpHome";
 import SpHome2 from "@/components/smartphone/SpHome2";
-import SpHomeSkeleton from "@/components/smartphone/SpHomeSkeleton";
+import SpHomeSkeleton from "@/components/skeleton/SpHomeSkeleton";
+import HomeSkeleton from "@/components/skeleton/HomeSkeleton";
+import HomeGallery from "@/components/home/HomeGallery";
 
 export default async function Home() {
   const session = await auth();
-  //   const posts = await fetchLatestPosts(12, session?.user.id);
 
   return (
     <>
@@ -31,13 +29,9 @@ export default async function Home() {
           alt=""
           src="/hero.gif"
         />
-        {/* <Suspense fallback={<div>Loading...</div>}>
-          {!session ? (
-            <HomeGallery firstPost={posts} />
-          ) : (
-            <LoginHomeGallery firstPost={posts} />
-          )}
-        </Suspense> */}
+        <Suspense fallback={<HomeSkeleton />}>
+          <HomeGallery user={session?.user} />
+        </Suspense>
       </div>
     </>
   );

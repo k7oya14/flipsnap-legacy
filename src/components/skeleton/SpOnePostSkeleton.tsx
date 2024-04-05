@@ -2,12 +2,9 @@ import React from "react";
 import { Skeleton } from "../ui/skeleton";
 import { BookmarkIcon, HeartIcon, ReplyIcon, SendIcon } from "lucide-react";
 
-const SpHomeSkeleton = () => {
-  return [...Array(2)].map((_, i) => (
-    <div
-      key={i}
-      className="w-full h-full flex flex-col min-w-[360px] max-w-[960px] border-b-2"
-    >
+const SpOnePostSkeleton = () => {
+  return (
+    <div className="w-full h-full flex flex-col min-w-[360px] max-w-[960px] border-b-2">
       <div className="pl-3 pt-3 flex items-center hover:cursor-pointer">
         <Skeleton className="rounded-full w-10 h-10" />
         <div className="ml-3">
@@ -40,7 +37,7 @@ const SpHomeSkeleton = () => {
         </div>
       </main>
     </div>
-  ));
+  );
 };
 
-export default SpHomeSkeleton;
+export default SpOnePostSkeleton;
