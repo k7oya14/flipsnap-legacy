@@ -1,18 +1,14 @@
-import { sessionUser } from "@/lib/definitions";
 import { fetchLatestPosts } from "@/lib/fetch";
 import React from "react";
 import NoLoginHomeGallery from "./NoLoginHomeGallery";
 import LoginHomeGallery from "./LoginHomeGallery";
+import { auth } from "@/lib/auth";
 
-type Props = {
-  user: sessionUser | undefined;
-};
+const HomeGallery = async () => {
+  const session = await auth();
+  const posts = await fetchLatestPosts(12, session?.user.id);
 
-const HomeGallery = async (props: Props) => {
-  const { user } = props;
-  const posts = await fetchLatestPosts(12, user!.id);
-
-  return user ? (
+  return session ? (
     <LoginHomeGallery firstPost={posts} />
   ) : (
     <NoLoginHomeGallery firstPost={posts} />

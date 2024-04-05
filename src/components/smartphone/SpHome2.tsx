@@ -1,18 +1,13 @@
-import React, { Suspense } from "react";
+import React from "react";
 import { SpHomePost } from "./SpHomePost";
-import { GalleyPost, sessionUser } from "@/lib/definitions";
+import { GalleyPost } from "@/lib/definitions";
 import SpHomeLoadMore from "./SpHomeLoadMore";
 import { useCursorById } from "@/lib/utils";
 import { fetchLatestPosts } from "@/lib/fetch";
+import { auth } from "@/lib/auth";
 
-type Props = {
-  //   firstPosts: GalleyPost[];
-  user: sessionUser | undefined;
-};
-
-const SpHome2 = async (props: Props) => {
-  const { user } = props;
-  //   const { firstPosts } = props;
+const SpHome2 = async () => {
+  const session = await auth();
   const firstPosts = await fetchLatestPosts(12, null);
   const { cursorById } = useCursorById();
   return (
