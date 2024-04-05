@@ -5,9 +5,7 @@ import { fetchMoreUserPostsById } from "@/lib/fetch";
 import { useCursorById } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import FlipImage from "../FlipImage";
-import ProfileImageFront from "./ProfileImageFront";
-import ProfileImageBack from "./ProfileImageBack";
+import ProfilePost from "./ProfilePost";
 
 type Props = {
   myId: string | undefined;
@@ -49,26 +47,12 @@ const ProfileLoadMore = (props: Props) => {
   return (
     <>
       {posts.map((post, index) => (
-        <FlipImage
-          containerStyle={{
-            width: "100%",
-            height: "auto",
-          }}
-          frontComponent={
-            <ProfileImageFront
-              index={index}
-              src={post.imgFront}
-              postId={post.id}
-            />
-          }
-          backComponent={
-            <ProfileImageBack
-              src={post.imgBack}
-              userId={post.authorId}
-              myId={myId}
-              relationship={userInfo.relationship!}
-            />
-          }
+        <ProfilePost
+          key={post.id}
+          post={post}
+          index={index}
+          myId={myId}
+          userInfo={userInfo}
         />
       ))}
       <div className="h-[1px]" ref={ref}></div>
