@@ -15,10 +15,10 @@ export async function ProfileGallery(props: Props) {
   const { cursorById } = useCursorById();
 
   return (
-    <div className="grid sm:grid-cols-3 grid-cols-2 px-1 gap-1 sm:gap-4 sm:mt-8">
+    <div className="grid sm:grid-cols-3 grid-cols-2 px-1 sm:px-2 gap-1 sm:gap-2 sm:mt-4">
       {firstPosts.map((post, index) => (
         <ProfilePost
-		  key={post.id}
+          key={post.id}
           post={post}
           index={index}
           myId={myId}
