@@ -1,8 +1,9 @@
+"use client";
+
 import { EyeOff } from "lucide-react";
 import React from "react";
 import { UserRelationship } from "@/lib/definitions";
 import BackFollowButton from "./BackFollowButton";
-import Link from "next/link";
 import { Button } from "./ui/button";
 import { signIn } from "next-auth/react";
 

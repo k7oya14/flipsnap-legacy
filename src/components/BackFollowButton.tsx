@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useOptimistic } from "react";
 import { Button } from "./ui/button";
 import { Follow } from "@/lib/actions";
