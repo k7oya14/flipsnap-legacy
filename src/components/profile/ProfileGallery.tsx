@@ -4,6 +4,7 @@ import { fetchUserPostsById } from "@/lib/fetch";
 import ProfileImageFront from "./ProfileImageFront";
 import ProfileImageBack from "./ProfileImageBack";
 import FlipImage from "../FlipImage";
+import ProfileLoadMore from "./ProfileLoadMore";
 
 type Props = {
   userInfo: UserInfo;
@@ -40,6 +41,11 @@ export async function ProfileGallery(props: Props) {
           }
         />
       ))}
+      <ProfileLoadMore
+        myId={myId}
+        userInfo={userInfo}
+        cursorId={cursorById(firstPosts)}
+      />
     </div>
   );
 }
