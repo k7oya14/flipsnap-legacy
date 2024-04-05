@@ -20,17 +20,12 @@ const Page = async ({ params }: { params: { username: string } }) => {
       />
     );
   }
-  const firstPosts = await fetchUserPostsById(userInfo.id!, 6);
 
   return (
     <div className="my-1 sm:my-2 max-w-5xl mx-auto">
       <Card className="min-h-screen">
         <ProfileInformation userInfo={userInfo} me={session?.user} />
-        <ProfileGallery
-          firstPosts={firstPosts}
-          userInfo={userInfo}
-          myId={session?.user.id}
-        />
+        <ProfileGallery userInfo={userInfo} myId={session?.user.id} />
       </Card>
     </div>
   );

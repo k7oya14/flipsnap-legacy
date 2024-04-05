@@ -1,13 +1,11 @@
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { useRouter } from "next/navigation";
 import DetailImageFront from "./DetailImageFront";
 import DetailImageBack from "./DetaiImagelBack";
 import { auth } from "@/lib/auth";
 import { fetchPost } from "@/lib/fetch";
 import FlipImage from "../FlipImage";
 import ErrorCard from "../ErrorCard";
-import Link from "next/link";
 import ModalLink from "./ModalLink";
 
 type Props = {
@@ -28,8 +26,6 @@ export async function PostDetail(props: Props) {
         link="/"
       />
     );
-  //   const router = useRouter();
-
   return (
     <div className="flex">
       <div className="w-3/5 flex justify-center">
