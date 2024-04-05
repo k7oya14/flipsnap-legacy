@@ -46,23 +46,42 @@ async function createFollowRelations(users: User[]) {
     const follows = faker.helpers
       .arrayElements(users, followCount)
       .filter((u) => u.id !== user.id);
+      
+    // <<<LEGACY>>>
+    // await prisma.user.update({
+    //   where: { id: user.id },
+    //   data: {
+    //     follows: {
+    //       connect: follows.map((u) => ({ id: u.id })),
+    //     },
+    //   },
+    // });
+    // await prisma.user.update({
+    //   where: { id: user.id },
+    //   data: {
+    //     follows: {
+    //       connect: [
+    //         // { username: "k7oya14" },
+    //         { username: "hishiwat" },
+    //       ],
+    //     },
+    //   },
+    // });
 
     await prisma.user.update({
       where: { id: user.id },
       data: {
-        follows: {
-          connect: follows.map((u) => ({ id: u.id })),
+        following: {
+          // create: { followeeId: "fff" },
+          createMany: { data: follows.map((u) => ({ followeeId: u.id })) },
         },
       },
     });
     await prisma.user.update({
-      where: { id: user.id },
+      where: { username: "ksaka" },
       data: {
-        follows: {
-          connect: [
-            // { username: "k7oya14" },
-            { username: "hishiwat" },
-          ],
+        followedBy: {
+          create: { followerId: user.id },
         },
       },
     });

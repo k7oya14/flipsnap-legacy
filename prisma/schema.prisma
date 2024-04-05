@@ -81,12 +81,11 @@ model User {
 }
 
 model User_User_Follows {
-  followerId  String @unique
-  followingId String @unique
-  follower    User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
-  following   User   @relation("FollowedBy", fields: [followingId], references: [id], onDelete: Cascade)
+  followerId String @unique
+  followeeId String @unique
+  follower   User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  followee   User   @relation("FollowedBy", fields: [followeeId], references: [id], onDelete: Cascade)
 
-  @@id([followerId, followingId])
-  @@index([followerId])
-  @@index([followingId])
+  @@id([followerId, followeeId])
+  @@index([followerId, followeeId])
 }
