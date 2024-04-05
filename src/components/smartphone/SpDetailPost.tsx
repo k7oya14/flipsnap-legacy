@@ -1,11 +1,13 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { formatDistance } from "date-fns";
 import { UserRelationship } from "@/lib/definitions";
-import SpDetailFlipImage from "./SpDetailFlipImage";
 import { fetchPost } from "@/lib/fetch";
 import ErrorCard from "../ErrorCard";
 import { auth } from "@/lib/auth";
 import ModalLink from "../detail/ModalLink";
+import FlipImage from "../FlipImage";
+import LockedBack from "../LockedBack";
+import Image from "next/image";
 
 type Props = {
   postId: string;
@@ -48,7 +50,51 @@ export async function SpDetailPost(props: Props) {
       </ModalLink>
       <main className="flex-grow overflow-y-auto">
         <div className="flex flex-col gap-4 pt-2 pb-4">
-          <SpDetailFlipImage post={post} myId={myId!} hidden={hidden} />
+          {/* <SpDetailFlipImage post={post} myId={myId!} hidden={hidden} /> */}
+          <FlipImage
+            containerStyle={{
+              width: "100%",
+              height: "auto",
+              cursor: "pointer",
+            }}
+            frontComponent={
+              <Image
+                alt=""
+                src={post.imgFront!}
+                style={{
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "auto",
+                }}
+                width={500}
+                height={500}
+              />
+            }
+            backComponent={
+              <div className="overflow-hidden">
+                <Image
+                  alt=""
+                  src={post.imgBack!}
+                  style={{
+                    objectFit: "cover",
+                    width: "100%",
+                    height: "auto",
+                  }}
+                  className={`${hidden || "filter blur-lg"}`}
+                  width={500}
+                  height={500}
+                />
+                {hidden || (
+                  <LockedBack
+                    myId={myId}
+                    userId={post.authorId}
+                    relationship={post.author.relationship!}
+                  />
+                )}
+              </div>
+            }
+          />
+          ,
           <div className="px-4 gap-2 flex flex-col">
             <div className="flex items-center gap-2">
               <button className="focus:outline-none">
