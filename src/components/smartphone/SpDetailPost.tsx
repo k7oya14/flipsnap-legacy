@@ -50,7 +50,6 @@ export async function SpDetailPost(props: Props) {
       </ModalLink>
       <main className="flex-grow overflow-y-auto">
         <div className="flex flex-col gap-4 pt-2 pb-4">
-          {/* <SpDetailFlipImage post={post} myId={myId!} hidden={hidden} /> */}
           <FlipImage
             containerStyle={{
               width: "100%",
@@ -94,7 +93,6 @@ export async function SpDetailPost(props: Props) {
               </div>
             }
           />
-          ,
           <div className="px-4 gap-2 flex flex-col">
             <div className="flex items-center gap-2">
               <button className="focus:outline-none">
