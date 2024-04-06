@@ -28,7 +28,7 @@ export async function PostDetail(props: Props) {
     );
   return (
     <div className="flex">
-      <div className="w-3/5 h-[83vh] max-h-[600px] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
+      <div className="w-[55%] h-[83vh] max-h-[600px] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
         <FlipImage
           containerStyle={{
             width: "100%",
@@ -60,8 +60,8 @@ export async function PostDetail(props: Props) {
           }
         />
       </div>
-      <div className="w-2/5 flex flex-col border rounded-r-lg border-gray-200">
-        <div className="flex items-center p-4 border-b">
+      <div className="w-[45%] flex flex-col border rounded-r-lg border-gray-200">
+        <div className="flex items-center p-2 md:p-4 border-b">
           <ModalLink
             href={`/profile/${post.author?.username}`}
             className="flex items-center hover:cursor-pointer"
@@ -81,7 +81,7 @@ export async function PostDetail(props: Props) {
             </div>
           </ModalLink>
         </div>
-        <p className="m-4">{post.caption}</p>
+        <p className="m-2 md:m-4 text-sm md:text-base">{post.caption}</p>
         {/* <div className="flex-grow overflow-y-auto">
           <div className="flex items-start space-x-3 p-4">
             <Avatar>

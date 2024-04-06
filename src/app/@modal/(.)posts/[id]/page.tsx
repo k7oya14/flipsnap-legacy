@@ -14,7 +14,7 @@ export default async function DetailPage({
     <>
       <Dialog open>
         <DialogOverlay>
-          <InterceptedDialogContent className="sm:rounded-lg outline-none focus:ring-0 max-h-full sm:w-[95vw] md:w-[90vw] overflow-hidden">
+          <InterceptedDialogContent className="sm:rounded-lg outline-none focus:ring-0 max-h-full sm:w-[95vw] md:w-[70vw] overflow-hidden">
             <div className="hidden sm:block relative">
               <Suspense fallback={<p>loading</p>}>
                 <PostDetail postId={params.id} />
