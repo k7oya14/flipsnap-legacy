@@ -17,18 +17,16 @@ const DetailImageBack = (props: Props) => {
     relationship === UserRelationship.Me;
 
   return (
-    <div>
-      <div className="relative border-2 border-slate-200 rounded-md my-2 hover:cursor-pointer">
+    <div className="text-center h-full">
+      <div className="relative overflow-hidden h-full inline-block">
         <Image
           alt=""
-          className={`h-auto rounded ${hidden || "filter blur-lg"}`}
-          height="758"
+          width={500}
+          height={500}
+          className={`object-contain h-full w-auto ${
+            hidden || "filter blur-lg"
+          }`}
           src={src}
-          style={{
-            aspectRatio: "902/758",
-            objectFit: "cover",
-          }}
-          width="902"
         />
         {hidden || (
           <LockedBack myId={myId} userId={userId} relationship={relationship} />

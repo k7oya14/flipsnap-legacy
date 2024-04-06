@@ -1,12 +1,12 @@
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import DetailImageFront from "./DetailImageFront";
 import DetailImageBack from "./DetaiImagelBack";
 import { auth } from "@/lib/auth";
 import { fetchPost } from "@/lib/fetch";
 import FlipImage from "../FlipImage";
 import ErrorCard from "../ErrorCard";
 import ModalLink from "./ModalLink";
+import Image from "next/image";
 
 type Props = {
   postId: string;
@@ -28,13 +28,28 @@ export async function PostDetail(props: Props) {
     );
   return (
     <div className="flex">
-      <div className="w-3/5 flex justify-center">
+      <div className="w-[55%] h-[83vh] max-h-[600px] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
         <FlipImage
           containerStyle={{
             width: "100%",
-            height: "auto",
+            height: "100%",
+            cursor: "pointer",
+            margin: "auto",
           }}
-          frontComponent={<DetailImageFront src={post.imgFront!} />}
+          frontComponent={
+            <Image
+              alt=""
+              width={500}
+              height={500}
+              style={{
+                objectFit: "contain",
+                height: "100%",
+                width: "auto",
+                margin: "auto",
+              }}
+              src={post.imgFront!}
+            />
+          }
           backComponent={
             <DetailImageBack
               src={post.imgBack!}
@@ -45,8 +60,8 @@ export async function PostDetail(props: Props) {
           }
         />
       </div>
-      <div className="w-2/5 flex flex-col">
-        <div className="flex items-center p-4 border-b">
+      <div className="w-[45%] flex flex-col border rounded-r-lg border-gray-200">
+        <div className="flex items-center p-2 md:p-4 border-b">
           <ModalLink
             href={`/profile/${post.author?.username}`}
             className="flex items-center hover:cursor-pointer"
@@ -65,9 +80,8 @@ export async function PostDetail(props: Props) {
               <p className="text-xs text-gray-500">{post.author?.username}</p>
             </div>
           </ModalLink>
-          <MoreHorizontalIcon className="ml-auto text-gray-600" />
         </div>
-        <p className="m-4">{post.caption}</p>
+        <p className="m-2 md:m-4 text-sm md:text-base">{post.caption}</p>
         {/* <div className="flex-grow overflow-y-auto">
           <div className="flex items-start space-x-3 p-4">
             <Avatar>
