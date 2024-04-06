@@ -4,6 +4,7 @@ import { Dialog, DialogOverlay } from "@/components/ui/dialog";
 import { SpDetailPost } from "@/components/smartphone/SpDetailPost";
 import { Suspense } from "react";
 import SpOnePostSkeleton from "@/components/skeleton/SpOnePostSkeleton";
+import DetailSkeleton from "@/components/skeleton/DetailSkeleton";
 
 export default async function DetailPage({
   params,
@@ -16,7 +17,7 @@ export default async function DetailPage({
         <DialogOverlay>
           <InterceptedDialogContent className="sm:rounded-lg outline-none focus:ring-0 max-h-full sm:w-[95vw] md:w-[70vw] overflow-hidden">
             <div className="hidden sm:block relative">
-              <Suspense fallback={<p>loading</p>}>
+              <Suspense fallback={<DetailSkeleton />}>
                 <PostDetail postId={params.id} />
               </Suspense>
             </div>
