@@ -1,12 +1,12 @@
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import DetailImageFront from "./DetailImageFront";
 import DetailImageBack from "./DetaiImagelBack";
 import { auth } from "@/lib/auth";
 import { fetchPost } from "@/lib/fetch";
 import FlipImage from "../FlipImage";
 import ErrorCard from "../ErrorCard";
 import ModalLink from "./ModalLink";
+import Image from "next/image";
 
 type Props = {
   postId: string;
@@ -28,13 +28,28 @@ export async function PostDetail(props: Props) {
     );
   return (
     <div className="flex">
-      <div className="w-3/5 flex justify-center">
+      <div className="w-3/5 h-[83vh] max-h-[600px] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
         <FlipImage
           containerStyle={{
             width: "100%",
-            height: "auto",
+            height: "100%",
+            cursor: "pointer",
+            margin: "auto",
           }}
-          frontComponent={<DetailImageFront src={post.imgFront!} />}
+          frontComponent={
+            <Image
+              alt=""
+              width={500}
+              height={500}
+              style={{
+                objectFit: "contain",
+                height: "100%",
+                width: "auto",
+                margin: "auto",
+              }}
+              src={post.imgFront!}
+            />
+          }
           backComponent={
             <DetailImageBack
               src={post.imgBack!}
@@ -45,7 +60,7 @@ export async function PostDetail(props: Props) {
           }
         />
       </div>
-      <div className="w-2/5 flex flex-col">
+      <div className="w-2/5 flex flex-col border rounded-r-lg border-gray-200">
         <div className="flex items-center p-4 border-b">
           <ModalLink
             href={`/profile/${post.author?.username}`}
