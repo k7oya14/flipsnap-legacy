@@ -3,7 +3,7 @@ import { useCursorById } from "@/lib/utils";
 import { fetchUserPostsById } from "@/lib/fetch";
 import ProfileLoadMore from "./ProfileLoadMore";
 import ProfilePost from "./ProfilePost";
-import { Instagram, SwitchCamera } from "lucide-react";
+import { Instagram } from "lucide-react";
 
 type Props = {
   userInfo: UserInfo;

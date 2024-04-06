@@ -4,7 +4,7 @@ import ProfileInformation from "@/components/profile/ProfileInformation";
 import ProfileGallerySkeleton from "@/components/skeleton/ProfileGallerySkeleton";
 import { Card } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
-import { fetchUserByUsername, fetchUserPostsById } from "@/lib/fetch";
+import { fetchUserByUsername } from "@/lib/fetch";
 import React, { Suspense } from "react";
 
 const Page = async ({ params }: { params: { username: string } }) => {
