@@ -1,22 +1,16 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 
 type Props = {
   src: string;
-  handleClick: () => void;
 };
 
 const DetailImageFront = (props: Props) => {
-  const { src, handleClick } = props;
+  const { src } = props;
 
   return (
     <div>
-      <div
-        onClick={handleClick}
-        className="rounded-md my-2 hover:cursor-pointer"
-      >
+      <div className="rounded-md my-2 hover:cursor-pointer">
         <Image
           alt=""
           className="h-auto rounded"

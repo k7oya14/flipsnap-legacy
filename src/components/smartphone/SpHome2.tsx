@@ -3,13 +3,12 @@ import { SpHomePost } from "./SpHomePost";
 import { GalleyPost } from "@/lib/definitions";
 import SpHomeLoadMore from "./SpHomeLoadMore";
 import { useCursorById } from "@/lib/utils";
+import { fetchLatestPosts } from "@/lib/fetch";
+import { auth } from "@/lib/auth";
 
-type Props = {
-  firstPosts: GalleyPost[];
-};
-
-const SpHome2 = (props: Props) => {
-  const { firstPosts } = props;
+const SpHome2 = async () => {
+  const session = await auth();
+  const firstPosts = await fetchLatestPosts(12, null);
   const { cursorById } = useCursorById();
   return (
     <div>

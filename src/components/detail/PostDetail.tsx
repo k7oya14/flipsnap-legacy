@@ -1,54 +1,54 @@
-"use client";
-
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import ReactCardFlip from "react-card-flip";
-import { useState } from "react";
-import { OnePost } from "@/lib/definitions";
-import { useRouter } from "next/navigation";
 import DetailImageFront from "./DetailImageFront";
 import DetailImageBack from "./DetaiImagelBack";
+import { auth } from "@/lib/auth";
+import { fetchPost } from "@/lib/fetch";
+import FlipImage from "../FlipImage";
+import ErrorCard from "../ErrorCard";
+import ModalLink from "./ModalLink";
 
 type Props = {
-  post: OnePost;
-  myId: string | undefined;
+  postId: string;
 };
 
-export function PostDetail(props: Props) {
-  const { post, myId } = props;
-  const [isFlipped, setIsFlipped] = useState(false);
-
-  const router = useRouter();
-
-  const handleClick = () => setIsFlipped((isFlipped) => !isFlipped);
-
+export async function PostDetail(props: Props) {
+  const { postId } = props;
+  const session = await auth();
+  const myId = session?.user.id;
+  const post = await fetchPost(postId, myId);
+  if (!post.authorId)
+    return (
+      <ErrorCard
+        heading="Post not found"
+        message="投稿が見つかりません"
+        button="go back"
+        link="/"
+      />
+    );
   return (
     <div className="flex">
       <div className="w-3/5 flex justify-center">
-        <ReactCardFlip
-          isFlipped={isFlipped}
-          flipDirection="horizontal"
-          flipSpeedBackToFront={0.6}
-          flipSpeedFrontToBack={0.6}
-          infinite={true}
-        >
-          <DetailImageFront src={post.imgFront!} handleClick={handleClick} />
-          <DetailImageBack
-            src={post.imgBack!}
-            myId={myId}
-            userId={post.authorId!}
-            relationship={post.author?.relationship!}
-            handleClick={handleClick}
-          />
-        </ReactCardFlip>
+        <FlipImage
+          containerStyle={{
+            width: "100%",
+            height: "auto",
+          }}
+          frontComponent={<DetailImageFront src={post.imgFront!} />}
+          backComponent={
+            <DetailImageBack
+              src={post.imgBack!}
+              myId={myId}
+              userId={post.authorId!}
+              relationship={post.author?.relationship!}
+            />
+          }
+        />
       </div>
       <div className="w-2/5 flex flex-col">
         <div className="flex items-center p-4 border-b">
-          <div
-            onClick={() => {
-              router.push(`/profile/${post.author?.username}`);
-              router.refresh();
-            }}
+          <ModalLink
+            href={`/profile/${post.author?.username}`}
             className="flex items-center hover:cursor-pointer"
           >
             <Avatar>
@@ -64,7 +64,7 @@ export function PostDetail(props: Props) {
               <p className="font-semibold">{post.author?.name}</p>
               <p className="text-xs text-gray-500">{post.author?.username}</p>
             </div>
-          </div>
+          </ModalLink>
           <MoreHorizontalIcon className="ml-auto text-gray-600" />
         </div>
         <p className="m-4">{post.caption}</p>

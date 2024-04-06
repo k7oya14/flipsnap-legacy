@@ -2,8 +2,6 @@ import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header/Header";
-import { Suspense } from "react";
-import Loading from "@/components/Loading";
 
 const inter = Noto_Sans_JP({ subsets: ["latin"] });
 
@@ -23,11 +21,9 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={`${inter.className}`}>
-        <Suspense fallback={<Loading />}>
-          <Header />
-          {modal}
-          {children}
-        </Suspense>
+        <Header />
+        {modal}
+        {children}
       </body>
     </html>
   );

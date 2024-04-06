@@ -2,7 +2,9 @@ import { GalleyPost } from "@/lib/definitions";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { formatDistance } from "date-fns";
-import SpFlipImage from "./SpFlipImage";
+import Image from "next/image";
+import ImageBack from "../home/ImageBack";
+import FlipImage from "../FlipImage";
 
 type Props = {
   post: GalleyPost;
@@ -30,7 +32,27 @@ export function SpHomePost(props: Props) {
       </Link>
       <main className="flex-grow overflow-y-auto">
         <div className="flex flex-col gap-4 pt-2 pb-4">
-          <SpFlipImage post={post} />
+          <FlipImage
+            containerStyle={{
+              width: "100%",
+              height: "auto",
+              cursor: "pointer",
+            }}
+            frontComponent={
+              <Image
+                alt=""
+                src={post.imgFront}
+                style={{
+                  objectFit: "cover",
+                  width: "100%",
+                  height: "auto",
+                }}
+                width={500}
+                height={500}
+              />
+            }
+            backComponent={<ImageBack post={post} />}
+          />
           <div className="px-4 gap-2 flex flex-col">
             <div className="flex items-center gap-2">
               <button className="focus:outline-none">
