@@ -80,7 +80,6 @@ export async function PostDetail(props: Props) {
               <p className="text-xs text-gray-500">{post.author?.username}</p>
             </div>
           </ModalLink>
-          <MoreHorizontalIcon className="ml-auto text-gray-600" />
         </div>
         <p className="m-4">{post.caption}</p>
         {/* <div className="flex-grow overflow-y-auto">
