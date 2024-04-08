@@ -75,50 +75,48 @@ const LoginHomeGallery = (props: Props) => {
       ) : (
         <div className="lg:px-40 px-5 flex">
           {posts.map((colPosts: GalleyPost[]) => (
-            <>
-              <div key={colPosts[0].id} className="w-1/3 p-1 lg:p-2">
-                {colPosts.map((post: GalleyPost, index) => (
-                  <motion.div
-                    key={post.id}
-                    variants={variants}
-                    initial="hidden"
-                    animate="visible"
-                    transition={{ duration: 0.5, delay: index * 0.5 }}
-                    className="my-2"
+            <div key={colPosts[0].id} className="w-1/3 p-1 lg:p-2">
+              {colPosts.map((post: GalleyPost, index) => (
+                <motion.div
+                  key={post.id}
+                  variants={variants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ duration: 0.5, delay: index * 0.5 }}
+                  className="my-2"
+                >
+                  <Link
+                    href={`/posts/${post.id}`}
+                    scroll={false}
+                    className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
                   >
-                    <Link
-                      href={`/posts/${post.id}`}
-                      scroll={false}
-                      className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
-                    >
-                      <div className="absolute inset-0 rounded-md bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
-                      <Image
-                        width={500}
-                        height={500}
-                        priority={true}
-                        className="rounded-md"
-                        alt=""
-                        src={post.imgFront}
-                      />
-                      <div className="absolute inset-x-0 bottom-0 h-full w-full hover:bg-gradient-to-b from-transparent to-zinc-800 rounded-b">
-                        <Link
-                          href={`/profile/${post.author?.username}`}
-                          onClick={(e) => handleIconClick(e)}
-                          className="absolute bottom-2 left-2 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
-                        >
-                          <Avatar>
-                            <AvatarImage src={post.author?.image!} />
-                            <AvatarFallback>{post.author?.name}</AvatarFallback>
-                          </Avatar>
-                          <p className="text-lg">{post.author?.name}</p>
-                        </Link>
-                      </div>
-                    </Link>
-                  </motion.div>
-                ))}
-                <div ref={ref} />
-              </div>
-            </>
+                    <div className="absolute inset-0 rounded-md bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+                    <Image
+                      width={500}
+                      height={500}
+                      priority={true}
+                      className="rounded-md w-full h-auto"
+                      alt=""
+                      src={post.imgFront}
+                    />
+                    <div className="absolute inset-x-0 bottom-0 h-full w-full hover:bg-gradient-to-b from-transparent to-zinc-800 rounded-b">
+                      <Link
+                        href={`/profile/${post.author?.username}`}
+                        onClick={(e) => handleIconClick(e)}
+                        className="absolute bottom-2 left-2 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
+                      >
+                        <Avatar>
+                          <AvatarImage src={post.author?.image!} />
+                          <AvatarFallback>{post.author?.name}</AvatarFallback>
+                        </Avatar>
+                        <p className="text-lg">{post.author?.name}</p>
+                      </Link>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+              <div ref={ref} />
+            </div>
           ))}
         </div>
       )}
