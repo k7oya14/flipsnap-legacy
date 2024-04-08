@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { UserInfo, sessionUser } from "@/lib/definitions";
 import FollowStatusButton from "./FollowStatusButton";
 import Link from "next/link";
@@ -14,7 +14,8 @@ const ProfileInformation = (props: Props) => {
   return (
     <div className="flex flex-col items-center justify-center py-8">
       <Avatar className="w-28 h-28">
-        <AvatarImage alt={userInfo.username!} src={userInfo.image!} />
+        <AvatarImage src={userInfo.image!} />
+        <AvatarFallback>{userInfo.name}</AvatarFallback>
       </Avatar>
       <h2 className="text-2xl font-bold mt-4">{userInfo.name}</h2>
       <p className="font-medium mt-1">@{userInfo.username}</p>

@@ -19,7 +19,7 @@ export default async function Home() {
           width={1200}
           height={628}
           unoptimized
-          priority
+          priority={true}
           className="mt-1 w-full h-[66.67vh] object-contain"
           alt=""
           src="/hero.gif"

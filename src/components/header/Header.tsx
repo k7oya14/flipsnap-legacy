@@ -22,6 +22,7 @@ const Header = async () => {
             className="sm:font-bold text-lg sm:text-xl flex items-center"
           >
             <Image
+              priority={true}
               src="/logo.svg"
               alt="FlipSnap"
               width={45}

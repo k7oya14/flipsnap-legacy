@@ -32,7 +32,7 @@ const ImageFront = (props: Props) => {
         <Image
           width={500}
           height={500}
-          priority={true}
+          priority={index === 0}
           className="rounded-md"
           style={{
             objectFit: "cover",
