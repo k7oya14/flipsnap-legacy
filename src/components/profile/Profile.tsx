@@ -26,7 +26,7 @@ const Profile = async (props: Props) => {
   return (
     <>
       <ProfileInformation userInfo={userInfo} me={session?.user} />
-      <ProfileGallery userInfo={userInfo} myId={session?.user.id} />;
+      <ProfileGallery userInfo={userInfo} myId={session?.user.id} />
     </>
   );
 };
