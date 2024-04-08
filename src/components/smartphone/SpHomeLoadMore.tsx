@@ -30,9 +30,8 @@ const SpHomeLoadMore = (props: Props) => {
       const fetchMorePosts = async () => {
         setLoading(true);
         const data = await fetchMoreLatestPosts(6, null, cursorPostId);
-        if (data.length == 0) {
+        if (data.length < 6) {
           setPostLimit(true);
-          return;
         }
         setPosts((prevPosts) => [...prevPosts, ...data]);
         const newCursorId = cursorById(data);

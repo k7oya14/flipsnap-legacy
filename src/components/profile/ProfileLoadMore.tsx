@@ -35,9 +35,8 @@ const ProfileLoadMore = (props: Props) => {
           6,
           cursorPostId
         );
-        if (data.length == 0) {
+        if (data.length < 6) {
           setPostLimit(true);
-          return;
         }
         setPosts((prevPosts) => [...prevPosts, ...data]);
         const newCursorId = cursorById(data);
