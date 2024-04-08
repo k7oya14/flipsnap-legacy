@@ -81,8 +81,8 @@ model User {
 }
 
 model User_User_Follows {
-  followerId String @unique
-  followeeId String @unique
+  followerId String
+  followeeId String
   follower   User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
   followee   User   @relation("FollowedBy", fields: [followeeId], references: [id], onDelete: Cascade)
 

@@ -46,7 +46,7 @@ async function createFollowRelations(users: User[]) {
     const follows = faker.helpers
       .arrayElements(users, followCount)
       .filter((u) => u.id !== user.id);
-      
+
     // <<<LEGACY>>>
     // await prisma.user.update({
     //   where: { id: user.id },
@@ -146,7 +146,7 @@ async function main() {
   const users = await createUsers();
   await createFollowRelations(users);
   await createPosts(users);
-  // hishiwatPosts();
+  // await hishiwatPosts();
 }
 
 main()
