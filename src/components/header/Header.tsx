@@ -38,6 +38,7 @@ const Header = async () => {
           {session ? (
             <>
               <Link
+                prefetch={true}
                 href="/posts/create"
                 scroll={false}
                 className="flex items-center"

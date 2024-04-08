@@ -33,6 +33,7 @@ const ProfileInformation = (props: Props) => {
           </span>
         </div>
         <Link
+          prefetch={true}
           href={`/profile/${userInfo.username}/follower`}
           className="text-center"
         >
@@ -40,6 +41,7 @@ const ProfileInformation = (props: Props) => {
           <span className="block text-sm">Followers</span>
         </Link>
         <Link
+          prefetch={true}
           href={`/profile/${userInfo.username}/following`}
           className="text-center"
         >
