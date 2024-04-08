@@ -74,9 +74,9 @@ const LoginHomeGallery = (props: Props) => {
         </>
       ) : (
         <div className="lg:px-40 px-5 flex">
-          {posts.map((colPosts: GalleyPost[], col) => (
+          {posts.map((colPosts: GalleyPost[]) => (
             <>
-              <div key={col} className="w-1/3 p-1 lg:p-2">
+              <div key={colPosts[0].id} className="w-1/3 p-1 lg:p-2">
                 {colPosts.map((post: GalleyPost, index) => (
                   <motion.div
                     key={post.id}

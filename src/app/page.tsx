@@ -1,8 +1,7 @@
 import React, { Suspense } from "react";
 
 import Image from "next/image";
-// import SpHome from "@/components/smartphone/SpHome";
-import SpHome2 from "@/components/smartphone/SpHome2";
+import SpHome from "@/components/smartphone/SpHome";
 import SpHomeSkeleton from "@/components/skeleton/SpHomeSkeleton";
 import HomeSkeleton from "@/components/skeleton/HomeSkeleton";
 import HomeGallery from "@/components/home/HomeGallery";
@@ -12,8 +11,7 @@ export default async function Home() {
     <>
       <div className="block sm:hidden">
         <Suspense fallback={<SpHomeSkeleton />}>
-          {/* <SpHome firstPosts={posts}/> */}
-          <SpHome2 />
+          <SpHome />
         </Suspense>
       </div>
       <div className="hidden sm:flex flex-col justify-center">
