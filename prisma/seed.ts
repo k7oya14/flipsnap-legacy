@@ -47,32 +47,10 @@ async function createFollowRelations(users: User[]) {
       .arrayElements(users, followCount)
       .filter((u) => u.id !== user.id);
 
-    // <<<LEGACY>>>
-    // await prisma.user.update({
-    //   where: { id: user.id },
-    //   data: {
-    //     follows: {
-    //       connect: follows.map((u) => ({ id: u.id })),
-    //     },
-    //   },
-    // });
-    // await prisma.user.update({
-    //   where: { id: user.id },
-    //   data: {
-    //     follows: {
-    //       connect: [
-    //         // { username: "k7oya14" },
-    //         { username: "hishiwat" },
-    //       ],
-    //     },
-    //   },
-    // });
-
     await prisma.user.update({
       where: { id: user.id },
       data: {
         following: {
-          // create: { followeeId: "fff" },
           createMany: { data: follows.map((u) => ({ followeeId: u.id })) },
         },
       },
@@ -88,7 +66,7 @@ async function createFollowRelations(users: User[]) {
   }
 }
 
-const postUserCount = 11; // TODO : Change this parameter
+const postUserCount = 20; // TODO : Change this parameter
 
 async function createPosts(users: User[]) {
   for (const user of users.slice(0, postUserCount)) {
@@ -125,22 +103,22 @@ async function createPosts(users: User[]) {
   }
 }
 
-async function hishiwatPosts() {
-  for (let i = 0; i < 9; i++) {
-    await prisma.user.update({
-      where: { username: "hishiwat" },
-      data: {
-        posts: {
-          create: {
-            imgFront: "",
-            imgBack: "",
-            caption: faker.lorem.lines(),
-          },
-        },
-      },
-    });
-  }
-}
+// async function hishiwatPosts() {
+//   for (let i = 0; i < 9; i++) {
+//     await prisma.user.update({
+//       where: { username: "hishiwat" },
+//       data: {
+//         posts: {
+//           create: {
+//             imgFront: "",
+//             imgBack: "",
+//             caption: faker.lorem.lines(),
+//           },
+//         },
+//       },
+//     });
+//   }
+// }
 
 async function main() {
   const users = await createUsers();
