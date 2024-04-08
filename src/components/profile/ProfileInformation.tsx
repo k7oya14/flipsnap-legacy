@@ -35,14 +35,14 @@ const ProfileInformation = (props: Props) => {
           href={`/profile/${userInfo.username}/follower`}
           className="text-center"
         >
-          <span className="block font-bold">{userInfo._count?.followers}</span>
+          <span className="block font-bold">{userInfo._count?.followedBy}</span>
           <span className="block text-sm">Followers</span>
         </Link>
         <Link
           href={`/profile/${userInfo.username}/following`}
           className="text-center"
         >
-          <span className="block font-bold">{userInfo._count?.follows}</span>
+          <span className="block font-bold">{userInfo._count?.following}</span>
           <span className="block text-sm">Following</span>
         </Link>
       </div>

@@ -64,8 +64,8 @@ export type UserInfo = {
   relationship: UserRelationship | undefined;
   _count?:
     | {
-        followers: number;
-        follows: number;
+        following: number;
+        followedBy: number;
         posts: number;
       }
     | undefined;
