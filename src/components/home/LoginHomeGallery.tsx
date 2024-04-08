@@ -90,7 +90,7 @@ const LoginHomeGallery = (props: Props) => {
                     scroll={false}
                     className="rounded-md my-2 overflow-hidden hover:cursor-pointer before:absolute before:inset-0"
                   >
-                    <div className="absolute inset-0 rounded-md bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+                    <div className="absolute inset-0 rounded-md group-hover:bg-black opacity-30 duration-300"></div>
                     <Image
                       width={500}
                       height={500}
@@ -100,7 +100,7 @@ const LoginHomeGallery = (props: Props) => {
                       src={post.imgFront}
                     />
                   </Link>
-                  <div className="relative inset-x-0 bottom-0 h-full w-full hover:bg-gradient-to-b from-transparent to-zinc-800 rounded-b">
+                  <div className="absolute inset-x-0 bottom-0 h-full w-full">
                     <Link
                       href={`/profile/${post.author?.username}`}
                       onClick={(e) => handleIconClick(e)}
