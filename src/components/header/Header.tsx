@@ -14,7 +14,7 @@ const Header = async () => {
   const session = await auth();
   const user = session?.user;
   return (
-    <header className="sm:px-10 px-2 border-b border-gray-300 shadow-sm shadow-gray-300">
+    <header className="lg:px-10 sm:px-5 px-2 border-b border-gray-300 shadow-sm shadow-gray-300">
       <nav className="flex items-center justify-between p-1">
         <div className={`${pacifico.className} flex items-center`}>
           <Link
@@ -31,7 +31,9 @@ const Header = async () => {
             FlipSnap
           </Link>
         </div>
-        <div className={`${robotoSlab.className} flex sm:space-x-8 space-x-4`}>
+        <div
+          className={`${robotoSlab.className} flex md:space-x-5 lg:space-x-8 space-x-4`}
+        >
           {session ? (
             <>
               <Link

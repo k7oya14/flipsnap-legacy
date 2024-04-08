@@ -66,7 +66,7 @@ const NoLoginHomeGallery = (props: Props) => {
         <div className="lg:px-40 px-5 flex">
           {posts.map((colPosts: GalleyPost[], col) => (
             <>
-              <div key={col} className="w-1/3 p-2">
+              <div key={col} className="w-1/3 p-1 lg:p-2">
                 {colPosts.map((post: GalleyPost, index) => (
                   <ReactFlipCard
                     key={post.id}

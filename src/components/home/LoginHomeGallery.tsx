@@ -76,7 +76,7 @@ const LoginHomeGallery = (props: Props) => {
         <div className="lg:px-40 px-5 flex">
           {posts.map((colPosts: GalleyPost[], col) => (
             <>
-              <div key={col} className="w-1/3 p-2">
+              <div key={col} className="w-1/3 p-1 lg:p-2">
                 {colPosts.map((post: GalleyPost, index) => (
                   <motion.div
                     key={post.id}
@@ -91,7 +91,7 @@ const LoginHomeGallery = (props: Props) => {
                       scroll={false}
                       className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
                     >
-                      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
+                      <div className="absolute inset-0 rounded-md bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
                       <Image
                         width={500}
                         height={500}
