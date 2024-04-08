@@ -39,11 +39,13 @@ export async function ProfileGallery(props: Props) {
           </p>
         </div>
       ) : (
-        <ProfileLoadMore
-          myId={myId}
-          userInfo={userInfo}
-          cursorId={cursorById(firstPosts)}
-        />
+        firstPosts.length === 6 && (
+          <ProfileLoadMore
+            myId={myId}
+            userInfo={userInfo}
+            cursorId={cursorById(firstPosts)}
+          />
+        )
       )}
     </div>
   );
