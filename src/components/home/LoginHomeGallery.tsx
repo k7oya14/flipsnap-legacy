@@ -83,12 +83,12 @@ const LoginHomeGallery = (props: Props) => {
                   initial="hidden"
                   animate="visible"
                   transition={{ duration: 0.5, delay: index * 0.5 }}
-                  className="my-2"
+                  className="my-2 relative group"
                 >
                   <Link
                     href={`/posts/${post.id}`}
                     scroll={false}
-                    className="group relative rounded-md my-2 overflow-hidden hover:cursor-pointer"
+                    className="rounded-md my-2 overflow-hidden hover:cursor-pointer before:absolute before:inset-0"
                   >
                     <div className="absolute inset-0 rounded-md bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
                     <Image
@@ -99,20 +99,20 @@ const LoginHomeGallery = (props: Props) => {
                       alt=""
                       src={post.imgFront}
                     />
-                    <div className="absolute inset-x-0 bottom-0 h-full w-full hover:bg-gradient-to-b from-transparent to-zinc-800 rounded-b">
-                      <Link
-                        href={`/profile/${post.author?.username}`}
-                        onClick={(e) => handleIconClick(e)}
-                        className="absolute bottom-2 left-2 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
-                      >
-                        <Avatar>
-                          <AvatarImage src={post.author?.image!} />
-                          <AvatarFallback>{post.author?.name}</AvatarFallback>
-                        </Avatar>
-                        <p className="text-lg">{post.author?.name}</p>
-                      </Link>
-                    </div>
                   </Link>
+                  <div className="relative inset-x-0 bottom-0 h-full w-full hover:bg-gradient-to-b from-transparent to-zinc-800 rounded-b">
+                    <Link
+                      href={`/profile/${post.author?.username}`}
+                      onClick={(e) => handleIconClick(e)}
+                      className="absolute bottom-2 left-2 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
+                    >
+                      <Avatar>
+                        <AvatarImage src={post.author?.image!} />
+                        <AvatarFallback>{post.author?.name}</AvatarFallback>
+                      </Avatar>
+                      <p className="text-lg">{post.author?.name}</p>
+                    </Link>
+                  </div>
                 </motion.div>
               ))}
               <div ref={ref} />
