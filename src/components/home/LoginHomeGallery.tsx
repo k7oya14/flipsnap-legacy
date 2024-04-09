@@ -100,7 +100,7 @@ const LoginHomeGallery = (props: Props) => {
                       src={post.imgFront}
                     />
                   </Link>
-                  <div className="absolute inset-x-0 bottom-0 h-full w-full">
+                  <div className="relative inset-x-0 bottom-0 h-full w-full">
                     <Link
                       href={`/profile/${post.author?.username}`}
                       onClick={(e) => handleIconClick(e)}
