@@ -7,6 +7,8 @@ import FlipImage from "../FlipImage";
 import ErrorCard from "../ErrorCard";
 import ModalLink from "./ModalLink";
 import Image from "next/image";
+import { Suspense } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 type Props = {
   postId: string;
@@ -51,12 +53,18 @@ export async function PostDetail(props: Props) {
             />
           }
           backComponent={
-            <DetailImageBack
-              src={post.imgBack!}
-              myId={myId}
-              userId={post.authorId!}
-              relationship={post.author?.relationship!}
-            />
+            <Suspense
+              fallback={
+                <Skeleton className="w-full h-[83vh] max-h-[600px] rounded-r-none" />
+              }
+            >
+              <DetailImageBack
+                src={post.imgBack!}
+                myId={myId}
+                userId={post.authorId!}
+                relationship={post.author?.relationship!}
+              />
+            </Suspense>
           }
         />
       </div>
