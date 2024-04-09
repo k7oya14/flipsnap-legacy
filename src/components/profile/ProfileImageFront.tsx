@@ -29,6 +29,7 @@ const ProfileImageFront = (props: Props) => {
     >
       <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
       <Image
+        priority={index < 3}
         alt=""
         className="w-full rounded"
         height="293"

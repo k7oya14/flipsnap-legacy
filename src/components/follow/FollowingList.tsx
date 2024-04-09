@@ -19,8 +19,9 @@ const FollowingList = async (props: Props) => {
   ) : (
     followings.map((following, index) => (
       <Link
-        href={`/profile/${following.username}`}
         key={following.username}
+        href={`/profile/${following.username}`}
+        prefetch={true}
         className={`flex items-center justify-between ${
           followings.length === index + 1 || "border-b border-gray-200"
         } py-2`}

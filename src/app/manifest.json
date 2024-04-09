@@ -1,8 +1,11 @@
 {
-    "name": "FlipSnap",
-    "display": "standalone",
-    "icons":
-        {
-          "src": "/logo.svg"
-        }
+  "name": "FlipSnap",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "1080x1080",
+      "type": "image/svg+xml"
+    }
+  ]
 }

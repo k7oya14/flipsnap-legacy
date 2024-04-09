@@ -64,26 +64,24 @@ const NoLoginHomeGallery = (props: Props) => {
         </>
       ) : (
         <div className="lg:px-40 px-5 flex">
-          {posts.map((colPosts: GalleyPost[], col) => (
-            <>
-              <div key={col} className="w-1/3 p-2">
-                {colPosts.map((post: GalleyPost, index) => (
-                  <ReactFlipCard
-                    key={post.id}
-                    containerStyle={{
-                      width: "100%",
-                      height: "auto",
-                      marginBottom: "8px",
-                    }}
-                    flipTrigger={"onClick"}
-                    direction="horizontal"
-                    frontComponent={<ImageFront index={index} post={post} />}
-                    backComponent={<ImageBack post={post} />}
-                  />
-                ))}
-                <div ref={ref} />
-              </div>
-            </>
+          {posts.map((colPosts: GalleyPost[]) => (
+            <div key={colPosts[0].id} className="w-1/3 p-1 lg:p-2">
+              {colPosts.map((post: GalleyPost, index) => (
+                <ReactFlipCard
+                  key={post.id}
+                  containerStyle={{
+                    width: "100%",
+                    height: "auto",
+                    marginBottom: "8px",
+                  }}
+                  flipTrigger={"onClick"}
+                  direction="horizontal"
+                  frontComponent={<ImageFront index={index} post={post} />}
+                  backComponent={<ImageBack post={post} />}
+                />
+              ))}
+              <div ref={ref} />
+            </div>
           ))}
         </div>
       )}

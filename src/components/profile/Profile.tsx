@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ProfileInformation from "./ProfileInformation";
 import { ProfileGallery } from "./ProfileGallery";
 import ErrorCard from "../ErrorCard";
 import { auth } from "@/lib/auth";
 import { fetchUserByUsername } from "@/lib/fetch";
+import ProfileGallerySkeleton from "../skeleton/ProfileGallerySkeleton";
 
 type Props = {
   username: string;
@@ -26,7 +27,9 @@ const Profile = async (props: Props) => {
   return (
     <>
       <ProfileInformation userInfo={userInfo} me={session?.user} />
-      <ProfileGallery userInfo={userInfo} myId={session?.user.id} />
+      <Suspense fallback={<ProfileGallerySkeleton />}>
+        <ProfileGallery userInfo={userInfo} myId={session?.user.id} />
+      </Suspense>
     </>
   );
 };

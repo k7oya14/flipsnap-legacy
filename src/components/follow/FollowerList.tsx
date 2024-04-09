@@ -19,6 +19,7 @@ const FollowerList = async (props: Props) => {
   ) : (
     followers.map((follower, index) => (
       <Link
+        prefetch={true}
         href={`/profile/${follower.username}`}
         key={follower.username}
         className={`flex items-center justify-between ${
