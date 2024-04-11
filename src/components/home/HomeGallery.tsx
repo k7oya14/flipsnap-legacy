@@ -1,17 +1,19 @@
-import { fetchLatestPosts } from "@/lib/fetch";
 import React from "react";
 import NoLoginHomeGallery from "./NoLoginHomeGallery";
 import LoginHomeGallery from "./LoginHomeGallery";
 import { auth } from "@/lib/auth";
+import { GalleyPost } from "@/lib/definitions";
 
-const HomeGallery = async () => {
+type Props = { firstPosts: GalleyPost[] };
+
+const HomeGallery = async (props: Props) => {
+  const { firstPosts } = props;
   const session = await auth();
-  const posts = await fetchLatestPosts(12, session?.user.id);
 
   return session ? (
-    <LoginHomeGallery firstPost={posts} />
+    <LoginHomeGallery firstPost={firstPosts} />
   ) : (
-    <NoLoginHomeGallery firstPost={posts} />
+    <NoLoginHomeGallery firstPost={firstPosts} />
   );
 };
 
