@@ -5,6 +5,8 @@ import { formatDistance } from "date-fns";
 import Image from "next/image";
 import ImageBack from "../home/ImageBack";
 import FlipImage from "../FlipImage";
+import { Suspense } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 type Props = {
   post: GalleyPost;
@@ -51,7 +53,24 @@ export function SpHomePost(props: Props) {
                 height={500}
               />
             }
-            backComponent={<ImageBack post={post} />}
+            backComponent={
+              <Suspense
+                fallback={
+                  <>
+                    <Image
+                      alt=""
+                      src={post.imgFront}
+                      width={500}
+                      height={500}
+                      className="relative opacity-0 w-full h-auto"
+                    />
+                    <Skeleton className="absolute inset-0 w-full h-auto" />
+                  </>
+                }
+              >
+                <ImageBack post={post} />
+              </Suspense>
+            }
           />
           <div className="px-4 gap-2 flex flex-col">
             <div className="flex items-center gap-2">

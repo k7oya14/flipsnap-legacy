@@ -1,13 +1,11 @@
 "use client";
 
-import { GalleyPost } from "@/lib/definitions";
-import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useCursorById } from "@/lib/utils";
-import React, { useEffect, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
-import { SpHomePost } from "./SpHomePost";
 import { BadgeCheck } from "lucide-react";
 import { Card } from "../ui/card";
+import { fetchMoreLatestPostsSpComponent } from "@/lib/fetchWrapper";
 
 type Props = {
   cursorId: string;
@@ -15,8 +13,7 @@ type Props = {
 
 const SpHomeLoadMore = (props: Props) => {
   const { cursorId } = props;
-  const { cursorById } = useCursorById();
-  const [posts, setPosts] = useState<GalleyPost[]>([]);
+  const [posts, setPosts] = useState<ReactNode[]>([]);
   const [postLimit, setPostLimit] = useState(false);
   const [cursorPostId, setCursorPostId] = useState(cursorId);
   const [loading, setLoading] = useState(false);
@@ -29,13 +26,16 @@ const SpHomeLoadMore = (props: Props) => {
     if (inView && !postLimit) {
       const fetchMorePosts = async () => {
         setLoading(true);
-        const data = await fetchMoreLatestPosts(6, null, cursorPostId);
-        if (data.length < 6) {
+        const { component, cursorId } = await fetchMoreLatestPostsSpComponent(
+          6,
+          null,
+          cursorPostId
+        );
+        if (component.length < 6) {
           setPostLimit(true);
         }
-        setPosts((prevPosts) => [...prevPosts, ...data]);
-        const newCursorId = cursorById(data);
-        setCursorPostId(newCursorId);
+        setPosts((prevPosts) => [...prevPosts, ...component]);
+        setCursorPostId(cursorId);
         setLoading(false);
       };
       fetchMorePosts();
@@ -44,9 +44,7 @@ const SpHomeLoadMore = (props: Props) => {
 
   return (
     <div>
-      {posts.map((post: GalleyPost) => (
-        <SpHomePost key={post.id} post={post} />
-      ))}
+      {posts}
       <div className="h-[1px]" ref={ref}></div>
       {loading && !postLimit && (
         <div className="mx-auto m-4 animate-spin size-10 border-4 border-slate-200 rounded-full border-t-transparent"></div>

@@ -1,20 +1,21 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import NoLoginHomeGallery from "./NoLoginHomeGallery";
 import LoginHomeGallery from "./LoginHomeGallery";
 import { auth } from "@/lib/auth";
-import { GalleyPost } from "@/lib/definitions";
+import { fetchLatestPostsComponent } from "@/lib/fetchWrapper";
 
-// type Props = { firstPosts: GalleyPost[] };
-type Props = { firstPosts: ReactNode[]; cursorId: string };
-
-const HomeGallery = async (props: Props) => {
-  const { firstPosts, cursorId } = props;
+const HomeGallery = async () => {
   const session = await auth();
+  const { component, cursorId } = await fetchLatestPostsComponent(
+    12,
+    session?.user.id
+  );
 
   return session ? (
-    <LoginHomeGallery firstPost={firstPosts} />
+    // <LoginHomeGallery firstPost={component} />
+    <p>login user</p>
   ) : (
-    <NoLoginHomeGallery firstPost={firstPosts} cursorId={cursorId} />
+    <NoLoginHomeGallery firstPost={component} cursorId={cursorId} />
   );
 };
 
