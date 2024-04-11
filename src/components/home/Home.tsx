@@ -3,14 +3,15 @@ import React from "react";
 import SpHome from "../smartphone/SpHome";
 import Image from "next/image";
 import HomeGallery from "./HomeGallery";
+import { fetchLatestPostsComponent } from "@/lib/fetchWrapper";
 
 const Home = async () => {
-  const firstPosts = await fetchLatestPosts(12, null);
-
+  //   const firstPosts = await fetchLatestPosts(12, null);
+  const { component, cursorId } = await fetchLatestPostsComponent(12, null);
   return (
     <>
       <div className="block sm:hidden">
-        <SpHome firstPosts={firstPosts} />
+        {/* <SpHome firstPosts={component} /> */}
       </div>
       <div className="hidden sm:flex flex-col justify-center">
         <Image
@@ -22,7 +23,7 @@ const Home = async () => {
           alt=""
           src="/hero.gif"
         />
-        <HomeGallery firstPosts={firstPosts} />
+        <HomeGallery firstPosts={component} cursorId={cursorId} />
       </div>
     </>
   );

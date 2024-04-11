@@ -2,13 +2,15 @@ import Image from "next/image";
 import React from "react";
 import LockedBack from "../LockedBack";
 import { GalleyPost, UserRelationship } from "@/lib/definitions";
+import { delay } from "@/lib/fetch";
 
 type Props = {
   post: GalleyPost;
 };
 
-const ImageBack = (props: Props) => {
+const ImageBack = async (props: Props) => {
   const { post } = props;
+  await delay(3000);
 
   return (
     <div>
