@@ -7,6 +7,7 @@ import ImageFront from "@/components/home/ImageFront";
 import ImageBack from "@/components/home/ImageBack";
 import { Suspense } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
 
 export async function fetchLatestPostsComponent(
   take: number,
@@ -53,7 +54,20 @@ export async function fetchLatestPostsComponent(
             }}
             frontComponent={<ImageFront index={index} post={post} />}
             backComponent={
-              <Suspense fallback={<Skeleton className="w-full h-40" />}>
+              <Suspense
+                fallback={
+                  <>
+                    <Image
+                      alt=""
+                      src={post.imgFront}
+                      width={500}
+                      height={500}
+                      className="relative rounded-lg opacity-0"
+                    />
+                    <Skeleton className="absolute inset-0 rounded-lg w-full h-auto" />
+                  </>
+                }
+              >
                 <ImageBack post={post} />
               </Suspense>
             }
@@ -84,7 +98,20 @@ export async function fetchLatestPostsComponent(
             }}
             frontComponent={<ImageFront index={index} post={post} />}
             backComponent={
-              <Suspense fallback={<Skeleton className="w-full h-40" />}>
+              <Suspense
+                fallback={
+                  <>
+                    <Image
+                      alt=""
+                      src={post.imgFront}
+                      width={500}
+                      height={500}
+                      className="relative rounded-lg opacity-0"
+                    />
+                    <Skeleton className="absolute inset-0 rounded-lg w-full h-auto" />
+                  </>
+                }
+              >
                 <ImageBack post={post} />
               </Suspense>
             }
@@ -148,7 +175,20 @@ export async function fetchMoreLatestPostsComponent(
             }}
             frontComponent={<ImageFront index={index} post={post} />}
             backComponent={
-              <Suspense fallback={<Skeleton className="w-full h-40" />}>
+              <Suspense
+                fallback={
+                  <>
+                    <Image
+                      alt=""
+                      src={post.imgFront}
+                      width={500}
+                      height={500}
+                      className="relative rounded-lg opacity-0"
+                    />
+                    <Skeleton className="absolute inset-0 rounded-lg w-full h-auto" />
+                  </>
+                }
+              >
                 <ImageBack post={post} />
               </Suspense>
             }
@@ -179,7 +219,20 @@ export async function fetchMoreLatestPostsComponent(
             }}
             frontComponent={<ImageFront index={index} post={post} />}
             backComponent={
-              <Suspense fallback={<Skeleton className="w-full h-40" />}>
+              <Suspense
+                fallback={
+                  <>
+                    <Image
+                      alt=""
+                      src={post.imgFront}
+                      width={500}
+                      height={500}
+                      className="relative rounded-lg opacity-0"
+                    />
+                    <Skeleton className="absolute inset-0 rounded-lg w-full h-auto" />
+                  </>
+                }
+              >
                 <ImageBack post={post} />
               </Suspense>
             }
