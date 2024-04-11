@@ -80,15 +80,18 @@ const NoLoginHomeGallery = (props: Props) => {
         );
         if (component.length < 6) {
           setPostLimit(true);
-        } else {
-          setPosts((prevPosts) => [
-            [...prevPosts[0], component[0], component[3]],
-            [...prevPosts[1], component[1], component[4]],
-            [...prevPosts[2], component[2], component[5]],
-          ]);
-          //   const newCursorPostId = cursorById(newPosts);
-          setCursorPostId(cursorId);
         }
+        const newPostsArray: ReactNode[][] = [[], [], []];
+        component.forEach((post, i) => {
+          newPostsArray[i % 3] = [...newPostsArray[i % 3], post];
+        });
+
+        setPosts((prevPosts) => [
+          [...prevPosts[0], newPostsArray[0]],
+          [...prevPosts[1], newPostsArray[1]],
+          [...prevPosts[2], newPostsArray[2]],
+        ]);
+        setCursorPostId(cursorId);
       };
       fetchMorePosts();
     }
