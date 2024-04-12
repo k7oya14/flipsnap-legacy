@@ -4,9 +4,9 @@ export default function NotFound() {
   return (
     <ErrorCard
       heading="404 Not Found"
-      message="This page isn't available."
+      message="お探しのページが見つかりませんでした"
       link="/"
-      button="go home"
+      button="Go Home"
     />
   );
 }

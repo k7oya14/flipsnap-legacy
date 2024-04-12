@@ -23,7 +23,7 @@ export async function SpDetailPost(props: Props) {
       <ErrorCard
         heading="Post not found"
         message="投稿が見つかりません"
-        button="go back"
+        button="Go Home"
         link="/"
       />
     );

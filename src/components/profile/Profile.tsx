@@ -19,7 +19,7 @@ const Profile = async (props: Props) => {
       <ErrorCard
         heading="User not found"
         message="ユーザーが見つかりません"
-        button="Go back"
+        button="Go Home"
         link="/"
       />
     );

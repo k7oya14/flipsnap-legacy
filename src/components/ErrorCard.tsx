@@ -16,7 +16,7 @@ const ErrorCard = (props: Props) => {
   return (
     <Card className="m-4 p-4 max-w-[90vw] w-96 mx-auto shadow-lg">
       <CardContent className="flex flex-col items-center justify-center mt-6">
-        <TriangleAlert className="text-yellow-300 w-12 h-12 mb-4" />
+        <TriangleAlert className="text-yellow-300 size-[70px] mb-4" />
         <h1 className="text-center text-2xl font-bold">{heading}</h1>
         <h1 className="text-center my-4">{message} </h1>
         <Link href={`${link}`}>
