@@ -2,15 +2,18 @@ import Image from "next/image";
 import React from "react";
 import LockedBack from "../LockedBack";
 import { GalleyPost, UserRelationship } from "@/lib/definitions";
-import { delay } from "@/lib/fetch";
 
 type Props = {
   post: GalleyPost;
+  session: boolean;
 };
 
 const ImageBack = async (props: Props) => {
-  const { post } = props;
-  await delay(3000);
+  const { post, session } = props;
+  let relationship = UserRelationship.NoSession;
+  //   if (session) {
+  // relationship = await fetchRelationship
+  //   }
 
   return (
     <div>
@@ -27,7 +30,7 @@ const ImageBack = async (props: Props) => {
           alt=""
           src={post.imgBack}
         />
-        <LockedBack relationship={UserRelationship.NoSession} />
+        <LockedBack relationship={relationship} />
       </div>
     </div>
   );

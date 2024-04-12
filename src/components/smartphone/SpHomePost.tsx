@@ -10,10 +10,11 @@ import { Skeleton } from "../ui/skeleton";
 
 type Props = {
   post: GalleyPost;
+  session: boolean;
 };
 
 export function SpHomePost(props: Props) {
-  const { post } = props;
+  const { post, session } = props;
   return (
     <div className="w-full h-full flex flex-col min-w-[360px] max-w-[960px] border-b-2">
       <Link
@@ -68,7 +69,7 @@ export function SpHomePost(props: Props) {
                   </>
                 }
               >
-                <ImageBack post={post} />
+                <ImageBack post={post} session={session} />
               </Suspense>
             }
           />
