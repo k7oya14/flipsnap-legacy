@@ -1,5 +1,4 @@
 import React from "react";
-import { GalleyPost } from "@/lib/definitions";
 import SpHomeLoadMore from "./SpHomeLoadMore";
 import { auth } from "@/lib/auth";
 import { fetchLatestPostsSpComponent } from "@/lib/fetchWrapper";

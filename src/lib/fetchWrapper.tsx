@@ -2,13 +2,8 @@
 
 import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
-import FlipImage from "@/components/FlipImage";
-import ImageFront from "@/components/home/ImageFront";
-import ImageBack from "@/components/home/ImageBack";
-import { Suspense } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
-import Image from "next/image";
 import { SpHomePost } from "@/components/smartphone/SpHomePost";
+import HomePost from "@/components/home/HomePost";
 
 export async function fetchLatestPostsComponent(
   take: number,
@@ -46,33 +41,7 @@ export async function fetchLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <FlipImage
-            key={post.id}
-            containerStyle={{
-              width: "100%",
-              height: "auto",
-              marginBottom: "8px",
-            }}
-            frontComponent={<ImageFront index={index} post={post} />}
-            backComponent={
-              <Suspense
-                fallback={
-                  <>
-                    <Image
-                      alt=""
-                      src={post.imgFront}
-                      width={500}
-                      height={500}
-                      className="relative rounded-lg opacity-0"
-                    />
-                    <Skeleton className="absolute inset-0 rounded-lg w-full h-auto" />
-                  </>
-                }
-              >
-                <ImageBack post={post} />
-              </Suspense>
-            }
-          />
+          <HomePost post={post} index={index} session={true} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -90,33 +59,7 @@ export async function fetchLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <FlipImage
-            key={post.id}
-            containerStyle={{
-              width: "100%",
-              height: "auto",
-              marginBottom: "8px",
-            }}
-            frontComponent={<ImageFront index={index} post={post} />}
-            backComponent={
-              <Suspense
-                fallback={
-                  <>
-                    <Image
-                      alt=""
-                      src={post.imgFront}
-                      width={500}
-                      height={500}
-                      className="relative rounded-lg opacity-0"
-                    />
-                    <Skeleton className="absolute inset-0 rounded-lg w-full h-auto" />
-                  </>
-                }
-              >
-                <ImageBack post={post} />
-              </Suspense>
-            }
-          />
+          <HomePost post={post} index={index} session={false} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -167,33 +110,7 @@ export async function fetchMoreLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <FlipImage
-            key={post.id}
-            containerStyle={{
-              width: "100%",
-              height: "auto",
-              marginBottom: "8px",
-            }}
-            frontComponent={<ImageFront index={index} post={post} />}
-            backComponent={
-              <Suspense
-                fallback={
-                  <>
-                    <Image
-                      alt=""
-                      src={post.imgFront}
-                      width={500}
-                      height={500}
-                      className="relative rounded-lg opacity-0"
-                    />
-                    <Skeleton className="absolute inset-0 rounded-lg w-full h-auto" />
-                  </>
-                }
-              >
-                <ImageBack post={post} />
-              </Suspense>
-            }
-          />
+          <HomePost post={post} index={index} session={true} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -211,33 +128,7 @@ export async function fetchMoreLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <FlipImage
-            key={post.id}
-            containerStyle={{
-              width: "100%",
-              height: "auto",
-              marginBottom: "8px",
-            }}
-            frontComponent={<ImageFront index={index} post={post} />}
-            backComponent={
-              <Suspense
-                fallback={
-                  <>
-                    <Image
-                      alt=""
-                      src={post.imgFront}
-                      width={500}
-                      height={500}
-                      className="relative rounded-lg opacity-0"
-                    />
-                    <Skeleton className="absolute inset-0 rounded-lg w-full h-auto" />
-                  </>
-                }
-              >
-                <ImageBack post={post} />
-              </Suspense>
-            }
-          />
+          <HomePost post={post} index={index} session={false} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -283,7 +174,7 @@ export async function fetchLatestPostsSpComponent(
       );
       return {
         component: posts.map((post) => (
-          <SpHomePost key={post.id} post={post} />
+          <SpHomePost key={post.id} post={post} session={true} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -301,7 +192,7 @@ export async function fetchLatestPostsSpComponent(
       );
       return {
         component: posts.map((post) => (
-          <SpHomePost key={post.id} post={post} />
+          <SpHomePost key={post.id} post={post} session={false} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -352,7 +243,7 @@ export async function fetchMoreLatestPostsSpComponent(
       );
       return {
         component: posts.map((post) => (
-          <SpHomePost key={post.id} post={post} />
+          <SpHomePost key={post.id} post={post} session={true} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -370,7 +261,7 @@ export async function fetchMoreLatestPostsSpComponent(
       );
       return {
         component: posts.map((post) => (
-          <SpHomePost key={post.id} post={post} />
+          <SpHomePost key={post.id} post={post} session={false} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
