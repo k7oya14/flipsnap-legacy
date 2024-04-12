@@ -1,14 +1,14 @@
 import React from "react";
 import SpHomeLoadMore from "./SpHomeLoadMore";
-import { auth } from "@/lib/auth";
 import { fetchLatestPostsSpComponent } from "@/lib/fetchWrapper";
 
-const SpHome = async () => {
-  const session = await auth();
-  const { component, cursorId } = await fetchLatestPostsSpComponent(
-    12,
-    session?.user.id
-  );
+type Props = {
+  myId: string | undefined;
+};
+
+const SpHome = async (props: Props) => {
+  const { myId } = props;
+  const { component, cursorId } = await fetchLatestPostsSpComponent(12, myId);
   return (
     <div>
       {component}

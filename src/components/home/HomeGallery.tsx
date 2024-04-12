@@ -1,14 +1,14 @@
 import React from "react";
 import NoLoginHomeGallery from "./NoLoginHomeGallery";
-import { auth } from "@/lib/auth";
 import { fetchLatestPostsComponent } from "@/lib/fetchWrapper";
 
-const HomeGallery = async () => {
-  const session = await auth();
-  const { component, cursorId } = await fetchLatestPostsComponent(
-    12,
-    session?.user.id
-  );
+type Props = {
+  myId: string | undefined;
+};
+
+const HomeGallery = async (props: Props) => {
+  const { myId } = props;
+  const { component, cursorId } = await fetchLatestPostsComponent(12, myId);
 
   return <NoLoginHomeGallery firstPost={component} cursorId={cursorId} />;
 };

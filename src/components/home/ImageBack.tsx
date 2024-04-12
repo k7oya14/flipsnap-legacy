@@ -11,9 +11,10 @@ type Props = {
 const ImageBack = async (props: Props) => {
   const { post, session } = props;
   let relationship = UserRelationship.NoSession;
-  //   if (session) {
-  // relationship = await fetchRelationship
-  //   }
+  if (session) {
+    //   relationship = await fetchRelationship
+    relationship = UserRelationship.Following;
+  }
 
   return (
     <div>

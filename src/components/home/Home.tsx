@@ -2,12 +2,14 @@ import React from "react";
 import SpHome from "../smartphone/SpHome";
 import Image from "next/image";
 import HomeGallery from "./HomeGallery";
+import { auth } from "@/lib/auth";
 
 const Home = async () => {
+  const session = await auth();
   return (
     <>
       <div className="block sm:hidden">
-        <SpHome />
+        <SpHome myId={session?.user.id} />
       </div>
       <div className="hidden sm:flex flex-col justify-center">
         <Image
@@ -19,7 +21,7 @@ const Home = async () => {
           alt=""
           src="/hero.gif"
         />
-        <HomeGallery />
+        <HomeGallery myId={session?.user.id} />
       </div>
     </>
   );
