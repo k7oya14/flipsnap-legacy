@@ -3,10 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { formatDistance } from "date-fns";
 import Image from "next/image";
-import ImageBack from "../home/ImageBack";
-import FlipImage from "../FlipImage";
-import { Suspense } from "react";
-import { Skeleton } from "../ui/skeleton";
+import HomeFlipImage from "../home/HomeFlipImage";
 
 type Props = {
   post: GalleyPost;
@@ -35,11 +32,12 @@ export function SpHomePost(props: Props) {
       </Link>
       <main className="flex-grow overflow-y-auto">
         <div className="flex flex-col gap-4 pt-2 pb-4">
-          <FlipImage
+          <HomeFlipImage
+            post={post}
+            myId={myId}
             containerStyle={{
               width: "100%",
               height: "auto",
-              cursor: "pointer",
             }}
             frontComponent={
               <Image
@@ -53,24 +51,6 @@ export function SpHomePost(props: Props) {
                 width={500}
                 height={500}
               />
-            }
-            backComponent={
-              <Suspense
-                fallback={
-                  <>
-                    <Image
-                      alt=""
-                      src={post.imgFront}
-                      width={500}
-                      height={500}
-                      className="relative opacity-0 w-full h-auto"
-                    />
-                    <Skeleton className="absolute inset-0 w-full h-auto" />
-                  </>
-                }
-              >
-                <ImageBack post={post} myId={myId} />
-              </Suspense>
             }
           />
           <div className="px-4 gap-2 flex flex-col">

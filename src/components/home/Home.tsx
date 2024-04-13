@@ -2,14 +2,21 @@ import React from "react";
 import SpHome from "../smartphone/SpHome";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
-import HomeGalleryFetch from "./HomeGalleryFetch";
+import { fetchLatestPosts } from "@/lib/fetch";
+import { GalleyPost } from "@/lib/definitions";
+import NoLoginHomeGallery from "./NoLoginHomeGallery";
 
 const Home = async () => {
   const session = await auth();
+  const firstPosts = await fetchLatestPosts(12, session?.user.id);
+  const firstPostThreeArrays: GalleyPost[][] = [[], [], []];
+  firstPosts.forEach((post, i) => {
+    firstPostThreeArrays[i % 3] = [...firstPostThreeArrays[i % 3], post];
+  });
   return (
     <>
       <div className="block sm:hidden">
-        <SpHome myId={session?.user.id} />
+        <SpHome myId={session?.user.id} firstPosts={firstPosts} />
       </div>
       <div className="hidden sm:flex flex-col justify-center">
         <Image
@@ -21,7 +28,11 @@ const Home = async () => {
           alt=""
           src="/hero.gif"
         />
-        <HomeGalleryFetch myId={session?.user.id} />
+        <NoLoginHomeGallery
+          myId={session?.user.id}
+          firstPosts={firstPostThreeArrays}
+          cursorId={firstPosts[firstPosts.length - 1].id}
+        />
       </div>
     </>
   );

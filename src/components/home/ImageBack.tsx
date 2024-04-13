@@ -6,11 +6,13 @@ import { fetchUserRelationship } from "@/lib/fetch";
 
 type Props = {
   post: GalleyPost;
+  myId: string | undefined | null;
   relationship: UserRelationship;
+  loading?: boolean;
 };
 
 const ImageBack = (props: Props) => {
-  const { post, relationship } = props;
+  const { post, myId, relationship, loading = false } = props;
 
   return (
     <div>
@@ -27,7 +29,12 @@ const ImageBack = (props: Props) => {
           alt=""
           src={post.imgBack}
         />
-        <LockedBack relationship={relationship} />
+        <LockedBack
+          myId={myId}
+          userId={post.authorId}
+          relationship={relationship}
+          loading={loading}
+        />
       </div>
     </div>
   );
