@@ -1,12 +1,11 @@
-"use client";
-
 import { Expand } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import { GalleyPost } from "@/lib/definitions";
-import { motion } from "framer-motion";
+import StopPropagationDiv from "../StopPropagationDiv";
+import { MotionDiv } from "../MotionDiv";
 
 type Props = {
   index: number;
@@ -21,13 +20,8 @@ const ImageFront = (props: Props) => {
     visible: { opacity: 1 },
   };
 
-  const handleIconClick = (
-    e: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
-  };
   return (
-    <motion.div
+    <MotionDiv
       variants={variants}
       initial="hidden"
       animate="visible"
@@ -38,7 +32,7 @@ const ImageFront = (props: Props) => {
         <Image
           width={500}
           height={500}
-          priority={true}
+          priority={index === 0}
           className="rounded-md"
           style={{
             objectFit: "cover",
@@ -49,27 +43,24 @@ const ImageFront = (props: Props) => {
           src={post.imgFront}
         />
         <div className="absolute inset-x-0 bottom-0 h-full w-full hover:bg-gradient-to-b from-transparent to-zinc-800 rounded-b">
-          <Link
-            href={`/profile/${post.author?.username}`}
-            onClick={(e) => handleIconClick(e)}
-            className="absolute bottom-2 left-2 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
-          >
-            <Avatar>
-              <AvatarImage src={post.author?.image!} />
-              <AvatarFallback>{post.author?.name}</AvatarFallback>
-            </Avatar>
-            <p className="text-lg">{post.author?.name}</p>
-          </Link>
-          <Link
-            onClick={(e) => handleIconClick(e)}
-            href={`/posts/${post.id}`}
-            scroll={false}
-          >
-            <Expand className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
-          </Link>
+          <StopPropagationDiv>
+            <Link
+              href={`/profile/${post.author?.username}`}
+              className="absolute bottom-2 left-2 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
+            >
+              <Avatar>
+                <AvatarImage src={post.author?.image!} />
+                <AvatarFallback>{post.author?.name}</AvatarFallback>
+              </Avatar>
+              <p className="text-lg">{post.author?.name}</p>
+            </Link>
+            <Link href={`/posts/${post.id}`} scroll={false}>
+              <Expand className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
+            </Link>
+          </StopPropagationDiv>
         </div>
       </div>
-    </motion.div>
+    </MotionDiv>
   );
 };
 

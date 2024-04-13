@@ -1,40 +1,34 @@
-"use client";
-
 import React from "react";
 import Image from "next/image";
 import LockedBack from "../LockedBack";
 import { UserRelationship } from "@/lib/definitions";
+import { delay } from "@/lib/fetch";
 
 type Props = {
   src: string;
   myId: string | undefined;
   userId: string;
   relationship: UserRelationship;
-  handleClick: () => void;
 };
 
-const DetailImageBack = (props: Props) => {
-  const { src, myId, userId, relationship, handleClick } = props;
+const DetailImageBack = async (props: Props) => {
+  const { src, myId, userId, relationship } = props;
+  //   await delay(3000);
   const hidden =
     relationship === UserRelationship.Mutual ||
     relationship === UserRelationship.Me;
 
   return (
-    <div>
-      <div
-        onClick={handleClick}
-        className="relative border-2 border-slate-200 rounded-md my-2 hover:cursor-pointer"
-      >
+    <div className="text-center h-full">
+      <div className="relative overflow-hidden h-full inline-block">
         <Image
           alt=""
-          className={`h-auto rounded ${hidden || "filter blur-lg"}`}
-          height="758"
+          width={500}
+          height={500}
+          className={`object-contain h-full w-auto ${
+            hidden || "filter blur-lg"
+          }`}
           src={src}
-          style={{
-            aspectRatio: "902/758",
-            objectFit: "cover",
-          }}
-          width="902"
         />
         {hidden || (
           <LockedBack myId={myId} userId={userId} relationship={relationship} />

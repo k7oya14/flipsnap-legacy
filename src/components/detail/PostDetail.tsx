@@ -1,54 +1,77 @@
-"use client";
-
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import ReactCardFlip from "react-card-flip";
-import { useState } from "react";
-import { OnePost } from "@/lib/definitions";
-import { useRouter } from "next/navigation";
-import DetailImageFront from "./DetailImageFront";
 import DetailImageBack from "./DetaiImagelBack";
+import { auth } from "@/lib/auth";
+import { fetchPost } from "@/lib/fetch";
+import FlipImage from "../FlipImage";
+import ErrorCard from "../ErrorCard";
+import ModalLink from "./ModalLink";
+import Image from "next/image";
+import { Suspense } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 type Props = {
-  post: OnePost;
-  myId: string | undefined;
+  postId: string;
 };
 
-export function PostDetail(props: Props) {
-  const { post, myId } = props;
-  const [isFlipped, setIsFlipped] = useState(false);
-
-  const router = useRouter();
-
-  const handleClick = () => setIsFlipped((isFlipped) => !isFlipped);
-
+export async function PostDetail(props: Props) {
+  const { postId } = props;
+  const session = await auth();
+  const myId = session?.user.id;
+  const post = await fetchPost(postId, myId);
+  if (!post.authorId)
+    return (
+      <ErrorCard
+        heading="Post not found"
+        message="投稿が見つかりません"
+        button="go back"
+        link="/"
+      />
+    );
   return (
     <div className="flex">
-      <div className="w-3/5 flex justify-center">
-        <ReactCardFlip
-          isFlipped={isFlipped}
-          flipDirection="horizontal"
-          flipSpeedBackToFront={0.6}
-          flipSpeedFrontToBack={0.6}
-          infinite={true}
-        >
-          <DetailImageFront src={post.imgFront!} handleClick={handleClick} />
-          <DetailImageBack
-            src={post.imgBack!}
-            myId={myId}
-            userId={post.authorId!}
-            relationship={post.author?.relationship!}
-            handleClick={handleClick}
-          />
-        </ReactCardFlip>
+      <div className="w-[55%] h-[83vh] max-h-[600px] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
+        <FlipImage
+          containerStyle={{
+            width: "100%",
+            height: "100%",
+            cursor: "pointer",
+            margin: "auto",
+          }}
+          frontComponent={
+            <Image
+              alt=""
+              width={500}
+              height={500}
+              style={{
+                objectFit: "contain",
+                height: "100%",
+                width: "auto",
+                margin: "auto",
+              }}
+              src={post.imgFront!}
+            />
+          }
+          backComponent={
+            <Suspense
+              fallback={
+                <Skeleton className="w-full h-[83vh] max-h-[600px] rounded-r-none" />
+              }
+            >
+              <DetailImageBack
+                src={post.imgBack!}
+                myId={myId}
+                userId={post.authorId!}
+                relationship={post.author?.relationship!}
+              />
+            </Suspense>
+          }
+        />
       </div>
-      <div className="w-2/5 flex flex-col">
-        <div className="flex items-center p-4 border-b">
-          <div
-            onClick={() => {
-              router.push(`/profile/${post.author?.username}`);
-              router.refresh();
-            }}
+      <div className="w-[45%] flex flex-col border rounded-r-lg border-gray-200">
+        <div className="flex items-center p-2 md:p-4 border-b">
+          <ModalLink
+            href={`/profile/${post.author?.username}`}
             className="flex items-center hover:cursor-pointer"
           >
             <Avatar>
@@ -64,10 +87,9 @@ export function PostDetail(props: Props) {
               <p className="font-semibold">{post.author?.name}</p>
               <p className="text-xs text-gray-500">{post.author?.username}</p>
             </div>
-          </div>
-          <MoreHorizontalIcon className="ml-auto text-gray-600" />
+          </ModalLink>
         </div>
-        <p className="m-4">{post.caption}</p>
+        <p className="m-2 md:m-4 text-sm md:text-base">{post.caption}</p>
         {/* <div className="flex-grow overflow-y-auto">
           <div className="flex items-start space-x-3 p-4">
             <Avatar>

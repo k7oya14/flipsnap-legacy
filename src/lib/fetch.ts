@@ -251,6 +251,10 @@ export async function fetchPost(
 // const data3 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
 // ...
 
+export async function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function fetchLatestPosts(
   take: number,
   myId: string | undefined | null
