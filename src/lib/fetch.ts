@@ -30,8 +30,8 @@ export async function fetchUserByUsername(
       include: {
         _count: {
           select: {
-            follows: true,
-            followers: true,
+            following: true,
+            followedBy: true,
             posts: true,
           },
         },
@@ -63,16 +63,20 @@ export async function fetchFollows(username: string) {
         username,
       },
       select: {
-        follows: {
+        following: {
           select: {
-            username: true,
-            image: true,
-            name: true,
-          },
+            followee:{
+              select: {
+                username: true,
+                image: true,
+                name: true,
+              },
+            },
+            }
+            }
         },
-      },
     });
-    const follows = data?.follows ? data.follows : [];
+    const follows = data?.following ? data.following.map(f => f.followee) : [];
     return follows;
   } catch (error) {
     throw new Error("Failed to fetch follows.");
@@ -87,16 +91,20 @@ export async function fetchFollowers(username: string) {
         username,
       },
       select: {
-        followers: {
+        followedBy: {
           select: {
-            username: true,
-            image: true,
-            name: true,
-          },
+            follower:{
+              select: {
+                username: true,
+                image: true,
+                name: true,
+              },
+            },
+            }
+            }
         },
-      },
     });
-    const followers = data?.followers ? data.followers : [];
+    const followers = data?.followedBy ? data.followedBy.map(f => f.follower) : [];
     return followers;
   } catch (error) {
     throw new Error("Failed to fetch follows.");
@@ -104,50 +112,86 @@ export async function fetchFollowers(username: string) {
 }
 
 export async function fetchUserRelationship(myId: string, userId: string) {
+  const start = process.hrtime();
   if (myId === userId) {
     return UserRelationship.Me;
   }
   noStore();
   try {
-    const existingFollow = await prisma.user.findUnique({
+    // case1
+    const relationships = await prisma.user_User_Follows.findMany({
       where: {
-        id: myId,
-        follows: {
-          some: {
-            id: userId,
-          },
-        },
+        OR: [
+          { followerId: myId, followeeId: userId },
+          { followerId: userId, followeeId: myId },
+        ],
       },
-      select: {
-        follows: {
-          where: {
-            id: userId,
-          },
-        },
-      },
+      take: 2,
     });
-    const existingFollower = await prisma.user.findUnique({
-      where: {
-        id: myId,
-        followers: {
-          some: {
-            id: userId,
-          },
-        },
-      },
-      select: {
-        followers: {
-          where: {
-            id: userId,
-          },
-        },
-      },
-    });
-    if (existingFollow && existingFollower) {
+    const isFollowing = relationships.some((rel) => rel.followerId === myId);
+    const isFollower = relationships.some((rel) => rel.followerId === userId);
+
+    // case2
+    // const user = await prisma.user.findUnique({
+    //   where: {
+    //     id: myId,
+    //   },
+    //   include: {
+    //     following: {
+    //       where: {
+    //         followingId: userId,
+    //       },
+    //     },
+    //     followedBy: {
+    //       where: {
+    //         followerId: userId,
+    //       },
+    //     },
+    //   },
+    // });
+
+    // <<<<LEGACY>>>>
+    // const isFollowing = await prisma.user.findUnique({
+    //   where: {
+    //     id: myId,
+    //     follows: {
+    //       some: {
+    //         id: userId,
+    //       },
+    //     },
+    //   },
+    //   select: {
+    //     follows: {
+    //       where: {
+    //         id: userId,
+    //       },
+    //     },
+    //   },
+    // });
+    // const isFollower = await prisma.user.findUnique({
+    //   where: {
+    //     id: myId,
+    //     followers: {
+    //       some: {
+    //         id: userId,
+    //       },
+    //     },
+    //   },
+    //   select: {
+    //     followers: {
+    //       where: {
+    //         id: userId,
+    //       },
+    //     },
+    //   },
+    // });
+    const end = process.hrtime(start);
+    console.log((end[0] * 1e9 + end[1]) / 1e6 + "ms");
+    if (isFollowing && isFollower) {
       return UserRelationship.Mutual;
-    } else if (existingFollow) {
+    } else if (isFollowing) {
       return UserRelationship.Following;
-    } else if (existingFollower) {
+    } else if (isFollower) {
       return UserRelationship.Follower;
     } else {
       return UserRelationship.None;
@@ -161,7 +205,7 @@ export async function fetchPost(
   postId: string,
   myId: string | undefined | null
 ) {
-  noStore();
+  // noStore(); // force-cache (default) : No need to cache single post
   try {
     const data = await prisma.post.findUnique({
       where: {

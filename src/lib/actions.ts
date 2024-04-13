@@ -122,14 +122,10 @@ export async function createPost(
 
 export async function Follow(myId: string, userId: string) {
   try {
-    await prisma.user.update({
-      where: { id: myId },
+    await prisma.user_User_Follows.create({
       data: {
-        follows: {
-          connect: {
-            id: userId,
-          },
-        },
+        followerId: myId,
+        followeeId: userId,
       },
     });
   } catch (error) {
@@ -142,13 +138,11 @@ export async function Follow(myId: string, userId: string) {
 
 export async function UnFollow(myId: string, userId: string) {
   try {
-    await prisma.user.update({
-      where: { id: myId },
-      data: {
-        follows: {
-          disconnect: {
-            id: userId,
-          },
+    await prisma.user_User_Follows.delete({
+      where: {
+        followerId_followeeId: {
+          followerId: myId,
+          followeeId: userId,
         },
       },
     });

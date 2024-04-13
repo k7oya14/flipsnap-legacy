@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function useCursorById() {
   const cursorById = <T extends { id: string }>(data: T[]): string => {
-    return data[data.length - 1].id;
+    return data[0] ? data[data.length - 1].id : "";
   };
   return { cursorById };
 }
