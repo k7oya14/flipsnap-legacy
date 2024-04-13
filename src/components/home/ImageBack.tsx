@@ -6,15 +6,11 @@ import { fetchUserRelationship } from "@/lib/fetch";
 
 type Props = {
   post: GalleyPost;
-  myId: string | undefined | null;
+  relationship: UserRelationship;
 };
 
-const ImageBack = async (props: Props) => {
-  const { post, myId } = props;
-  let relationship = UserRelationship.NoSession;
-  if (myId) {
-    relationship = await fetchUserRelationship(myId, post.authorId);
-  }
+const ImageBack = (props: Props) => {
+  const { post, relationship } = props;
 
   return (
     <div>
