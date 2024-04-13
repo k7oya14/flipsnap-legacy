@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import LockedBack from "../LockedBack";
 import { UserRelationship } from "@/lib/definitions";
-import { delay } from "@/lib/fetch";
 
 type Props = {
   src: string;
@@ -13,7 +12,6 @@ type Props = {
 
 const DetailImageBack = async (props: Props) => {
   const { src, myId, userId, relationship } = props;
-  //   await delay(3000);
   const hidden =
     relationship === UserRelationship.Mutual ||
     relationship === UserRelationship.Me;

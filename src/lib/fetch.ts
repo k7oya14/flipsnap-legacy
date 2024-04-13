@@ -17,10 +17,7 @@ export async function getUsernameById(userId: string) {
   return data;
 }
 
-export async function fetchUserByUsername(
-  username: string,
-  myId: string | undefined | null
-) {
+export async function fetchUserByUsername(username: string) {
   noStore();
   try {
     const data = await prisma.user.findUnique({
@@ -60,9 +57,9 @@ export async function fetchFollows(username: string) {
                 name: true,
               },
             },
-            }
-            }
-        },
+          }
+        }
+      },
     });
     const follows = data?.following ? data.following.map(f => f.followee) : [];
     return follows;
@@ -88,9 +85,9 @@ export async function fetchFollowers(username: string) {
                 name: true,
               },
             },
-            }
-            }
-        },
+          }
+        }
+      },
     });
     const followers = data?.followedBy ? data.followedBy.map(f => f.follower) : [];
     return followers;
@@ -135,11 +132,8 @@ export async function fetchUserRelationship(myId: string, userId: string) {
   }
 }
 
-export async function fetchPost(
-  postId: string,
-  myId: string | undefined | null
-) {
-  // noStore(); // force-cache (default) : No need to cache single post
+export async function fetchPost(postId: string) {
+  // noStore();
   try {
     const data = await prisma.post.findUnique({
       where: {
@@ -170,14 +164,7 @@ export async function fetchPost(
 // const data3 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
 // ...
 
-export async function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-export async function fetchLatestPosts(
-  take: number,
-  myId: string | undefined | null
-) {
+export async function fetchLatestPosts(take: number) {
   noStore();
   try {
     const data = await prisma.post.findMany({
@@ -195,44 +182,13 @@ export async function fetchLatestPosts(
       },
       take,
     });
-    if (myId) {
-      const posts = await Promise.all(
-        data.map(async (post) => {
-          // const relationship = await fetchUserRelationship(myId, post.authorId);
-          return {
-            ...post,
-            author: {
-              ...post.author,
-              // relationship,
-            },
-          };
-        })
-      );
-      return posts;
-    } else {
-      const posts = await Promise.all(
-        data.map(async (post) => {
-          return {
-            ...post,
-            author: {
-              ...post.author,
-              // relationship: UserRelationship.NoSession,
-            },
-          };
-        })
-      );
-      return posts;
-    }
+    return data;
   } catch (error) {
     throw new Error("Failed to fetch first latest posts.");
   }
 }
 
-export async function fetchMoreLatestPosts(
-  take: number,
-  myId: string | undefined | null,
-  cursorPostId: string
-) {
+export async function fetchMoreLatestPosts(take: number,cursorPostId: string) {
   noStore();
   try {
     const data = await prisma.post.findMany({
@@ -254,34 +210,7 @@ export async function fetchMoreLatestPosts(
         id: cursorPostId,
       },
     });
-    if (myId) {
-      const posts = await Promise.all(
-        data.map(async (post) => {
-          // const relationship = await fetchUserRelationship(myId, post.authorId);
-          return {
-            ...post,
-            author: {
-              ...post.author,
-              // relationship,
-            },
-          };
-        })
-      );
-      return posts;
-    } else {
-      const posts = await Promise.all(
-        data.map(async (post) => {
-          return {
-            ...post,
-            author: {
-              ...post.author,
-              // relationship: UserRelationship.NoSession,
-            },
-          };
-        })
-      );
-      return posts;
-    }
+    return data;
   } catch (error) {
     throw new Error("Failed to fetch more latest posts.");
   }
