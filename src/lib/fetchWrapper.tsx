@@ -41,7 +41,7 @@ export async function fetchLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <HomePost key={post.id} post={post} index={index} session={true} />
+          <HomePost key={post.id} post={post} index={index} myId={myId} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -59,7 +59,7 @@ export async function fetchLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <HomePost key={post.id} post={post} index={index} session={false} />
+          <HomePost key={post.id} post={post} index={index} myId={myId} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -110,7 +110,7 @@ export async function fetchMoreLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <HomePost key={post.id} post={post} index={index} session={true} />
+          <HomePost key={post.id} post={post} index={index} myId={myId} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -128,7 +128,7 @@ export async function fetchMoreLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <HomePost key={post.id} post={post} index={index} session={false} />
+          <HomePost key={post.id} post={post} index={index} myId={myId} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -174,7 +174,7 @@ export async function fetchLatestPostsSpComponent(
       );
       return {
         component: posts.map((post) => (
-          <SpHomePost key={post.id} post={post} session={true} />
+          <SpHomePost key={post.id} post={post} myId={myId} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -192,7 +192,7 @@ export async function fetchLatestPostsSpComponent(
       );
       return {
         component: posts.map((post) => (
-          <SpHomePost key={post.id} post={post} session={false} />
+          <SpHomePost key={post.id} post={post} myId={myId} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -243,7 +243,7 @@ export async function fetchMoreLatestPostsSpComponent(
       );
       return {
         component: posts.map((post) => (
-          <SpHomePost key={post.id} post={post} session={true} />
+          <SpHomePost key={post.id} post={post} myId={myId} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -261,7 +261,7 @@ export async function fetchMoreLatestPostsSpComponent(
       );
       return {
         component: posts.map((post) => (
-          <SpHomePost key={post.id} post={post} session={false} />
+          <SpHomePost key={post.id} post={post} myId={myId} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
