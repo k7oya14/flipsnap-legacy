@@ -55,14 +55,14 @@ async function createFollowRelations(users: User[]) {
         },
       },
     });
-    await prisma.user.update({
-      where: { username: "ksaka" },
-      data: {
-        followedBy: {
-          create: { followerId: user.id },
-        },
-      },
-    });
+    // await prisma.user.update({
+    //   where: { username: "ksaka" },
+    //   data: {
+    //     followedBy: {
+    //       create: { followerId: user.id },
+    //     },
+    //   },
+    // });
   }
 }
 
