@@ -1,8 +1,8 @@
 import React from "react";
 import SpHome from "../smartphone/SpHome";
 import Image from "next/image";
-import HomeGallery from "./HomeGallery";
 import { auth } from "@/lib/auth";
+import HomeGalleryFetch from "./HomeGalleryFetch";
 
 const Home = async () => {
   const session = await auth();
@@ -21,7 +21,7 @@ const Home = async () => {
           alt=""
           src="/hero.gif"
         />
-        <HomeGallery myId={session?.user.id} />
+        <HomeGalleryFetch myId={session?.user.id} />
       </div>
     </>
   );
