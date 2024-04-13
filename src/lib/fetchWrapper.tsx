@@ -41,7 +41,7 @@ export async function fetchLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <HomePost post={post} index={index} session={true} />
+          <HomePost key={post.id} post={post} index={index} session={true} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -59,7 +59,7 @@ export async function fetchLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <HomePost post={post} index={index} session={false} />
+          <HomePost key={post.id} post={post} index={index} session={false} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -110,7 +110,7 @@ export async function fetchMoreLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <HomePost post={post} index={index} session={true} />
+          <HomePost key={post.id} post={post} index={index} session={true} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
@@ -128,7 +128,7 @@ export async function fetchMoreLatestPostsComponent(
       );
       return {
         component: posts.map((post, index) => (
-          <HomePost post={post} index={index} session={false} />
+          <HomePost key={post.id} post={post} index={index} session={false} />
         )),
         cursorId: posts[posts.length - 1].id,
       };
