@@ -6,10 +6,14 @@ import { Skeleton } from "../ui/skeleton";
 import ImageBack from "./ImageBack";
 import { GalleyPost } from "@/lib/definitions";
 
-type Props = { post: GalleyPost; index: number; session: boolean };
+type Props = {
+  post: GalleyPost;
+  index: number;
+  myId: string | undefined | null;
+};
 
 const HomePost = (props: Props) => {
-  const { post, index, session } = props;
+  const { post, index, myId } = props;
   return (
     <FlipImage
       key={post.id}
@@ -34,7 +38,7 @@ const HomePost = (props: Props) => {
             </>
           }
         >
-          <ImageBack post={post} session={session} />
+          <ImageBack post={post} myId={myId} />
         </Suspense>
       }
     />

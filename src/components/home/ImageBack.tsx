@@ -2,18 +2,18 @@ import Image from "next/image";
 import React from "react";
 import LockedBack from "../LockedBack";
 import { GalleyPost, UserRelationship } from "@/lib/definitions";
+import { fetchUserRelationship } from "@/lib/fetch";
 
 type Props = {
   post: GalleyPost;
-  session: boolean;
+  myId: string | undefined | null;
 };
 
 const ImageBack = async (props: Props) => {
-  const { post, session } = props;
+  const { post, myId } = props;
   let relationship = UserRelationship.NoSession;
-  if (session) {
-    //   relationship = await fetchRelationship
-    relationship = UserRelationship.Following;
+  if (myId) {
+    relationship = await fetchUserRelationship(myId, post.authorId);
   }
 
   return (
