@@ -112,13 +112,12 @@ export async function fetchFollowers(username: string) {
 }
 
 export async function fetchUserRelationship(myId: string, userId: string) {
-  const start = process.hrtime();
+  // const start = process.hrtime();
   if (myId === userId) {
     return UserRelationship.Me;
   }
   noStore();
   try {
-    // case1
     const relationships = await prisma.user_User_Follows.findMany({
       where: {
         OR: [
@@ -131,62 +130,9 @@ export async function fetchUserRelationship(myId: string, userId: string) {
     const isFollowing = relationships.some((rel) => rel.followerId === myId);
     const isFollower = relationships.some((rel) => rel.followerId === userId);
 
-    // case2
-    // const user = await prisma.user.findUnique({
-    //   where: {
-    //     id: myId,
-    //   },
-    //   include: {
-    //     following: {
-    //       where: {
-    //         followingId: userId,
-    //       },
-    //     },
-    //     followedBy: {
-    //       where: {
-    //         followerId: userId,
-    //       },
-    //     },
-    //   },
-    // });
+    // const end = process.hrtime(start);
+    // console.log((end[0] * 1e9 + end[1]) / 1e6 + "ms");
 
-    // <<<<LEGACY>>>>
-    // const isFollowing = await prisma.user.findUnique({
-    //   where: {
-    //     id: myId,
-    //     follows: {
-    //       some: {
-    //         id: userId,
-    //       },
-    //     },
-    //   },
-    //   select: {
-    //     follows: {
-    //       where: {
-    //         id: userId,
-    //       },
-    //     },
-    //   },
-    // });
-    // const isFollower = await prisma.user.findUnique({
-    //   where: {
-    //     id: myId,
-    //     followers: {
-    //       some: {
-    //         id: userId,
-    //       },
-    //     },
-    //   },
-    //   select: {
-    //     followers: {
-    //       where: {
-    //         id: userId,
-    //       },
-    //     },
-    //   },
-    // });
-    const end = process.hrtime(start);
-    console.log((end[0] * 1e9 + end[1]) / 1e6 + "ms");
     if (isFollowing && isFollower) {
       return UserRelationship.Mutual;
     } else if (isFollowing) {
