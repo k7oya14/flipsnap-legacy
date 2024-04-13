@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
+import { imgSets } from "./imgSets";
 
 const prisma = new PrismaClient();
 
@@ -69,37 +70,22 @@ async function createFollowRelations(users: User[]) {
 const postUserCount = 20; // TODO : Change this parameter
 
 async function createPosts(users: User[]) {
+  let imgIndex = 0;
   for (const user of users.slice(0, postUserCount)) {
     await prisma.user.update({
       where: { id: user.id },
       data: {
         posts: {
-          // create: Array.from({
-          //   length: faker.number.int({ min: 1, max: 100 }), // TODO : Change this parameter
-          // }).map(() => {
-          //   const imgSize = [
-          //     [1080, 1080],
-          //     [1080, 566],
-          //     [1080, 1350],
-          //   ];
-          //   const [width, height] =
-          //     imgSize[faker.number.int({ min: 0, max: 2 })];
-          //   return {
-          //     imgFront: faker.image.url({ width, height }),
-          //     imgBack: faker.image.url({ width, height }),
-          //     caption: faker.lorem.lines(),
-          //     createdAt: faker.date.past(),
-          //   };
-          // }),
           create: {
-            imgFront: "",
-            imgBack: "",
+            imgFront: imgSets[imgIndex % imgSets.length],
+            imgBack: imgSets[imgIndex % imgSets.length],
             caption: faker.lorem.lines(),
             createdAt: faker.date.past(),
           },
         },
       },
     });
+    imgIndex++;
   }
 }
 
