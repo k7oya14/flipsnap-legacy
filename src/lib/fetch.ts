@@ -37,19 +37,7 @@ export async function fetchUserByUsername(
         },
       },
     });
-    let relationship: UserRelationship | undefined;
-    if (myId) {
-      relationship = data
-        ? await fetchUserRelationship(myId, data.id)
-        : undefined;
-    } else {
-      relationship = UserRelationship.NoSession;
-    }
-    const user = {
-      ...data,
-      relationship,
-    };
-    return user;
+    return data;
   } catch (error) {
     throw new Error("Failed to fetch user info by username.");
   }
@@ -167,22 +155,7 @@ export async function fetchPost(
         },
       },
     });
-    let relationship: UserRelationship | undefined;
-    if (myId) {
-      relationship = data
-        ? await fetchUserRelationship(myId, data.authorId)
-        : undefined;
-    } else {
-      relationship = UserRelationship.NoSession;
-    }
-    const post = {
-      ...data,
-      author: {
-        ...data?.author,
-        relationship,
-      },
-    };
-    return post;
+    return data;
   } catch (error) {
     throw new Error("Failed to fetch a post.");
   }
