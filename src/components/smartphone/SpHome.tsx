@@ -17,7 +17,7 @@ const SpHome = async (props: Props) => {
       {firstPosts.map((post: GalleyPost) => (
         <SpHomePost key={post.id} post={post} myId={myId} />
       ))}
-      <SpHomeLoadMore cursorId={cursorById(firstPosts)} />
+      <SpHomeLoadMore cursorId={cursorById(firstPosts)} myId={myId} />
     </div>
   );
 };

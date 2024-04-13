@@ -1,19 +1,22 @@
 "use client";
 
 import { useCursorById } from "@/lib/utils";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { BadgeCheck } from "lucide-react";
 import { Card } from "../ui/card";
-import { fetchMoreLatestPostsSpComponent } from "@/lib/fetchWrapper";
+import { fetchMoreLatestPosts } from "@/lib/fetch";
+import { GalleyPost } from "@/lib/definitions";
+import { SpHomePost } from "./SpHomePost";
 
 type Props = {
   cursorId: string;
+  myId: string | undefined;
 };
 
 const SpHomeLoadMore = (props: Props) => {
-  const { cursorId } = props;
-  const [posts, setPosts] = useState<ReactNode[]>([]);
+  const { cursorId, myId } = props;
+  const [posts, setPosts] = useState<GalleyPost[]>([]);
   const [postLimit, setPostLimit] = useState(false);
   const [cursorPostId, setCursorPostId] = useState(cursorId);
   const [loading, setLoading] = useState(false);
@@ -26,15 +29,11 @@ const SpHomeLoadMore = (props: Props) => {
     if (inView && !postLimit) {
       const fetchMorePosts = async () => {
         setLoading(true);
-        const { component, cursorId } = await fetchMoreLatestPostsSpComponent(
-          6,
-          null,
-          cursorPostId
-        );
-        if (component.length < 6) {
+        const newPosts = await fetchMoreLatestPosts(6, myId, cursorPostId);
+        if (newPosts.length < 6) {
           setPostLimit(true);
         }
-        setPosts((prevPosts) => [...prevPosts, ...component]);
+        setPosts((prevPosts) => [...prevPosts, ...newPosts]);
         setCursorPostId(cursorId);
         setLoading(false);
       };
@@ -44,7 +43,9 @@ const SpHomeLoadMore = (props: Props) => {
 
   return (
     <div>
-      {posts}
+      {posts.map((post: GalleyPost) => (
+		<SpHomePost key={post.id} post={post} myId={myId} />
+	  ))}
       <div className="h-[1px]" ref={ref}></div>
       {loading && !postLimit && (
         <div className="mx-auto m-4 animate-spin size-10 border-4 border-slate-200 rounded-full border-t-transparent"></div>
