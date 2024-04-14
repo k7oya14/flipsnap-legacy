@@ -1,11 +1,9 @@
 "use client";
 
-import { Divide, EyeOff } from "lucide-react";
+import { EyeOff } from "lucide-react";
 import React from "react";
 import { UserRelationship } from "@/lib/definitions";
 import BackFollowButton from "./BackFollowButton";
-import { Button } from "./ui/button";
-import { signIn } from "next-auth/react";
 
 type Props = {
   myId?: string | null | undefined;
@@ -25,20 +23,6 @@ const LockedBack = (props: Props) => {
             <p className="whitespace-nowrap text-lg text-white text-center">
               Loading
             </p>
-          </div>
-        ) : relationship === UserRelationship.NoSession ? (
-          <div className="my-2 flex flex-col justify-center">
-            <p className="whitespace-nowrap text-lg text-white text-center">
-              You have to sign in
-            </p>
-            <div className="mx-auto" onClick={(e) => e.stopPropagation()}>
-              <Button
-                onClick={() => signIn("google")}
-                className="mt-2 bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit"
-              >
-                Sign in
-              </Button>
-            </div>
           </div>
         ) : (
           <BackFollowButton
