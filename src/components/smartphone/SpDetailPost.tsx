@@ -1,32 +1,19 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { formatDistance } from "date-fns";
-import { UserRelationship } from "@/lib/definitions";
-import { fetchPost } from "@/lib/fetch";
-import ErrorCard from "../ErrorCard";
-import { auth } from "@/lib/auth";
+import { OnePost, UserRelationship } from "@/lib/definitions";
 import ModalLink from "../detail/ModalLink";
 import FlipImage from "../FlipImage";
 import LockedBack from "../LockedBack";
 import Image from "next/image";
 
 type Props = {
-  postId: string;
+  post: OnePost;
+  myId: string | null | undefined;
 };
 
 export async function SpDetailPost(props: Props) {
-  const { postId } = props;
-  const session = await auth();
-  const myId = session?.user.id;
-  const post = await fetchPost(postId, myId);
-  if (!post.authorId)
-    return (
-      <ErrorCard
-        heading="Post not found"
-        message="お探しの投稿が見つかりませんでした"
-        button="Go Home"
-        link="/"
-      />
-    );
+  const { post, myId } = props;
+
   const open =
     post.author.relationship === UserRelationship.Mutual ||
     post.author.relationship === UserRelationship.Me;

@@ -6,7 +6,7 @@ import { fetchUserRelationship } from "@/lib/fetch";
 
 type Props = {
   src: string;
-  myId: string | undefined;
+  myId: string | null | undefined;
   userId: string;
 };
 
