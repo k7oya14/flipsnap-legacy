@@ -22,7 +22,7 @@ const BackFollowButton = (props: Props) => {
   switch (optimisticRelationship) {
     case UserRelationship.Following:
       return (
-        <p className="whitespace-nowrap text-lg text-white text-center">
+        <p className="sm:whitespace-nowrap sm:text-lg text-white text-center">
           You are not being followed
         </p>
       );

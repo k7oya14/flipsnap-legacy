@@ -123,7 +123,7 @@ export async function fetchUserRelationship(myId: string, userId: string) {
   noStore();
   try {
     // case1
-    console.log("fetchUserRelationship");
+    // console.log("fetchUserRelationship");
     const relationships = await prisma.user_User_Follows.findMany({
       where: {
         OR: [
