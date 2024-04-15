@@ -65,18 +65,20 @@ export async function fetchFollows(username: string) {
       select: {
         following: {
           select: {
-            followee:{
+            followee: {
               select: {
                 username: true,
                 image: true,
                 name: true,
               },
             },
-            }
-            }
+          },
         },
+      },
     });
-    const follows = data?.following ? data.following.map(f => f.followee) : [];
+    const follows = data?.following
+      ? data.following.map((f) => f.followee)
+      : [];
     return follows;
   } catch (error) {
     throw new Error("Failed to fetch follows.");
@@ -93,18 +95,20 @@ export async function fetchFollowers(username: string) {
       select: {
         followedBy: {
           select: {
-            follower:{
+            follower: {
               select: {
                 username: true,
                 image: true,
                 name: true,
               },
             },
-            }
-            }
+          },
         },
+      },
     });
-    const followers = data?.followedBy ? data.followedBy.map(f => f.follower) : [];
+    const followers = data?.followedBy
+      ? data.followedBy.map((f) => f.follower)
+      : [];
     return followers;
   } catch (error) {
     throw new Error("Failed to fetch follows.");
@@ -119,6 +123,7 @@ export async function fetchUserRelationship(myId: string, userId: string) {
   noStore();
   try {
     // case1
+    console.log("fetchUserRelationship");
     const relationships = await prisma.user_User_Follows.findMany({
       where: {
         OR: [

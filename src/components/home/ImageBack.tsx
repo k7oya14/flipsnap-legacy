@@ -2,7 +2,6 @@ import Image from "next/image";
 import React from "react";
 import LockedBack from "../LockedBack";
 import { GalleyPost, UserRelationship } from "@/lib/definitions";
-import { fetchUserRelationship } from "@/lib/fetch";
 
 type Props = {
   post: GalleyPost;

@@ -1,8 +1,7 @@
 "use client";
 
 import { GalleyPost, UserRelationship } from "@/lib/definitions";
-import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactFlipCard from "reactjs-flip-card";
 import ImageBack from "./ImageBack";
 import { fetchUserRelationship } from "@/lib/fetch";
@@ -20,18 +19,22 @@ const HomeFlipImage = (props: Props) => {
   const [relationship, setRelationship] = useState<UserRelationship>(
     UserRelationship.NoSession
   );
-  const handleRelationship = async () => {
-    if (loading) {
+
+  useEffect(() => {
+    const fetchRelationship = async () => {
       const relationship = await fetchUserRelationship(myId!, post.authorId);
       setRelationship(relationship);
+    };
+    if (loading) {
+      fetchRelationship();
       setLoading(false);
     }
-  };
+  }, []);
   return (
     <ReactFlipCard
       flipTrigger="onClick"
       direction="horizontal"
-      onClick={handleRelationship}
+      //   onClick={handleRelationship}
       containerStyle={containerStyle}
       frontComponent={frontComponent}
       backComponent={
