@@ -4,7 +4,7 @@ import Image from "next/image";
 import { auth } from "@/lib/auth";
 import { fetchLatestPosts } from "@/lib/fetch";
 import { GalleyPost } from "@/lib/definitions";
-import NoLoginHomeGallery from "./NoLoginHomeGallery";
+import HomeGallery from "./HomeGallery";
 
 const Home = async () => {
   const session = await auth();
@@ -28,7 +28,7 @@ const Home = async () => {
           alt=""
           src="/hero.gif"
         />
-        <NoLoginHomeGallery
+        <HomeGallery
           myId={session?.user.id}
           firstPosts={firstPostThreeArrays}
           cursorId={firstPosts[firstPosts.length - 1].id}
