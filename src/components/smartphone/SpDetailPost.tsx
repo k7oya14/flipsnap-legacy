@@ -22,12 +22,12 @@ export async function SpDetailPost(props: Props) {
     return (
       <ErrorCard
         heading="Post not found"
-        message="投稿が見つかりません"
-        button="go back"
+        message="お探しの投稿が見つかりませんでした"
+        button="Go Home"
         link="/"
       />
     );
-  const hidden =
+  const open =
     post.author.relationship === UserRelationship.Mutual ||
     post.author.relationship === UserRelationship.Me;
   return (
@@ -79,11 +79,11 @@ export async function SpDetailPost(props: Props) {
                     width: "100%",
                     height: "auto",
                   }}
-                  className={`${hidden || "filter blur-lg"}`}
+                  className={`${open || "filter blur-lg"}`}
                   width={500}
                   height={500}
                 />
-                {hidden || (
+                {open || (
                   <LockedBack
                     myId={myId}
                     userId={post.authorId}

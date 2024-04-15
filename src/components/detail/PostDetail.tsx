@@ -23,8 +23,8 @@ export async function PostDetail(props: Props) {
     return (
       <ErrorCard
         heading="Post not found"
-        message="投稿が見つかりません"
-        button="go back"
+        message="お探しの投稿が見つかりませんでした"
+        button="Go Home"
         link="/"
       />
     );
@@ -62,7 +62,6 @@ export async function PostDetail(props: Props) {
                 src={post.imgBack!}
                 myId={myId}
                 userId={post.authorId!}
-                relationship={post.author?.relationship!}
               />
             </Suspense>
           }
