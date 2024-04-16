@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import ImageFront from "./ImageFront";
-import ImageBack from "./ImageBack";
-import { GalleyPost, UserRelationship } from "@/lib/definitions";
+import { GalleyPost } from "@/lib/definitions";
 import { fetchMoreLatestPosts } from "@/lib/fetch";
 import { useInView } from "react-intersection-observer";
 import { useCursorById } from "@/lib/utils";
@@ -53,7 +52,7 @@ const HomeGallery = (props: Props) => {
   return (
     <div className="lg:px-40 px-5 flex">
       {posts.map((colPosts: GalleyPost[]) => (
-        <div key={colPosts[0].id} className="w-1/3 p-1 lg:p-2">
+        <div key={colPosts[0].id} className="w-1/3 p-1 lg:p-2 relative">
           {colPosts.map((post: GalleyPost, index) => (
             <HomeFlipImage
               key={post.id}
@@ -67,7 +66,7 @@ const HomeGallery = (props: Props) => {
               frontComponent={<ImageFront index={index} post={post} />}
             />
           ))}
-          <div ref={ref} />
+          <div ref={ref} className="absolute bottom-[500px] h-[1px]" />
         </div>
       ))}
     </div>
