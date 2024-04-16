@@ -20,21 +20,17 @@ const HomeFlipImage = (props: Props) => {
     UserRelationship.NoSession
   );
 
-  useEffect(() => {
-    const fetchRelationship = async () => {
-      const relationship = await fetchUserRelationship(myId!, post.authorId);
-      setRelationship(relationship);
-    };
-    if (loading) {
-      fetchRelationship();
-      setLoading(false);
-    }
-  }, []);
+  const fetchRelationship = async () => {
+    if (!myId) return;
+    const relationship = await fetchUserRelationship(myId!, post.authorId);
+    setRelationship(relationship);
+    setLoading(false);
+  };
   return (
     <ReactFlipCard
       flipTrigger="onClick"
       direction="horizontal"
-      //   onClick={handleRelationship}
+      onClick={loading ? fetchRelationship : undefined}
       containerStyle={containerStyle}
       frontComponent={frontComponent}
       backComponent={
@@ -43,6 +39,7 @@ const HomeFlipImage = (props: Props) => {
           myId={myId}
           relationship={relationship}
           loading={loading}
+          fetchRelationship={fetchRelationship}
         />
       }
     />
