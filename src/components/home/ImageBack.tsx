@@ -8,10 +8,17 @@ type Props = {
   myId: string | undefined | null;
   relationship: UserRelationship;
   loading?: boolean;
+  fetchRelationship?: () => void;
 };
 
 const ImageBack = (props: Props) => {
-  const { post, myId, relationship, loading = false } = props;
+  const {
+    post,
+    myId,
+    relationship,
+    loading = false,
+    fetchRelationship,
+  } = props;
 
   return (
     <div>
@@ -33,6 +40,7 @@ const ImageBack = (props: Props) => {
           userId={post.authorId}
           relationship={relationship}
           loading={loading}
+          fetchRelationship={fetchRelationship}
         />
       </div>
     </div>

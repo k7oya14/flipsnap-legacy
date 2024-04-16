@@ -10,10 +10,11 @@ type Props = {
   myId: string | undefined;
   userId: string | undefined;
   relationship: UserRelationship;
+  fetchRelationship?: () => void;
 };
 
 const BackFollowButton = (props: Props) => {
-  const { myId, userId, relationship } = props;
+  const { myId, userId, relationship, fetchRelationship } = props;
   const [optimisticRelationship, updateOptimisticRelationship] = useOptimistic<
     UserRelationship,
     UserRelationship
@@ -33,6 +34,7 @@ const BackFollowButton = (props: Props) => {
           action={async () => {
             updateOptimisticRelationship(relationship + 1);
             await Follow(myId!, userId!);
+            await fetchRelationship?.();
           }}
           className="my-2 flex flex-col justify-center"
         >
