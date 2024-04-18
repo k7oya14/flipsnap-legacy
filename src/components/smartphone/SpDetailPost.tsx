@@ -1,35 +1,21 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { formatDistance } from "date-fns";
-import { UserRelationship } from "@/lib/definitions";
-import { fetchPost } from "@/lib/fetch";
-import ErrorCard from "../ErrorCard";
-import { auth } from "@/lib/auth";
+import { OnePost } from "@/lib/definitions";
 import ModalLink from "../detail/ModalLink";
 import FlipImage from "../FlipImage";
-import LockedBack from "../LockedBack";
 import Image from "next/image";
+import SpDetailImageBack from "./SpDetailImageBack";
+import { Suspense } from "react";
+import { Skeleton } from "../ui/skeleton";
 
 type Props = {
-  postId: string;
+  post: OnePost;
+  myId: string | null | undefined;
 };
 
 export async function SpDetailPost(props: Props) {
-  const { postId } = props;
-  const session = await auth();
-  const myId = session?.user.id;
-  const post = await fetchPost(postId, myId);
-  if (!post.authorId)
-    return (
-      <ErrorCard
-        heading="Post not found"
-        message="投稿が見つかりません"
-        button="go back"
-        link="/"
-      />
-    );
-  const hidden =
-    post.author.relationship === UserRelationship.Mutual ||
-    post.author.relationship === UserRelationship.Me;
+  const { post, myId } = props;
+
   return (
     <div className="w-full h-full flex flex-col">
       <ModalLink
@@ -70,27 +56,22 @@ export async function SpDetailPost(props: Props) {
               />
             }
             backComponent={
-              <div className="overflow-hidden">
-                <Image
-                  alt=""
-                  src={post.imgBack!}
-                  style={{
-                    objectFit: "cover",
-                    width: "100%",
-                    height: "auto",
-                  }}
-                  className={`${hidden || "filter blur-lg"}`}
-                  width={500}
-                  height={500}
-                />
-                {hidden || (
-                  <LockedBack
-                    myId={myId}
-                    userId={post.authorId}
-                    relationship={post.author.relationship!}
-                  />
-                )}
-              </div>
+              <Suspense
+                fallback={
+                  <>
+                    <Image
+                      alt=""
+                      src={post.imgFront!}
+                      width={500}
+                      height={500}
+                      className="w-full h-auto opacity-0 relative"
+                    />
+                    <Skeleton className="absolute inset-0 w-full h-auto" />
+                  </>
+                }
+              >
+                <SpDetailImageBack post={post} myId={myId} />
+              </Suspense>
             }
           />
           <div className="px-4 gap-2 flex flex-col">

@@ -1,33 +1,21 @@
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
 import DetailImageBack from "./DetaiImagelBack";
-import { auth } from "@/lib/auth";
-import { fetchPost } from "@/lib/fetch";
 import FlipImage from "../FlipImage";
-import ErrorCard from "../ErrorCard";
 import ModalLink from "./ModalLink";
 import Image from "next/image";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
+import { OnePost } from "@/lib/definitions";
 
 type Props = {
-  postId: string;
+  post: OnePost;
+  myId: string | null | undefined;
 };
 
 export async function PostDetail(props: Props) {
-  const { postId } = props;
-  const session = await auth();
-  const myId = session?.user.id;
-  const post = await fetchPost(postId, myId);
-  if (!post.authorId)
-    return (
-      <ErrorCard
-        heading="Post not found"
-        message="投稿が見つかりません"
-        button="go back"
-        link="/"
-      />
-    );
+  const { post, myId } = props;
+
   return (
     <div className="flex">
       <div className="w-[55%] h-[83vh] max-h-[600px] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
@@ -62,7 +50,6 @@ export async function PostDetail(props: Props) {
                 src={post.imgBack!}
                 myId={myId}
                 userId={post.authorId!}
-                relationship={post.author?.relationship!}
               />
             </Suspense>
           }

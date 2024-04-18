@@ -12,7 +12,7 @@ type Props = {
 
 const ProfileImageBack = (props: Props) => {
   const { src, myId, userId, relationship } = props;
-  const hidden =
+  const open =
     relationship === UserRelationship.Mutual ||
     relationship === UserRelationship.Me;
   return (
@@ -20,7 +20,7 @@ const ProfileImageBack = (props: Props) => {
       <div className="relative overflow-hidden hover:cursor-pointer rounded-lg ">
         <Image
           alt=""
-          className={`w-full rounded ${hidden || "filter blur-lg"}`}
+          className={`w-full rounded ${open || "filter blur-lg"}`}
           height="293"
           src={src}
           style={{
@@ -29,7 +29,7 @@ const ProfileImageBack = (props: Props) => {
           }}
           width="293"
         />
-        {hidden || (
+        {open || (
           <LockedBack myId={myId} userId={userId} relationship={relationship} />
         )}
       </div>

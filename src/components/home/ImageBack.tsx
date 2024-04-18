@@ -5,10 +5,20 @@ import { GalleyPost, UserRelationship } from "@/lib/definitions";
 
 type Props = {
   post: GalleyPost;
+  myId: string | undefined | null;
+  relationship: UserRelationship;
+  loading?: boolean;
+  fetchRelationship?: () => void;
 };
 
 const ImageBack = (props: Props) => {
-  const { post } = props;
+  const {
+    post,
+    myId,
+    relationship,
+    loading = false,
+    fetchRelationship,
+  } = props;
 
   return (
     <div>
@@ -25,7 +35,13 @@ const ImageBack = (props: Props) => {
           alt=""
           src={post.imgBack}
         />
-        <LockedBack relationship={UserRelationship.NoSession} />
+        <LockedBack
+          myId={myId}
+          userId={post.authorId}
+          relationship={relationship}
+          loading={loading}
+          fetchRelationship={fetchRelationship}
+        />
       </div>
     </div>
   );

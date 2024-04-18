@@ -8,7 +8,14 @@ const Page = async ({ params }: { params: { username: string } }) => {
   return (
     <div className="my-1 sm:my-2 max-w-5xl mx-auto">
       <Card className="min-h-screen">
-        <Suspense fallback={<><ProfileInformationSkeleton/><ProfileGallerySkeleton /></>}>
+        <Suspense
+          fallback={
+            <>
+              <ProfileInformationSkeleton />
+              <ProfileGallerySkeleton />
+            </>
+          }
+        >
           <Profile username={params.username} />
         </Suspense>
       </Card>
