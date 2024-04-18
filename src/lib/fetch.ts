@@ -87,13 +87,8 @@ export async function fetchFollowers(username: string) {
                 name: true,
               },
             },
-<<<<<<< HEAD
-          }
-        }
-=======
           },
         },
->>>>>>> origin
       },
     });
     const followers = data?.followedBy
@@ -197,7 +192,7 @@ export async function fetchLatestPosts(take: number) {
   }
 }
 
-export async function fetchMoreLatestPosts(take: number,cursorPostId: string) {
+export async function fetchMoreLatestPosts(take: number, cursorPostId: string) {
   noStore();
   try {
     const data = await prisma.post.findMany({
