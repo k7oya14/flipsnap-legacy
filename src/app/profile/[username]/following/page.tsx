@@ -7,7 +7,7 @@ const Following = async ({ params }: { params: { username: string } }) => {
   return (
     <>
       <h1 className="text-2xl font-semibold text-center mt-4">Following</h1>
-      <Card className="m-4 max-w-[90vw] w-[500px] mx-auto shadow-lg">
+      <Card className="m-4 max-w-[90vw] w-[500px] mx-auto shadow-lg bg-neutral-100">
         <CardContent className="py-1">
           <Suspense fallback={<FollowSkeleton />}>
             <FollowingList username={params.username} />

@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
-      <body className={`${notoSansJp.className}`}>
+      <body className={`${notoSansJp.className} bg-[#f0f0f0]`}>
         <Header />
         {modal}
         {children}
