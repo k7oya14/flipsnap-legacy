@@ -103,30 +103,31 @@ async function createPost(users: User[]) {
   return posts;
 }
 
+const targetPostCount = postUserCount / 2; // TODO : Change this parameter
+
 async function createComments(users : User[], posts: Post[]) {
   for (const user of users) {
-    const commentPostCount = faker.number.int({ min: 0, max: postUserCount });
+    const commentPostCount = faker.number.int({ min: 0, max: targetPostCount });
     const commentPosts = faker.helpers
       .arrayElements(posts, commentPostCount)
 
-    await prisma.user.update({
-      where: { id: user.id },
-      data: {
-        Comment: {
-          create: {
-            imgFront: imgSets[imgIndex % imgSets.length],
-            imgBack: imgSets[imgIndex % imgSets.length],
-            caption: faker.lorem.lines(),
-            createdAt: faker.date.past(),
+    for (const commentPost of commentPosts) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          comments: {
+            create: {
+              postId: commentPost.id,
+              content: faker.lorem.lines(),
+            },
           },
         },
-      },
-    });
-    imgIndex++;
+      });
+    }
   }
 }
 
-// async function hishiwatPosts() {
+// async function createhishiwatPosts() {
 //   for (let i = 0; i < 9; i++) {
 //     await prisma.user.update({
 //       where: { username: "hishiwat" },
@@ -147,7 +148,8 @@ async function main() {
   const users = await createUsers();
   await createFollowRelations(users);
   const posts = await createPost(users);
-  // await hishiwatPosts();
+  createComments(users, posts);
+  // await createhishiwatPosts();
 }
 
 main()
