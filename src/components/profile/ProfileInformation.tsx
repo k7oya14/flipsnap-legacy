@@ -12,18 +12,18 @@ type Props = {
 const ProfileInformation = (props: Props) => {
   const { userInfo, me } = props;
   return (
-    <div className="flex flex-col sm:flex-row-reverse items-center justify-center pt-8 pb-3 w-full">
-      <div className="sm:w-[30%] sm:ml-20">
+    <div className="flex flex-col sm:flex-row-reverse items-center justify-center pt-8 pb-4 sm:pb-0 w-full">
+      <div className="sm:w-[30%]">
         <Avatar className="size-28 sm:size-[95%]">
           <AvatarImage src={userInfo.image!} />
           <AvatarFallback>{userInfo.name}</AvatarFallback>
         </Avatar>
       </div>
-      <div className="flex flex-col items-center sm-[70%]">
+      <div className="flex flex-col items-center sm:w-[50%]">
         <h2 className="text-2xl sm:text-5xl text-gray-800 font-bold mt-4 sm:mt-0">
           {userInfo.name}
         </h2>
-        <p className="font-medium mt-1 sm:mt-2">@{userInfo.username}</p>
+        <p className="font-medium sm:mt-2">@{userInfo.username}</p>
         <p className="sm:text-2xl sm:font-semibold text-gray-700 mt-2 sm:mt-1">
           {userInfo.bio}
         </p>
