@@ -72,9 +72,12 @@ export async function fetchFollows(username: string) {
                 name: true,
               },
             },
-            }
-            }
-        },
+          },
+          orderBy:{
+            createdAt: 'desc'
+          }
+        }
+      },
     });
     const follows = data?.following ? data.following.map(f => f.followee) : [];
     return follows;
@@ -100,9 +103,12 @@ export async function fetchFollowers(username: string) {
                 name: true,
               },
             },
-            }
-            }
-        },
+          },
+          orderBy:{
+            createdAt: 'desc'
+          }
+        }
+      },
     });
     const followers = data?.followedBy ? data.followedBy.map(f => f.follower) : [];
     return followers;
