@@ -51,13 +51,14 @@ model VerificationToken {
 }
 
 model Post {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   authorId  String
-  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   imgFront  String
   imgBack   String
   caption   String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  comments  Comment[]
 
   @@index([authorId])
   @@index([createdAt(sort: Desc)])
@@ -77,6 +78,7 @@ model User {
   following     User_User_Follows[] @relation("Following")
   followedBy    User_User_Follows[] @relation("FollowedBy")
   posts         Post[]
+  comments      Comment[]
 }
 
 model User_User_Follows {
@@ -91,14 +93,14 @@ model User_User_Follows {
   @@index([followeeId, createdAt(sort: Desc)])
 }
 
-// model Comment {
-//   id        String   @id @default(uuid())
-//   postId    String
-//   post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-//   authorId  String
-//   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
-//   content   String
-//   createdAt DateTime @default(now())
+model Comment {
+  id        String   @id @default(uuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime @default(now())
 
-//   @@index([postId, createdAt(sort: Desc)])
-// }
+  @@index([postId, createdAt(sort: Desc)])
+}
