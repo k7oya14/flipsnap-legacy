@@ -7,7 +7,7 @@ const SignInButton = () => {
   return (
     <button
       onClick={() => signIn("google")}
-      className="gsi-material-button bg-white hover:bg-gray-50 text-gray-700 font-medium "
+      className="gsi-material-button bg-neutral-50 hover:bg-neutral-100 text-gray-700 font-medium"
     >
       <div className="absolute top-0 left-0 right-0 bottom-0 opacity-0 transition-opacity"></div>
       <div className="flex items-center">
