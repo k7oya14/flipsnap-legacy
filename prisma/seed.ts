@@ -15,17 +15,6 @@ type User = {
   created_at: Date;
 };
 
-type Post =  {
-  id: string;
-  username: string | null;
-  email: string | null;
-  emailVerified: Date | null;
-  image: string | null;
-  name: string | null;
-  bio: string;
-  created_at: Date;
-}
-
 const userCount = 64; // TODO : Change this parameter
 
 async function createUsers() {
@@ -84,7 +73,7 @@ async function createPost(users: User[]) {
   const posts = [];
   let imgIndex = 0;
   for (const user of users.slice(0, postUserCount)) {
-    const post = await prisma.user.update({
+    const data = await prisma.user.update({
       where: { id: user.id },
       data: {
         posts: {
@@ -96,28 +85,33 @@ async function createPost(users: User[]) {
           },
         },
       },
+      include:{
+        posts: true
+      }
     });
+    const postId = data.posts[0].id;
+    posts.push(postId);
     imgIndex++;
-    posts.push(post);
   }
   return posts;
 }
 
-const targetPostCount = postUserCount / 2; // TODO : Change this parameter
+const targetPostCount = postUserCount / 4; // TODO : Change this parameter
 
-async function createComments(users : User[], posts: Post[]) {
+async function createComments(users : User[], posts: string[]) {
   for (const user of users) {
     const commentPostCount = faker.number.int({ min: 0, max: targetPostCount });
+    console.log(commentPostCount);
     const commentPosts = faker.helpers
       .arrayElements(posts, commentPostCount)
 
-    for (const commentPost of commentPosts) {
+    for (const commentPostId of commentPosts) {
       await prisma.user.update({
         where: { id: user.id },
         data: {
           comments: {
             create: {
-              postId: commentPost.id,
+              postId: commentPostId,
               content: faker.lorem.lines(),
             },
           },
