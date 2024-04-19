@@ -101,7 +101,6 @@ const targetPostCount = postUserCount / 4; // TODO : Change this parameter
 async function createComments(users : User[], posts: string[]) {
   for (const user of users) {
     const commentPostCount = faker.number.int({ min: 0, max: targetPostCount });
-    console.log(commentPostCount);
     const commentPosts = faker.helpers
       .arrayElements(posts, commentPostCount)
 

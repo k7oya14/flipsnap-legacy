@@ -363,3 +363,65 @@ export async function fetchMoreUserPostsById(
     throw new Error("Failed to fetch more User posts.");
   }
 }
+
+export async function fetchComments(postId: string, take: number) {
+  noStore();
+  try {
+    const data = await prisma.comment.findMany({
+      where: {
+        postId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include:{
+        author:{
+          select: {
+            username: true,
+            image: true,
+            name: true,
+          },
+        },
+      },
+      take,
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch first comments.");
+  }
+}
+
+export async function fetchMoreComments(
+  postId: string,
+  take: number,
+  cursorCommentId: string
+) {
+  noStore();
+  try {
+    const data = await prisma.comment.findMany({
+      where: {
+        postId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include:{
+        author:{
+          select: {
+            username: true,
+            image: true,
+            name: true,
+          },
+        },
+      },
+      take,
+      skip: 1, // Skip the cursor
+      cursor: {
+        id: cursorCommentId,
+      },
+    });
+    return data;
+  } catch (error) {
+    throw new Error("Failed to fetch more comments.");
+  }
+}
