@@ -51,17 +51,17 @@ model VerificationToken {
 }
 
 model Post {
-  id        String   @id @default(uuid())
+  id        String    @id @default(uuid())
   authorId  String
-  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   imgFront  String
   imgBack   String
   caption   String
-  createdAt DateTime @default(now())
+  createdAt DateTime  @default(now())
+  comments  Comment[]
 
-  @@unique([id, authorId])
   @@index([authorId])
-  @@index([createdAt])
+  @@index([createdAt(sort: Desc)])
 }
 
 model User {
@@ -78,14 +78,29 @@ model User {
   following     User_User_Follows[] @relation("Following")
   followedBy    User_User_Follows[] @relation("FollowedBy")
   posts         Post[]
+  comments      Comment[]
 }
 
 model User_User_Follows {
   followerId String
   followeeId String
-  follower   User   @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
-  followee   User   @relation("FollowedBy", fields: [followeeId], references: [id], onDelete: Cascade)
+  follower   User     @relation("Following", fields: [followerId], references: [id], onDelete: Cascade)
+  followee   User     @relation("FollowedBy", fields: [followeeId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
 
   @@id([followerId, followeeId])
-  @@index([followerId, followeeId])
+  @@index([followerId, createdAt(sort: Desc)])
+  @@index([followeeId, createdAt(sort: Desc)])
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  postId    String
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  authorId  String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  content   String
+  createdAt DateTime @default(now())
+
+  @@index([postId, createdAt(sort: Desc)])
 }

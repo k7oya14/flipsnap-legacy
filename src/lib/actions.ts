@@ -1,6 +1,6 @@
 "use server";
 
-import { RawPostSchema, UserSchema } from "./zod";
+import { CommentSchema, RawPostSchema, UserSchema } from "./zod";
 import prisma from "./prismaClient";
 import { redirect } from "next/navigation";
 import { supabase } from "./supabseClient";
@@ -53,7 +53,7 @@ export async function updateUsername(
   const { username } = validatedFields.data;
 
   try {
-    const data = await prisma.user.update({
+    await prisma.user.update({
       where: { id: userId },
       data: { username },
     });
@@ -101,7 +101,7 @@ export async function createPost(
   ]);
 
   try {
-    const data = await prisma.post.create({
+    await prisma.post.create({
       data: {
         authorId: userId,
         imgFront: imgFrontUrl,
@@ -118,6 +118,52 @@ export async function createPost(
 
   revalidatePath("/profile/me");
   redirect("/profile/me");
+}
+
+export type createCommentState = {
+  errors?: {
+    content?: string[];
+  };
+  message?: string | null;
+};
+const createCommentSchema = CommentSchema.pick({ content: true });
+
+export async function createComment(
+  myId: string,
+  postId: string,
+  prevState: createPostState,
+  formData: FormData
+) {
+  const validatedFields = createCommentSchema.safeParse({
+    content: formData.get("content"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Zod Error: Failed to create comment.",
+    };
+  }
+
+  const { content } = validatedFields.data;
+
+  try {
+    await prisma.comment.create({
+      data: {
+        postId,
+        authorId: myId,
+        content,
+      },
+    });
+  } catch (error) {
+    return {
+      errors: {},
+      message: "Database Error: Failed to create comment.",
+    };
+  }
+
+  const referer = headers().get("referer") ?? "/";
+  revalidatePath(referer);
 }
 
 export async function Follow(myId: string, userId: string) {
