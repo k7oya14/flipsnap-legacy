@@ -141,7 +141,7 @@ async function main() {
   const users = await createUsers();
   await createFollowRelations(users);
   const posts = await createPost(users);
-  createComments(users, posts);
+  await createComments(users, posts);
   // await createhishiwatPosts();
 }
 
