@@ -29,9 +29,9 @@ const FollowStatusButton = (props: Props) => {
               updateOptimisticRelationship(relationship + 1);
               await Follow(myId, userId);
             }}
-            className="my-2 flex flex-col"
+            className="flex flex-col"
           >
-            <Button type="submit" className="my-2 rounded-full">
+            <Button type="submit" className="rounded-full bg-neutral-900">
               Follow
             </Button>
           </form>
@@ -49,11 +49,11 @@ const FollowStatusButton = (props: Props) => {
               updateOptimisticRelationship(relationship - 1);
               await UnFollow(myId, userId);
             }}
-            className="my-2 flex flex-col"
+            className="flex flex-col"
           >
             <Button
               type="submit"
-              className="my-2 rounded-full bg-slate-300 hover:bg-slate-400 text-black"
+              className="rounded-full bg-neutral-300 hover:bg-neutral-400 opacity-80 text-black"
             >
               Unfollow
             </Button>

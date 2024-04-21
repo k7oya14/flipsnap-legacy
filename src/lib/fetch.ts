@@ -65,7 +65,7 @@ export async function fetchFollows(username: string) {
       select: {
         following: {
           select: {
-            followee:{
+            followee: {
               select: {
                 username: true,
                 image: true,
@@ -79,7 +79,9 @@ export async function fetchFollows(username: string) {
         }
       },
     });
-    const follows = data?.following ? data.following.map(f => f.followee) : [];
+    const follows = data?.following
+      ? data.following.map((f) => f.followee)
+      : [];
     return follows;
   } catch (error) {
     throw new Error("Failed to fetch follows.");
@@ -96,7 +98,7 @@ export async function fetchFollowers(username: string) {
       select: {
         followedBy: {
           select: {
-            follower:{
+            follower: {
               select: {
                 username: true,
                 image: true,
@@ -110,7 +112,9 @@ export async function fetchFollowers(username: string) {
         }
       },
     });
-    const followers = data?.followedBy ? data.followedBy.map(f => f.follower) : [];
+    const followers = data?.followedBy
+      ? data.followedBy.map((f) => f.follower)
+      : [];
     return followers;
   } catch (error) {
     throw new Error("Failed to fetch follows.");

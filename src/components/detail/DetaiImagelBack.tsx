@@ -2,19 +2,21 @@ import React from "react";
 import Image from "next/image";
 import LockedBack from "../LockedBack";
 import { UserRelationship } from "@/lib/definitions";
-import { delay } from "@/lib/fetch";
+import { fetchUserRelationship } from "@/lib/fetch";
 
 type Props = {
   src: string;
-  myId: string | undefined;
+  myId: string | null | undefined;
   userId: string;
-  relationship: UserRelationship;
 };
 
 const DetailImageBack = async (props: Props) => {
-  const { src, myId, userId, relationship } = props;
-  //   await delay(3000);
-  const hidden =
+  const { src, myId, userId } = props;
+  let relationship = UserRelationship.NoSession;
+  if (myId) {
+    relationship = await fetchUserRelationship(myId, userId);
+  }
+  const open =
     relationship === UserRelationship.Mutual ||
     relationship === UserRelationship.Me;
 
@@ -25,12 +27,10 @@ const DetailImageBack = async (props: Props) => {
           alt=""
           width={500}
           height={500}
-          className={`object-contain h-full w-auto ${
-            hidden || "filter blur-lg"
-          }`}
+          className={`object-contain h-full w-auto ${open || "filter blur-lg"}`}
           src={src}
         />
-        {hidden || (
+        {open || (
           <LockedBack myId={myId} userId={userId} relationship={relationship} />
         )}
       </div>
