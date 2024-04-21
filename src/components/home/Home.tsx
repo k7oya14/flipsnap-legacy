@@ -19,7 +19,7 @@ const Home = async () => {
         <SpHome myId={session?.user.id} firstPosts={firstPosts} />
       </div>
       <div className="hidden sm:flex flex-col justify-center">
-        <Image
+        {/* <Image
           width={1200}
           height={628}
           unoptimized
@@ -27,6 +27,15 @@ const Home = async () => {
           className="mt-1 w-full h-[66.67vh] object-contain"
           alt=""
           src="/hero.gif"
+        /> */}
+        <Image
+          width={500}
+          height={500}
+          unoptimized
+          priority={true}
+          className="w-full h-[90vh] object-cover"
+          alt=""
+          src="/hero.jpg"
         />
         <HomeGallery
           myId={session?.user.id}
