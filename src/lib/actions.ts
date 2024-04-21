@@ -200,7 +200,7 @@ export async function UnFollow(myId: string, userId: string) {
   }
 }
 
-export async function like(myId: string, postId: string) {
+export async function Like(myId: string, postId: string) {
   try {
     await prisma.like.create({
       data: {
@@ -210,6 +210,24 @@ export async function like(myId: string, postId: string) {
     });
   } catch (error) {
     throw new Error("Failed to like the post.");
+  } finally {
+    const referer = headers().get("referer") ?? "/";
+    revalidatePath(referer);
+  }
+}
+
+export async function UndoLike(myId: string, postId: string) {
+  try {
+    await prisma.like.delete({
+      where: {
+        userId_postId: {
+          userId: myId,
+          postId,
+        },
+      },
+    });
+  } catch (error) {
+    throw new Error("Failed to Undo liked the post.");
   } finally {
     const referer = headers().get("referer") ?? "/";
     revalidatePath(referer);
