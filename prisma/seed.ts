@@ -15,6 +15,10 @@ type User = {
   created_at: Date;
 };
 
+async function claerRecords() {
+  await prisma.user.deleteMany();
+}
+
 const userCount = 64; // TODO : Change this parameter
 
 async function createUsers() {
@@ -138,6 +142,7 @@ async function createComments(users : User[], posts: string[]) {
 // }
 
 async function main() {
+  await claerRecords();
   const users = await createUsers();
   await createFollowRelations(users);
   const posts = await createPost(users);
