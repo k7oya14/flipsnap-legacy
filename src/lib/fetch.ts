@@ -175,6 +175,11 @@ export async function fetchPost(
             name: true,
           },
         },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
       },
     });
     let relationship: UserRelationship | undefined;
