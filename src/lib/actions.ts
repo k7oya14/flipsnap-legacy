@@ -160,10 +160,10 @@ export async function createComment(
       errors: {},
       message: "Database Error: Failed to create comment.",
     };
+  } finally {
+    const referer = headers().get("referer") ?? "/";
+    revalidatePath(referer);
   }
-
-  const referer = headers().get("referer") ?? "/";
-  revalidatePath(referer);
 }
 
 export async function Follow(myId: string, userId: string) {
@@ -194,6 +194,22 @@ export async function UnFollow(myId: string, userId: string) {
     });
   } catch (error) {
     throw new Error("Failed to unfollow user.");
+  } finally {
+    const referer = headers().get("referer") ?? "/";
+    revalidatePath(referer);
+  }
+}
+
+export async function like(myId: string, postId: string) {
+  try {
+    await prisma.like.create({
+      data: {
+        userId: myId,
+        postId,
+      },
+    });
+  } catch (error) {
+    throw new Error("Failed to like the post.");
   } finally {
     const referer = headers().get("referer") ?? "/";
     revalidatePath(referer);
