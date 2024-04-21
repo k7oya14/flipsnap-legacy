@@ -73,10 +73,10 @@ export async function fetchFollows(username: string) {
               },
             },
           },
-          orderBy:{
-            createdAt: 'desc'
-          }
-        }
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
     });
     const follows = data?.following
@@ -106,10 +106,10 @@ export async function fetchFollowers(username: string) {
               },
             },
           },
-          orderBy:{
-            createdAt: 'desc'
-          }
-        }
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
     });
     const followers = data?.followedBy
@@ -373,6 +373,85 @@ export async function fetchMoreUserPostsById(
   }
 }
 
+export async function fetchLikedPosts(userId: string, take: number) {
+  noStore();
+  try {
+    const data = await prisma.like.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        post: {
+          include: {
+            author: {
+              select: {
+                username: true,
+                image: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+      take,
+    });
+    const posts = data.map((post) => {
+      return post.post;
+    });
+    return posts;
+  } catch (error) {
+    throw new Error("Failed to fetch first liked posts.");
+  }
+}
+
+export async function fetchMoreLikedPosts(
+  userId: string,
+  take: number,
+  cursorPostId: string
+) {
+  noStore();
+  try {
+    const data = await prisma.like.findMany({
+      where: {
+        userId,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      include: {
+        post: {
+          include: {
+            author: {
+              select: {
+                username: true,
+                image: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+      take,
+      skip: 1, // Skip the cursor
+      cursor: {
+        userId_postId: {
+          userId,
+          postId: cursorPostId,
+        },
+      },
+    });
+    const posts = data.map((post) => {
+      return post.post;
+    });
+    return posts;
+  } catch (error) {
+    throw new Error("Failed to fetch more liked posts.");
+  }
+}
+
 export async function fetchComments(postId: string, take: number) {
   noStore();
   try {
@@ -383,8 +462,8 @@ export async function fetchComments(postId: string, take: number) {
       orderBy: {
         createdAt: "desc",
       },
-      include:{
-        author:{
+      include: {
+        author: {
           select: {
             username: true,
             image: true,
@@ -414,8 +493,8 @@ export async function fetchMoreComments(
       orderBy: {
         createdAt: "desc",
       },
-      include:{
-        author:{
+      include: {
+        author: {
           select: {
             username: true,
             image: true,
