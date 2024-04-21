@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { auth } from "./auth";
 
 export const UserSchema = z.object({
   id: z.string().cuid(),
@@ -35,4 +36,14 @@ export const RawPostSchema = z.object({
       message: ".jpg, .jpeg, .png and .webp files are accepted.",
     }),
   caption: z.string(),
+});
+
+export const CommentSchema = z.object({
+  id: z.string().uuid(),
+  postId: z.string().uuid(),
+  authorId: z.string().cuid(),
+  content: z
+    .string()
+    .min(1, { message: "Comment must be at least 1 characters long." }),
+  created_at: z.date(),
 });
