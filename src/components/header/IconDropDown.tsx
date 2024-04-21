@@ -36,7 +36,7 @@ const IconDropDown = ({ user }: { user: sessionUser }) => {
         <DropdownMenuSeparator />
         <Link href="/profile/me" prefetch={false}>
           <DropdownMenuItem className="hover:cursor-pointer flex justify-center">
-            Profile
+            My profile
           </DropdownMenuItem>
         </Link>
         <DropdownMenuItem className="hover:cursor-pointer flex justify-center">

@@ -49,9 +49,9 @@ const HomeGallery = (props: Props) => {
   }, [inView]);
 
   return (
-    <div className="lg:px-40 px-5 flex">
+    <div className="lg:px-32 px-5 flex">
       {posts.map((colPosts: GalleyPost[]) => (
-        <div key={colPosts[0].id} className="w-1/3 p-1 lg:p-2 relative">
+        <div key={colPosts[0].id} className="w-1/3 p-1 relative">
           {colPosts.map((post: GalleyPost, index) => (
             <HomeFlipImage
               key={post.id}
