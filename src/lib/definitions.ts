@@ -61,7 +61,6 @@ export type OnePost = {
 };
 
 export type UserInfo = {
-  relationship: UserRelationship | undefined;
   _count?:
     | {
         following: number;

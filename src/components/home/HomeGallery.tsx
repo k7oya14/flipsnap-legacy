@@ -28,7 +28,7 @@ const HomeGallery = (props: Props) => {
   useEffect(() => {
     if (inView && !postLimit) {
       const fetchMorePosts = async () => {
-        const newPosts = await fetchMoreLatestPosts(6, null, cursorPostId);
+        const newPosts = await fetchMoreLatestPosts(6, cursorPostId);
         if (newPosts.length < 6) {
           setPostLimit(true);
         }
@@ -42,8 +42,7 @@ const HomeGallery = (props: Props) => {
           [...prevPosts[1], ...newPostsArray[1]],
           [...prevPosts[2], ...newPostsArray[2]],
         ]);
-        const newCursorPostId = cursorById(newPosts);
-        setCursorPostId(newCursorPostId);
+        setCursorPostId(cursorById(newPosts));
       };
       fetchMorePosts();
     }
@@ -66,7 +65,7 @@ const HomeGallery = (props: Props) => {
               frontComponent={<ImageFront index={index} post={post} />}
             />
           ))}
-          <div ref={ref} className="absolute bottom-[500px] h-[1px]" />
+          <div ref={ref} className="absolute bottom-[600px] h-[1px]" />
         </div>
       ))}
     </div>
