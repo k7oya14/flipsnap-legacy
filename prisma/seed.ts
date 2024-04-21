@@ -124,6 +124,29 @@ async function createComments(users : User[], posts: string[]) {
   }
 }
 
+const targetLikeCount = postUserCount; // TODO : Change this parameter
+
+async function createLikes(users : User[], posts: string[]) {
+  for (const user of users) {
+    const likedPostCount = faker.number.int({ min: 0, max: targetLikeCount });
+    const likedPosts = faker.helpers
+      .arrayElements(posts, likedPostCount)
+
+    for (const likedPostId of likedPosts) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          likes: {
+            create: {
+              postId: likedPostId
+            },
+          },
+        },
+      });
+    }
+  }
+}
+
 // async function createhishiwatPosts() {
 //   for (let i = 0; i < 9; i++) {
 //     await prisma.user.update({
@@ -147,6 +170,7 @@ async function main() {
   await createFollowRelations(users);
   const posts = await createPost(users);
   await createComments(users, posts);
+  await createLikes(users, posts);
   // await createhishiwatPosts();
 }
 
