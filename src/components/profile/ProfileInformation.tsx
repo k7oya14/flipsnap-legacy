@@ -1,16 +1,17 @@
 import React from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { UserInfo, sessionUser } from "@/lib/definitions";
+import { UserInfo, UserRelationship } from "@/lib/definitions";
 import FollowStatusButton from "./FollowStatusButton";
 import Link from "next/link";
 
 type Props = {
   userInfo: UserInfo;
-  me: sessionUser | null | undefined;
+  myId: string | null | undefined;
+  relationship: UserRelationship;
 };
 
 const ProfileInformation = (props: Props) => {
-  const { userInfo, me } = props;
+  const { userInfo, myId, relationship } = props;
   return (
     <div className="flex flex-col items-center justify-center py-8">
       <Avatar className="w-28 h-28">
@@ -21,9 +22,9 @@ const ProfileInformation = (props: Props) => {
       <p className="font-medium mt-1">@{userInfo.username}</p>
       <p className="mt-2">{userInfo.bio}</p>
       <FollowStatusButton
-        myId={me?.id!}
+        myId={myId!}
         userId={userInfo.id!}
-        relationship={userInfo.relationship!}
+        relationship={relationship}
       />
       <div className="flex items-center justify-center space-x-5 mt-2">
         <div className="text-center">

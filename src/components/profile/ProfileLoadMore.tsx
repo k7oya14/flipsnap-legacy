@@ -1,6 +1,6 @@
 "use client";
 
-import { Post, UserInfo } from "@/lib/definitions";
+import { Post, UserInfo, UserRelationship } from "@/lib/definitions";
 import { fetchMoreUserPostsById } from "@/lib/fetch";
 import { useCursorById } from "@/lib/utils";
 import React, { useEffect, useState } from "react";
@@ -12,10 +12,11 @@ type Props = {
   myId: string | undefined;
   userInfo: UserInfo;
   cursorId: string;
+  relationship: UserRelationship;
 };
 
 const ProfileLoadMore = (props: Props) => {
-  const { myId, userInfo, cursorId } = props;
+  const { myId, userInfo, cursorId, relationship } = props;
   const { cursorById } = useCursorById();
   const [posts, setPosts] = useState<Post[]>([]);
   const [postLimit, setPostLimit] = useState(false);
@@ -55,6 +56,7 @@ const ProfileLoadMore = (props: Props) => {
           index={index}
           myId={myId}
           userInfo={userInfo}
+          relationship={relationship}
         />
       ))}
       {loading &&
