@@ -2,17 +2,18 @@ import React from "react";
 import FlipImage from "../FlipImage";
 import ProfileImageFront from "./ProfileImageFront";
 import ProfileImageBack from "./ProfileImageBack";
-import { Post, UserInfo } from "@/lib/definitions";
+import { Post, UserInfo, UserRelationship } from "@/lib/definitions";
 
 type Props = {
   post: Post;
   index: number;
   myId: string | undefined;
   userInfo: UserInfo;
+  relationship: UserRelationship;
 };
 
 const ProfilePost = (props: Props) => {
-  const { post, index, myId, userInfo } = props;
+  const { post, index, myId, userInfo, relationship } = props;
   return (
     <FlipImage
       containerStyle={{
@@ -27,7 +28,7 @@ const ProfilePost = (props: Props) => {
           src={post.imgBack}
           userId={post.authorId}
           myId={myId}
-          relationship={userInfo.relationship!}
+          relationship={relationship}
         />
       }
     />
