@@ -81,3 +81,17 @@ export type UserInfo = {
   name?: string | null;
   bio?: string;
 };
+
+export type Comment = {
+  author: {
+    image: string | null;
+    name: string | null;
+    username: string | null;
+  };
+} & {
+  id: string;
+  authorId: string;
+  postId: string;
+  content: string;
+  createdAt: Date;
+};
