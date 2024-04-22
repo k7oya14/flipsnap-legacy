@@ -45,20 +45,24 @@ export type GalleyPost = {
   createdAt: Date;
 };
 
-export type OnePost = {
-  author: {
-    relationship?: UserRelationship | undefined;
-    image?: string | null | undefined;
-    name?: string | null | undefined;
-    username?: string | null | undefined;
-  };
-  id?: string | undefined;
-  authorId?: string | undefined;
-  imgFront?: string | undefined;
-  imgBack?: string | undefined;
-  caption?: string | undefined;
-  createdAt?: Date | undefined;
-};
+export type OnePost =
+  | {
+      author: {
+        image: string | null;
+        name: string | null;
+        username: string | null;
+      };
+      _count: {
+        likes: number;
+      };
+    } & {
+      id: string;
+      authorId: string;
+      imgFront: string;
+      imgBack: string;
+      caption: string;
+      createdAt: Date;
+    };
 
 export type UserInfo = {
   _count?:
