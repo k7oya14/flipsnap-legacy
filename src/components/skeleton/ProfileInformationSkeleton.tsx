@@ -3,7 +3,7 @@ import { Skeleton } from "../ui/skeleton";
 
 const ProfileInformationSkeleton = () => {
   return (
-    <div className="flex flex-col sm:flex-row-reverse items-center justify-center pt-8 pb-3 w-full">
+    <div className="flex flex-col sm:flex-row-reverse items-center justify-center sm:pt-8 py-3 pb-4 sm:pb-0 w-full">
       <div className="sm:w-[30%]">
         <Skeleton className="size-28 sm:size-[95%] sm:aspect-square rounded-full" />
       </div>
