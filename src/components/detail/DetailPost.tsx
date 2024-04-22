@@ -10,9 +10,8 @@ type Props = { postId: string };
 const DetailPost = async (props: Props) => {
   const { postId } = props;
   const session = await auth();
-  const myId = session?.user.id;
-  const post = await fetchPost(postId, myId);
-  if (!post.authorId)
+  const post = await fetchPost(postId);
+  if (!post?.id)
     return (
       <ErrorCard
         heading="Post not found"

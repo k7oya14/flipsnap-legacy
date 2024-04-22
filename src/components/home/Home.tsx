@@ -8,7 +8,7 @@ import HomeGallery from "./HomeGallery";
 
 const Home = async () => {
   const session = await auth();
-  const firstPosts = await fetchLatestPosts(12, session?.user.id);
+  const firstPosts = await fetchLatestPosts(12);
   const firstPostThreeArrays: GalleyPost[][] = [[], [], []];
   firstPosts.forEach((post, i) => {
     firstPostThreeArrays[i % 3] = [...firstPostThreeArrays[i % 3], post];

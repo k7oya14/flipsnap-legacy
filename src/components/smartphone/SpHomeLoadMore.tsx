@@ -16,6 +16,7 @@ type Props = {
 
 const SpHomeLoadMore = (props: Props) => {
   const { cursorId, myId } = props;
+  const { cursorById } = useCursorById();
   const [posts, setPosts] = useState<GalleyPost[]>([]);
   const [postLimit, setPostLimit] = useState(false);
   const [cursorPostId, setCursorPostId] = useState(cursorId);
@@ -29,12 +30,12 @@ const SpHomeLoadMore = (props: Props) => {
     if (inView && !postLimit) {
       const fetchMorePosts = async () => {
         setLoading(true);
-        const newPosts = await fetchMoreLatestPosts(6, myId, cursorPostId);
+        const newPosts = await fetchMoreLatestPosts(6, cursorPostId);
         if (newPosts.length < 6) {
           setPostLimit(true);
         }
         setPosts((prevPosts) => [...prevPosts, ...newPosts]);
-        setCursorPostId(cursorId);
+        setCursorPostId(cursorById(newPosts));
         setLoading(false);
       };
       fetchMorePosts();
@@ -44,8 +45,8 @@ const SpHomeLoadMore = (props: Props) => {
   return (
     <div>
       {posts.map((post: GalleyPost) => (
-		<SpHomePost key={post.id} post={post} myId={myId} />
-	  ))}
+        <SpHomePost key={post.id} post={post} myId={myId} />
+      ))}
       <div className="h-[1px]" ref={ref}></div>
       {loading && !postLimit && (
         <div className="mx-auto m-4 animate-spin size-10 border-4 border-slate-200 rounded-full border-t-transparent"></div>

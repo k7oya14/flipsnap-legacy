@@ -1,4 +1,4 @@
-import { UserInfo } from "@/lib/definitions";
+import { UserInfo, UserRelationship } from "@/lib/definitions";
 import { useCursorById } from "@/lib/utils";
 import { fetchUserPostsById } from "@/lib/fetch";
 import ProfileLoadMore from "./ProfileLoadMore";
@@ -8,10 +8,11 @@ import { Instagram } from "lucide-react";
 type Props = {
   userInfo: UserInfo;
   myId: string | undefined;
+  relationship: UserRelationship;
 };
 
 export async function ProfileGallery(props: Props) {
-  const { userInfo, myId } = props;
+  const { userInfo, myId, relationship } = props;
   const firstPosts = await fetchUserPostsById(userInfo.id!, 6);
   const { cursorById } = useCursorById();
 
@@ -29,6 +30,7 @@ export async function ProfileGallery(props: Props) {
           index={index}
           myId={myId}
           userInfo={userInfo}
+          relationship={relationship}
         />
       ))}
       {firstPosts.length === 0 ? (
@@ -44,6 +46,7 @@ export async function ProfileGallery(props: Props) {
             myId={myId}
             userInfo={userInfo}
             cursorId={cursorById(firstPosts)}
+            relationship={relationship}
           />
         )
       )}

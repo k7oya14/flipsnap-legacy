@@ -55,7 +55,7 @@ const ImageFront = (props: Props) => {
               <p className="text-lg">{post.author?.name}</p>
             </Link>
             <Link href={`/posts/${post.id}`} scroll={false}>
-              <Expand className="absolute bottom-2 right-2 invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
+              <Expand className="absolute bottom-[10px] right-[10px] invisible group-hover:visible size-[24px] text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
             </Link>
           </StopPropagationDiv>
         </div>

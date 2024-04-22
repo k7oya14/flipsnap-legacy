@@ -1,18 +1,19 @@
 import React from "react";
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
-import { UserInfo, sessionUser } from "@/lib/definitions";
+import { UserInfo, UserRelationship } from "@/lib/definitions";
 import FollowStatusButton from "./FollowStatusButton";
 import Link from "next/link";
 
 type Props = {
   userInfo: UserInfo;
-  me: sessionUser | null | undefined;
+  myId: string | null | undefined;
+  relationship: UserRelationship;
 };
 
 const ProfileInformation = (props: Props) => {
-  const { userInfo, me } = props;
+  const { userInfo, myId, relationship } = props;
   return (
-    <div className="flex flex-col sm:flex-row-reverse items-center justify-center pt-8 pb-4 sm:pb-0 w-full">
+    <div className="flex flex-col sm:flex-row-reverse items-center justify-center sm:pt-8 py-3 pb-4 sm:pb-0 w-full">
       <div className="sm:w-[30%]">
         <Avatar className="size-28 sm:size-[95%]">
           <AvatarImage src={userInfo.image!} />
@@ -56,9 +57,9 @@ const ProfileInformation = (props: Props) => {
           </Link>
         </div>
         <FollowStatusButton
-          myId={me?.id!}
+          myId={myId!}
           userId={userInfo.id!}
-          relationship={userInfo.relationship!}
+          relationship={relationship}
         />
       </div>
     </div>
