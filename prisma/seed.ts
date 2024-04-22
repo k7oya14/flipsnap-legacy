@@ -124,7 +124,7 @@ async function createComments(users : User[], posts: string[]) {
   }
 }
 
-const targetLikeCount = postUserCount; // TODO : Change this parameter
+const targetLikeCount = postUserCount / 2; // TODO : Change this parameter
 
 async function createLikes(users : User[], posts: string[]) {
   for (const user of users) {
