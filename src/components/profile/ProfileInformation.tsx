@@ -13,7 +13,7 @@ type Props = {
 const ProfileInformation = (props: Props) => {
   const { userInfo, myId, relationship } = props;
   return (
-    <div className="flex flex-col sm:flex-row-reverse items-center justify-center pt-8 pb-4 sm:pb-0 w-full">
+    <div className="flex flex-col sm:flex-row-reverse items-center justify-center sm:pt-8 py-3 pb-4 sm:pb-0 w-full">
       <div className="sm:w-[30%]">
         <Avatar className="size-28 sm:size-[95%]">
           <AvatarImage src={userInfo.image!} />
