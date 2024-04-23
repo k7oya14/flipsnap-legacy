@@ -1,5 +1,4 @@
 import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
 import DetailImageBack from "./DetaiImagelBack";
 import FlipImage from "../FlipImage";
 import ModalLink from "./ModalLink";
@@ -97,7 +96,7 @@ export async function PostDetail(props: Props) {
             />
           </div>
         </div>
-        <div className="relative bottom-0 w-full">
+        <div className="sticky bottom-0 w-full">
           <div className="flex items-center justify-between p-2 border-t-[1.35px]">
             <div className="flex items-center">
               <HeartIcon className="text-gray-600" />
