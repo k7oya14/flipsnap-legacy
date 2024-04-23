@@ -11,6 +11,7 @@ import { HeartIcon } from "lucide-react";
 import { fetchComments } from "@/lib/fetch";
 import { formatDistance } from "date-fns";
 import OneComment from "./OneComment";
+import CommentLoadMore from "./CommentLoadMore";
 
 type Props = {
   post: OnePost;
@@ -87,6 +88,10 @@ export async function PostDetail(props: Props) {
             {comments.map((comment) => (
               <OneComment comment={comment} />
             ))}
+            <CommentLoadMore
+              postId={post.id}
+              commentId={comments[comments.length - 1].id}
+            />
           </div>
         </div>
         <div className="relative bottom-0 w-full">
