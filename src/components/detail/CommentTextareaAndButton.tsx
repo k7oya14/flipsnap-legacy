@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
 import { LoaderCircle } from "lucide-react";
@@ -8,9 +8,11 @@ const CommentTextareaAndButton = () => {
   const { pending } = useFormStatus();
   const [commentContent, setCommentContent] = useState("");
 
-  const onClickPost = () => {
-    setCommentContent("");
-  };
+  useEffect(() => {
+    if (pending) {
+      setCommentContent("");
+    }
+  }, [pending]);
   return (
     <>
       <AutosizeTextarea
@@ -26,7 +28,6 @@ const CommentTextareaAndButton = () => {
       />
       <Button
         type="submit"
-        onClick={onClickPost}
         className={`bg-neutral-100 hover:bg-neutral-100 ${
           commentContent
             ? "text-neutral-600 hover:text-neutral-900"
