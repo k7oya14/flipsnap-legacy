@@ -46,7 +46,7 @@ const CommentLoadMore = (props: Props) => {
       ))}
       <div className="h-[1px]" ref={ref} />
       {loading && !commentLimit && (
-        <div className="mx-auto m-4 animate-spin size-10 border-4 border-slate-200 rounded-full border-t-transparent" />
+        <div className="mx-auto mb-2 animate-spin size-6 border-[3px] border-slate-200 rounded-full border-t-transparent" />
       )}
     </>
   );
