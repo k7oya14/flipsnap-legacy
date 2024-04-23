@@ -131,13 +131,12 @@ const createCommentSchema = CommentSchema.pick({ content: true });
 export async function createComment(
   myId: string,
   postId: string,
-  prevState: createPostState,
+  prevState: createCommentState,
   formData: FormData
 ) {
   const validatedFields = createCommentSchema.safeParse({
     content: formData.get("content"),
   });
-
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -163,6 +162,7 @@ export async function createComment(
   } finally {
     const referer = headers().get("referer") ?? "/";
     revalidatePath(referer);
+    return { message: "Comment created successfully." };
   }
 }
 

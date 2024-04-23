@@ -5,6 +5,10 @@ import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
 import { UserRelationship } from "./definitions";
 
+export async function delay(ms: number): Promise<void> {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
 export async function getUsernameById(userId: string) {
   const data = await prisma.user.findUnique({
     where: {

@@ -13,6 +13,7 @@ import { formatDistance } from "date-fns";
 import OneComment from "./OneComment";
 import CommentLoadMore from "./CommentLoadMore";
 import { useCursorById } from "@/lib/utils";
+import CommentForm from "./CommentForm";
 
 type Props = {
   post: OnePost;
@@ -25,7 +26,7 @@ export async function PostDetail(props: Props) {
   const { cursorById } = useCursorById();
 
   return (
-    <div className="flex h-[83vh] max-h-[600px]">
+    <div className="flex h-[83vh] max-h-[600px] bg-neutral-100">
       <div className="w-[55%] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
         <FlipImage
           containerStyle={{
@@ -110,11 +111,7 @@ export async function PostDetail(props: Props) {
               ago
             </p>
           </div>
-          <Input
-            className="w-full"
-            placeholder="Add a comment..."
-            type="text"
-          />
+          <CommentForm myId={myId} postId={post.id} />
         </div>
       </div>
     </div>
