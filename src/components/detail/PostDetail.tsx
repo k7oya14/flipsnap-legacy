@@ -26,7 +26,7 @@ export async function PostDetail(props: Props) {
   const { cursorById } = useCursorById();
 
   return (
-    <div className="flex h-[83vh] max-h-[600px] bg-neutral-100">
+    <div className="flex h-[83vh] max-h-[600px] bg-neutral-100 rounded-lg">
       <div className="w-[55%] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
         <FlipImage
           containerStyle={{
@@ -98,7 +98,7 @@ export async function PostDetail(props: Props) {
           </div>
         </div>
         <div className="relative bottom-0 w-full">
-          <div className="flex items-center justify-between p-2 border-t">
+          <div className="flex items-center justify-between p-2 border-t-[1.35px]">
             <div className="flex items-center">
               <HeartIcon className="text-gray-600" />
               <p className="font-semibold ml-[6px]">
