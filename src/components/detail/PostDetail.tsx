@@ -12,6 +12,7 @@ import { fetchComments } from "@/lib/fetch";
 import { formatDistance } from "date-fns";
 import OneComment from "./OneComment";
 import CommentLoadMore from "./CommentLoadMore";
+import { useCursorById } from "@/lib/utils";
 
 type Props = {
   post: OnePost;
@@ -21,6 +22,7 @@ type Props = {
 export async function PostDetail(props: Props) {
   const { post, myId } = props;
   const comments = await fetchComments(post.id!, 3);
+  const { cursorById } = useCursorById();
 
   return (
     <div className="flex h-[83vh] max-h-[600px]">
@@ -62,7 +64,7 @@ export async function PostDetail(props: Props) {
         />
       </div>
       <div className="relative w-[45%] flex flex-col border rounded-r-lg border-gray-200">
-        <div className="overflow-y-scroll">
+        <div className="overflow-y-scroll dialog-scroll">
           <div className="flex items-center p-2 md:p-4 border-b">
             <ModalLink
               href={`/profile/${post.author?.username}`}
@@ -86,11 +88,11 @@ export async function PostDetail(props: Props) {
           <p className="m-2 md:m-4 text-sm md:text-base">{post.caption}</p>
           <div className="flex-grow">
             {comments.map((comment) => (
-              <OneComment comment={comment} />
+              <OneComment key={comment.id} comment={comment} />
             ))}
             <CommentLoadMore
               postId={post.id}
-              commentId={comments[comments.length - 1].id}
+              commentId={cursorById(comments)}
             />
           </div>
         </div>

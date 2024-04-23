@@ -42,7 +42,7 @@ const CommentLoadMore = (props: Props) => {
   return (
     <>
       {comments.map((comment) => (
-        <OneComment comment={comment} />
+        <OneComment key={comment.id} comment={comment} />
       ))}
       <div className="h-[1px]" ref={ref} />
       {loading && !commentLimit && (

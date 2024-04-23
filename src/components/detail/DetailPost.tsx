@@ -22,7 +22,7 @@ const DetailPost = async (props: Props) => {
     );
   return (
     <>
-      <div className="hidden sm:block max-w-5xl w-[90%] max-h-[600px] h-[83vh] mx-auto my-2 bg-neutral-100 rounded-lg">
+      <div className="hidden sm:block">
         <PostDetail post={post} myId={session?.user.id} />
       </div>
       <div className="sm:hidden flex flex-col">
