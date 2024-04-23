@@ -25,8 +25,8 @@ export async function PostDetail(props: Props) {
   const { cursorById } = useCursorById();
 
   return (
-    <div className="flex h-[83vh] max-h-[600px] bg-neutral-100 rounded-lg">
-      <div className="w-[55%] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
+    <div className="flex bg-neutral-100 rounded-lg">
+      <div className="w-[55%] h-[83vh] max-h-[600px] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
         <FlipImage
           containerStyle={{
             width: "100%",
@@ -63,8 +63,8 @@ export async function PostDetail(props: Props) {
           }
         />
       </div>
-      <div className="relative w-[45%] flex flex-col border rounded-r-lg border-gray-200">
-        <div className="overflow-y-scroll dialog-scroll">
+      <div className="relative h-[83vh] max-h-[600px] w-[45%] flex flex-col border rounded-r-lg border-gray-200">
+        <div className="overflow-y-scroll dialog-scroll flex-grow">
           <div className="flex items-center p-2 md:p-4 border-b">
             <ModalLink
               href={`/profile/${post.author?.username}`}
@@ -86,7 +86,7 @@ export async function PostDetail(props: Props) {
             </ModalLink>
           </div>
           <p className="m-2 md:m-4 text-sm md:text-base">{post.caption}</p>
-          <div className="flex-grow">
+          <div>
             {comments.map((comment) => (
               <OneComment key={comment.id} comment={comment} />
             ))}
