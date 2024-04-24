@@ -1,11 +1,9 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
@@ -17,20 +15,29 @@ import { useCursorById } from "@/lib/utils";
 import CommentLoadMore from "../detail/CommentLoadMore";
 import OneComment from "../detail/OneComment";
 import CommentForm from "../detail/CommentForm";
+import { fetchComments } from "@/lib/fetch";
 
 type Props = {
-  latestComments: Comment[] | [];
+  latestComments?: Comment[] | [];
   postId: string;
   myId: string | undefined | null;
 };
 
 export const SpCommentDrawer = (props: Props) => {
-  const { latestComments, postId, myId } = props;
+  const { latestComments = [], postId, myId } = props;
   const { cursorById } = useCursorById();
+  const [comments, setComments] = useState<Comment[]>(latestComments);
+
+  const fetchMoreCommnent = async () => {
+    if (latestComments.length === 0) {
+      const comments = await fetchComments(postId, 5);
+      setComments([...latestComments, ...comments]);
+    }
+  };
 
   return (
     <Drawer>
-      <DrawerTrigger>
+      <DrawerTrigger onClick={fetchMoreCommnent}>
         <MessageCircle className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
       </DrawerTrigger>
       <DrawerContent>
@@ -40,13 +47,10 @@ export const SpCommentDrawer = (props: Props) => {
           </DrawerTitle>
         </DrawerHeader>
         <div className="max-h-[60vh] overflow-y-scroll overflow-x-hidden">
-          {latestComments.map((comment) => (
+          {comments.map((comment) => (
             <OneComment key={comment.id} comment={comment} />
           ))}
-          <CommentLoadMore
-            postId={postId}
-            commentId={cursorById(latestComments)}
-          />
+          <CommentLoadMore postId={postId} commentId={cursorById(comments)} />
         </div>
         <DrawerFooter className="p-0">
           <CommentForm postId={postId} myId={myId} />

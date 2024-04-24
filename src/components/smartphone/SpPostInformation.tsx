@@ -6,7 +6,7 @@ import { Comment } from "@/lib/definitions";
 
 type Props = {
   home?: boolean;
-  latestComments: Comment[];
+  latestComments?: Comment[];
   caption: string;
   createdAt: Date;
   postId: string;
@@ -20,7 +20,7 @@ const SpPostInformation = (props: Props) => {
     postId,
     myId,
     home = false,
-    latestComments,
+    latestComments = [],
   } = props;
 
   return (
