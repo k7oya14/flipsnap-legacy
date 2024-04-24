@@ -19,14 +19,16 @@ const ImageBack = (props: Props) => {
     loading = false,
     fetchRelationship,
   } = props;
-
+  const open =
+    relationship === UserRelationship.Mutual ||
+    relationship === UserRelationship.Me;
   return (
     <div>
       <div className="overflow-hidden w-full h-auto hover:cursor-pointer sm:rounded-lg ">
         <Image
           width={500}
           height={500}
-          className={`rounded-md filter blur-lg relative`}
+          className={`rounded-md  relative ${open || "filter blur-lg"}`}
           style={{
             objectFit: "cover",
             width: "100%",
@@ -35,13 +37,15 @@ const ImageBack = (props: Props) => {
           alt=""
           src={post.imgBack}
         />
-        <LockedBack
-          myId={myId}
-          userId={post.authorId}
-          relationship={relationship}
-          loading={loading}
-          fetchRelationship={fetchRelationship}
-        />
+        {open || (
+          <LockedBack
+            myId={myId}
+            userId={post.authorId}
+            relationship={relationship}
+            loading={loading}
+            fetchRelationship={fetchRelationship}
+          />
+        )}
       </div>
     </div>
   );
