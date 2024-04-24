@@ -1,9 +1,9 @@
 import { GalleyPost } from "@/lib/definitions";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
-import { formatDistance } from "date-fns";
 import Image from "next/image";
 import HomeFlipImage from "../home/HomeFlipImage";
+import SpPostInformation from "./SpPostInformation";
 
 type Props = {
   post: GalleyPost;
@@ -53,40 +53,14 @@ export function SpHomePost(props: Props) {
               />
             }
           />
-          <div className="px-4 gap-2 flex flex-col">
-            <div className="flex items-center gap-2">
-              <button className="focus:outline-none">
-                <HeartIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none">
-                <ReplyIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none">
-                <SendIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none ml-auto">
-                <BookmarkIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-            </div>
-            <p className="truncate hover:overflow-visible hover:whitespace-normal">
-              {post.caption}
-            </p>
-            <p className="text-sm text-gray-500">
-              Liked by
-              <strong className="font-medium text-gray-600">
-                user
-              </strong> and{" "}
-              <strong className="font-medium text-gray-600">others</strong>
-            </p>
-            <div className="flex items-center gap-2">
-              <strong className="font-medium text-gray-600">user</strong>
-              <p className="text-sm text-gray-500">Great post!</p>
-            </div>
-            <p className="text-xs text-gray-400">
-              {formatDistance(new Date(), Date.parse(String(post.createdAt)))}{" "}
-              ago
-            </p>
-          </div>
+
+          <SpPostInformation
+            home={true}
+            caption={post.caption}
+            createdAt={post.createdAt}
+            postId={post.id}
+            myId={myId}
+          />
         </div>
       </main>
     </div>

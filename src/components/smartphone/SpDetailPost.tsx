@@ -7,6 +7,7 @@ import Image from "next/image";
 import SpDetailImageBack from "./SpDetailImageBack";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
+import SpPostInformation from "./SpPostInformation";
 
 type Props = {
   post: OnePost;
@@ -74,38 +75,12 @@ export async function SpDetailPost(props: Props) {
               </Suspense>
             }
           />
-          <div className="px-4 gap-2 flex flex-col">
-            <div className="flex items-center gap-2">
-              <button className="focus:outline-none">
-                <HeartIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none">
-                <ReplyIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none">
-                <SendIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none ml-auto">
-                <BookmarkIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-            </div>
-            <p className="">{post.caption}</p>
-            <p className="text-sm text-gray-500">
-              Liked by
-              <strong className="font-medium text-gray-600">
-                user
-              </strong> and{" "}
-              <strong className="font-medium text-gray-600">others</strong>
-            </p>
-            <div className="flex items-center gap-2">
-              <strong className="font-medium text-gray-600">user</strong>
-              <p className="text-sm text-gray-500">Great post!</p>
-            </div>
-            <p className="text-xs text-gray-400">
-              {formatDistance(new Date(), Date.parse(String(post.createdAt)))}{" "}
-              ago
-            </p>
-          </div>
+          <SpPostInformation
+            caption={post.caption}
+            createdAt={post.createdAt}
+            postId={post.id}
+            myId={myId}
+          />
         </div>
       </main>
     </div>
