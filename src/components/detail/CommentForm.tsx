@@ -24,7 +24,7 @@ const CommentForm = (props: Props) => {
     <form
       action={dispatch}
       ref={formRef}
-      className="flex items-center border-t border-t-gray-200"
+      className="flex items-center border-t border-t-gray-200 bg-neutral-100"
     >
       <CommentTextareAndButton />
     </form>

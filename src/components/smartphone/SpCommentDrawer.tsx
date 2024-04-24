@@ -35,7 +35,7 @@ export const SpCommentDrawer = (props: Props) => {
       </DrawerTrigger>
       <DrawerContent>
         <DrawerHeader>
-          <DrawerTitle className="border-b border-gray-200">
+          <DrawerTitle className="border-b border-gray-200 pb-5">
             Comment
           </DrawerTitle>
         </DrawerHeader>
@@ -48,7 +48,7 @@ export const SpCommentDrawer = (props: Props) => {
             commentId={cursorById(latestComments)}
           />
         </div>
-        <DrawerFooter>
+        <DrawerFooter className="p-0">
           <CommentForm postId={postId} myId={myId} />
         </DrawerFooter>
       </DrawerContent>

@@ -28,7 +28,7 @@ const CommentTextareaAndButton = () => {
       />
       <Button
         type="submit"
-        className={`bg-neutral-100 hover:bg-neutral-100 ${
+        className={`rounded-none sm:rounded-br-lg bg-neutral-100 hover:bg-neutral-100 ${
           commentContent
             ? "text-neutral-600 hover:text-neutral-900"
             : "text-neutral-300"
