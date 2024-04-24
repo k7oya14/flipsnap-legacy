@@ -1,9 +1,12 @@
 import { formatDistance } from "date-fns";
-import { HeartIcon, ReplyIcon } from "lucide-react";
+import { HeartIcon } from "lucide-react";
 import React from "react";
+import { SpCommentDrawer } from "./SpCommentDrawer";
+import { Comment } from "@/lib/definitions";
 
 type Props = {
   home?: boolean;
+  latestComments: Comment[];
   caption: string;
   createdAt: Date;
   postId: string;
@@ -11,16 +14,28 @@ type Props = {
 };
 
 const SpPostInformation = (props: Props) => {
-  const { caption, createdAt, postId, myId, home = false } = props;
+  const {
+    caption,
+    createdAt,
+    postId,
+    myId,
+    home = false,
+    latestComments,
+  } = props;
+
   return (
     <div className="px-4 gap-2 flex flex-col">
       <div className="flex items-center gap-2">
         <button className="focus:outline-none">
           <HeartIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
         </button>
-        <button className="focus:outline-none">
-          <ReplyIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-        </button>
+        <div className="focus:outline-none">
+          <SpCommentDrawer
+            latestComments={latestComments}
+            postId={postId}
+            myId={myId}
+          />
+        </div>
       </div>
       <p
         className={

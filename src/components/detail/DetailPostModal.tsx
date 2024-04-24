@@ -1,5 +1,5 @@
 import { auth } from "@/lib/auth";
-import { fetchPost } from "@/lib/fetch";
+import { fetchComments, fetchPost } from "@/lib/fetch";
 import React from "react";
 import ErrorCard from "../ErrorCard";
 import { PostDetail } from "./PostDetail";
@@ -10,7 +10,7 @@ type Props = { postId: string };
 const DetailPostModal = async (props: Props) => {
   const { postId } = props;
   const session = await auth();
-  const myId = session?.user.id;
+  const comments = await fetchComments(postId, 3);
   const post = await fetchPost(postId);
   if (!post?.id)
     return (
@@ -24,10 +24,18 @@ const DetailPostModal = async (props: Props) => {
   return (
     <>
       <div className="hidden sm:block relative">
-        <PostDetail post={post} myId={session?.user.id} />
+        <PostDetail
+          post={post}
+          myId={session?.user.id}
+          latestComments={comments}
+        />
       </div>
-      <div className="sm:hidden flex flex-col dialog-scroll w-full overflow-y-scroll">
-        <SpDetailPost post={post} myId={session?.user.id} />
+      <div className="sm:hidden flex flex-col dialog-scroll overflow-y-scroll">
+        <SpDetailPost
+          post={post}
+          myId={session?.user.id}
+          latestComments={comments}
+        />
       </div>
     </>
   );

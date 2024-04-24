@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { formatDistance } from "date-fns";
-import { OnePost } from "@/lib/definitions";
+import { Comment, OnePost } from "@/lib/definitions";
 import ModalLink from "../detail/ModalLink";
 import FlipImage from "../FlipImage";
 import Image from "next/image";
@@ -12,10 +12,11 @@ import SpPostInformation from "./SpPostInformation";
 type Props = {
   post: OnePost;
   myId: string | null | undefined;
+  latestComments: Comment[];
 };
 
 export async function SpDetailPost(props: Props) {
-  const { post, myId } = props;
+  const { post, myId, latestComments } = props;
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -76,6 +77,7 @@ export async function SpDetailPost(props: Props) {
             }
           />
           <SpPostInformation
+            latestComments={latestComments}
             caption={post.caption}
             createdAt={post.createdAt}
             postId={post.id}

@@ -4,14 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import HomeFlipImage from "../home/HomeFlipImage";
 import SpPostInformation from "./SpPostInformation";
+import { fetchComments } from "@/lib/fetch";
 
 type Props = {
   post: GalleyPost;
   myId: string | undefined | null;
 };
 
-export function SpHomePost(props: Props) {
+export async function SpHomePost(props: Props) {
   const { post, myId } = props;
+  const comments = await fetchComments(post.id, 3);
   return (
     <div className="w-full h-full flex flex-col min-w-[360px] max-w-[960px] border-b-2">
       <Link
@@ -55,6 +57,7 @@ export function SpHomePost(props: Props) {
           />
 
           <SpPostInformation
+            latestComments={comments}
             home={true}
             caption={post.caption}
             createdAt={post.createdAt}

@@ -5,9 +5,8 @@ import ModalLink from "./ModalLink";
 import Image from "next/image";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
-import { OnePost } from "@/lib/definitions";
+import { Comment, OnePost } from "@/lib/definitions";
 import { HeartIcon } from "lucide-react";
-import { fetchComments } from "@/lib/fetch";
 import { formatDistance } from "date-fns";
 import OneComment from "./OneComment";
 import CommentLoadMore from "./CommentLoadMore";
@@ -17,11 +16,12 @@ import CommentForm from "./CommentForm";
 type Props = {
   post: OnePost;
   myId: string | null | undefined;
+  latestComments: Comment[];
 };
 
 export async function PostDetail(props: Props) {
-  const { post, myId } = props;
-  const comments = await fetchComments(post.id!, 3);
+  const { post, myId, latestComments } = props;
+  //   console.log(latestComments);
   const { cursorById } = useCursorById();
 
   return (
@@ -87,12 +87,12 @@ export async function PostDetail(props: Props) {
           </div>
           <p className="m-2 md:m-4 text-sm md:text-base">{post.caption}</p>
           <div>
-            {comments.map((comment) => (
+            {latestComments.map((comment) => (
               <OneComment key={comment.id} comment={comment} />
             ))}
             <CommentLoadMore
               postId={post.id}
-              commentId={cursorById(comments)}
+              commentId={cursorById(latestComments)}
             />
           </div>
         </div>
