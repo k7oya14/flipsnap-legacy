@@ -2,7 +2,7 @@ import { formatDistance } from "date-fns";
 import { HeartIcon } from "lucide-react";
 import React from "react";
 import { SpCommentDrawer } from "./SpCommentDrawer";
-import { Comment } from "@/lib/definitions";
+import { Comment, sessionUser } from "@/lib/definitions";
 
 type Props = {
   home?: boolean;
@@ -10,7 +10,7 @@ type Props = {
   caption: string;
   createdAt: Date;
   postId: string;
-  myId: string | undefined | null;
+  me: sessionUser | undefined;
 };
 
 const SpPostInformation = (props: Props) => {
@@ -18,7 +18,7 @@ const SpPostInformation = (props: Props) => {
     caption,
     createdAt,
     postId,
-    myId,
+    me,
     home = false,
     latestComments = [],
   } = props;
@@ -33,7 +33,7 @@ const SpPostInformation = (props: Props) => {
           <SpCommentDrawer
             latestComments={latestComments}
             postId={postId}
-            myId={myId}
+            me={me}
           />
         </div>
       </div>

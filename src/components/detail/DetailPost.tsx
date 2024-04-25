@@ -37,7 +37,7 @@ const DetailPost = async (props: Props) => {
       >
         <SpDetailPost
           post={post}
-          myId={session?.user.id}
+          me={session?.user}
           latestComments={comments}
         />
       </div>

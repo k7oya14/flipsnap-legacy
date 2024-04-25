@@ -16,7 +16,7 @@ const Home = async () => {
   return (
     <>
       <div className="block sm:hidden">
-        <SpHome myId={session?.user.id} firstPosts={firstPosts} />
+        <SpHome me={session?.user} firstPosts={firstPosts} />
       </div>
       <div className="hidden sm:flex flex-col justify-center">
         <Image

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useOptimistic, useState } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -10,7 +10,7 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer";
 import { MessageCircle } from "lucide-react";
-import { Comment } from "@/lib/definitions";
+import { Comment, sessionUser } from "@/lib/definitions";
 import { useCursorById } from "@/lib/utils";
 import CommentLoadMore from "../detail/CommentLoadMore";
 import OneComment from "../detail/OneComment";
@@ -20,13 +20,18 @@ import { fetchComments } from "@/lib/fetch";
 type Props = {
   latestComments?: Comment[] | [];
   postId: string;
-  myId: string | undefined | null;
+  me: sessionUser | undefined;
 };
 
 export const SpCommentDrawer = (props: Props) => {
-  const { latestComments = [], postId, myId } = props;
+  const { latestComments = [], postId, me } = props;
   const { cursorById } = useCursorById();
+  const [optimisticComments, setOptimisticComments] = useOptimistic<Comment[]>(
+    []
+  );
   const [comments, setComments] = useState<Comment[]>(latestComments);
+
+  const onSubmitComment = (comment: string) => {};
 
   const fetchMoreCommnent = async () => {
     if (latestComments.length === 0) {

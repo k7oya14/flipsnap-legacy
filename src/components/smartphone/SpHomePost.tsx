@@ -1,4 +1,4 @@
-import { GalleyPost } from "@/lib/definitions";
+import { GalleyPost, sessionUser } from "@/lib/definitions";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,11 +8,11 @@ import { fetchComments } from "@/lib/fetch";
 
 type Props = {
   post: GalleyPost;
-  myId: string | undefined | null;
+  me: sessionUser | undefined;
 };
 
 export async function SpHomePost(props: Props) {
-  const { post, myId } = props;
+  const { post, me } = props;
   return (
     <div className="w-full h-full flex flex-col min-w-[360px] max-w-[960px] border-b-2">
       <Link
@@ -35,7 +35,7 @@ export async function SpHomePost(props: Props) {
         <div className="flex flex-col gap-4 pt-2 pb-4">
           <HomeFlipImage
             post={post}
-            myId={myId}
+            myId={me?.id}
             containerStyle={{
               width: "100%",
               height: "auto",
@@ -60,7 +60,7 @@ export async function SpHomePost(props: Props) {
             caption={post.caption}
             createdAt={post.createdAt}
             postId={post.id}
-            myId={myId}
+            me={me}
           />
         </div>
       </main>
