@@ -16,6 +16,7 @@ const CommentTextareaAndButton = () => {
   return (
     <>
       <AutosizeTextarea
+        commentContent={commentContent}
         name="content"
         id="content"
         value={commentContent}
