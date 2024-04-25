@@ -154,16 +154,18 @@ export async function createComment(
         content,
       },
     });
+    return { message: "Comment created successfully." };
   } catch (error) {
     return {
       errors: {},
       message: "Database Error: Failed to create comment.",
     };
-  } finally {
-    const referer = headers().get("referer") ?? "/";
-    revalidatePath(referer);
-    return { message: "Comment created successfully." };
   }
+  //   finally {
+  //     const referer = headers().get("referer") ?? "/";
+  //     revalidatePath(referer);
+  //     return { message: "Comment created successfully." };
+  //   }
 }
 
 export async function Follow(myId: string, userId: string) {

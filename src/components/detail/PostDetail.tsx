@@ -1,27 +1,20 @@
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
 import DetailImageBack from "./DetaiImagelBack";
 import FlipImage from "../FlipImage";
-import ModalLink from "./ModalLink";
 import Image from "next/image";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
-import { Comment, OnePost } from "@/lib/definitions";
-import { HeartIcon } from "lucide-react";
-import { formatDistance } from "date-fns";
-import OneComment from "./OneComment";
-import CommentLoadMore from "./CommentLoadMore";
+import { Comment, OnePost, sessionUser } from "@/lib/definitions";
 import { useCursorById } from "@/lib/utils";
-import CommentForm from "./CommentForm";
+import PostInformation from "./PostInformation";
 
 type Props = {
   post: OnePost;
-  myId: string | null | undefined;
+  me: sessionUser | undefined;
   latestComments: Comment[];
 };
 
 export async function PostDetail(props: Props) {
-  const { post, myId, latestComments } = props;
-  //   console.log(latestComments);
+  const { post, me, latestComments } = props;
   const { cursorById } = useCursorById();
 
   return (
@@ -56,63 +49,14 @@ export async function PostDetail(props: Props) {
             >
               <DetailImageBack
                 src={post.imgBack!}
-                myId={myId}
+                myId={me?.id}
                 userId={post.authorId!}
               />
             </Suspense>
           }
         />
       </div>
-      <div className="relative h-[83vh] max-h-[600px] w-[45%] flex flex-col border rounded-r-lg border-gray-200">
-        <div className="overflow-y-scroll dialog-scroll flex-grow">
-          <div className="flex items-center p-2 md:p-4 border-b">
-            <ModalLink
-              href={`/profile/${post.author?.username}`}
-              className="flex items-center hover:cursor-pointer"
-            >
-              <Avatar>
-                <AvatarImage
-                  alt="User avatar"
-                  src={
-                    post.author?.image || "/placeholder.svg?height=32&width=32"
-                  }
-                />
-                <AvatarFallback>{post.author?.name}</AvatarFallback>
-              </Avatar>
-              <div className="ml-3">
-                <p className="font-semibold">{post.author?.name}</p>
-                <p className="text-xs text-gray-500">{post.author?.username}</p>
-              </div>
-            </ModalLink>
-          </div>
-          <p className="m-2 md:m-4 text-sm md:text-base">{post.caption}</p>
-          <div>
-            {latestComments.map((comment) => (
-              <OneComment key={comment.id} comment={comment} />
-            ))}
-            <CommentLoadMore
-              postId={post.id}
-              commentId={cursorById(latestComments)}
-            />
-          </div>
-        </div>
-        <div className="sticky bottom-0 w-full">
-          <div className="flex items-center justify-between p-2 border-t-[1.35px]">
-            <div className="flex items-center">
-              <HeartIcon className="text-gray-600" />
-              <p className="font-semibold ml-[6px]">
-                {post._count.likes.toLocaleString()}
-              </p>
-            </div>
-
-            <p className="text-xs text-gray-500">
-              {formatDistance(new Date(), Date.parse(String(post.createdAt)))}{" "}
-              ago
-            </p>
-          </div>
-          <CommentForm myId={myId} postId={post.id} />
-        </div>
-      </div>
+      <PostInformation post={post} me={me} latestComments={latestComments} />
     </div>
   );
 }

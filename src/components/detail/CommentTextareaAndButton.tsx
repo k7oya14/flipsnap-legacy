@@ -4,7 +4,12 @@ import { useFormStatus } from "react-dom";
 import { LoaderCircle } from "lucide-react";
 import { AutosizeTextarea } from "../ui/autosizeTextarea";
 
-const CommentTextareaAndButton = () => {
+type Props = {
+  onSubmit: (commentContent: string) => void;
+};
+
+const CommentTextareaAndButton = (props: Props) => {
+  const { onSubmit } = props;
   const { pending } = useFormStatus();
   const [commentContent, setCommentContent] = useState("");
 
@@ -29,6 +34,7 @@ const CommentTextareaAndButton = () => {
       />
       <Button
         type="submit"
+        onClick={() => onSubmit(commentContent)}
         className={`rounded-none sm:rounded-br-lg bg-neutral-100 hover:bg-neutral-100 ${
           commentContent
             ? "text-neutral-600 hover:text-neutral-900"

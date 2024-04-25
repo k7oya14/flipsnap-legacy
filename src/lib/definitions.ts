@@ -84,8 +84,8 @@ export type UserInfo = {
 
 export type Comment = {
   author: {
-    image: string | null;
-    name: string | null;
+    image: string | null | undefined;
+    name: string | null | undefined;
     username: string | null;
   };
 } & {

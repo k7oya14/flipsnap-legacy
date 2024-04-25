@@ -24,11 +24,7 @@ const DetailPost = async (props: Props) => {
   return (
     <>
       <div className="hidden sm:block">
-        <PostDetail
-          post={post}
-          myId={session?.user.id}
-          latestComments={comments}
-        />
+        <PostDetail post={post} me={session?.user} latestComments={comments} />
       </div>
       <div
         className={`sm:hidden flex flex-col ${
