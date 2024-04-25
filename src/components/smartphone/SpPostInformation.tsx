@@ -3,6 +3,7 @@ import { HeartIcon } from "lucide-react";
 import React from "react";
 import { SpCommentDrawer } from "./SpCommentDrawer";
 import { Comment, sessionUser } from "@/lib/definitions";
+import LikeButton from "../LikeButton";
 
 type Props = {
   home?: boolean;
@@ -26,9 +27,9 @@ const SpPostInformation = (props: Props) => {
   return (
     <div className="px-4 gap-2 flex flex-col">
       <div className="flex items-center gap-2">
-        <button className="focus:outline-none">
-          <HeartIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-        </button>
+        <div className="focus:outline-none">
+          <LikeButton myId={me?.id} postId={postId} />
+        </div>
         <div className="focus:outline-none">
           <SpCommentDrawer
             latestComments={latestComments}
