@@ -11,7 +11,7 @@ type Props = {
 const OneComment = (props: Props) => {
   const { comment } = props;
   return (
-    <div className="flex items-start space-x-3 p-3">
+    <div className="flex items-start space-x-3 sm:p-3 p-[10px]">
       <ModalLink
         href={`/profile/${comment.author.username}`}
         className="hover:cursor-pointer"
@@ -23,18 +23,23 @@ const OneComment = (props: Props) => {
       </ModalLink>
       <div>
         <div className="font-semibold text-sm">
-          <ModalLink
-            href={`/profile/${comment.author.username}`}
-            className="hover:cursor-pointer"
-          >
-            {comment.author.name}
-          </ModalLink>
+          <div className="flex sm:flex-none items-center space-x-2">
+            <ModalLink
+              href={`/profile/${comment.author.username}`}
+              className="hover:cursor-pointer text-sm"
+            >
+              {comment.author.name}
+            </ModalLink>
+            <p className="block font-light text-xs text-gray-400">
+              {formatDistance(
+                new Date(),
+                Date.parse(String(comment.createdAt))
+              )}{" "}
+              ago
+            </p>
+          </div>
           <span className="font-normal">{comment.content}</span>
         </div>
-        <p className="text-xs text-gray-500">
-          {formatDistance(new Date(), Date.parse(String(comment.createdAt)))}{" "}
-          ago
-        </p>
       </div>
     </div>
   );
