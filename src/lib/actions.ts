@@ -131,13 +131,12 @@ const createCommentSchema = CommentSchema.pick({ content: true });
 export async function createComment(
   myId: string,
   postId: string,
-  prevState: createPostState,
+  prevState: createCommentState,
   formData: FormData
 ) {
   const validatedFields = createCommentSchema.safeParse({
     content: formData.get("content"),
   });
-
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -155,15 +154,18 @@ export async function createComment(
         content,
       },
     });
+    return { message: "Comment created successfully." };
   } catch (error) {
     return {
       errors: {},
       message: "Database Error: Failed to create comment.",
     };
-  } finally {
-    const referer = headers().get("referer") ?? "/";
-    revalidatePath(referer);
   }
+  //   finally {
+  //     const referer = headers().get("referer") ?? "/";
+  //     revalidatePath(referer);
+  //     return { message: "Comment created successfully." };
+  //   }
 }
 
 export async function Follow(myId: string, userId: string) {

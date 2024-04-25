@@ -1,20 +1,22 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { formatDistance } from "date-fns";
-import { OnePost } from "@/lib/definitions";
+import { Comment, OnePost, sessionUser } from "@/lib/definitions";
 import ModalLink from "../detail/ModalLink";
 import FlipImage from "../FlipImage";
 import Image from "next/image";
 import SpDetailImageBack from "./SpDetailImageBack";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
+import SpPostInformation from "./SpPostInformation";
 
 type Props = {
   post: OnePost;
-  myId: string | null | undefined;
+  me: sessionUser | undefined;
+  latestComments: Comment[];
 };
 
 export async function SpDetailPost(props: Props) {
-  const { post, myId } = props;
+  const { post, me, latestComments } = props;
 
   return (
     <div className="w-full h-full flex flex-col">
@@ -70,42 +72,17 @@ export async function SpDetailPost(props: Props) {
                   </>
                 }
               >
-                <SpDetailImageBack post={post} myId={myId} />
+                <SpDetailImageBack post={post} myId={me?.id} />
               </Suspense>
             }
           />
-          <div className="px-4 gap-2 flex flex-col">
-            <div className="flex items-center gap-2">
-              <button className="focus:outline-none">
-                <HeartIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none">
-                <ReplyIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none">
-                <SendIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none ml-auto">
-                <BookmarkIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-            </div>
-            <p className="">{post.caption}</p>
-            <p className="text-sm text-gray-500">
-              Liked by
-              <strong className="font-medium text-gray-600">
-                user
-              </strong> and{" "}
-              <strong className="font-medium text-gray-600">others</strong>
-            </p>
-            <div className="flex items-center gap-2">
-              <strong className="font-medium text-gray-600">user</strong>
-              <p className="text-sm text-gray-500">Great post!</p>
-            </div>
-            <p className="text-xs text-gray-400">
-              {formatDistance(new Date(), Date.parse(String(post.createdAt)))}{" "}
-              ago
-            </p>
-          </div>
+          <SpPostInformation
+            latestComments={latestComments}
+            caption={post.caption}
+            createdAt={post.createdAt}
+            postId={post.id}
+            me={me}
+          />
         </div>
       </main>
     </div>

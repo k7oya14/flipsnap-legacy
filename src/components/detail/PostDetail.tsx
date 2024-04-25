@@ -1,23 +1,24 @@
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
 import DetailImageBack from "./DetaiImagelBack";
 import FlipImage from "../FlipImage";
-import ModalLink from "./ModalLink";
 import Image from "next/image";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
-import { OnePost } from "@/lib/definitions";
+import { Comment, OnePost, sessionUser } from "@/lib/definitions";
+import { useCursorById } from "@/lib/utils";
+import PostInformation from "./PostInformation";
 
 type Props = {
   post: OnePost;
-  myId: string | null | undefined;
+  me: sessionUser | undefined;
+  latestComments: Comment[];
 };
 
 export async function PostDetail(props: Props) {
-  const { post, myId } = props;
+  const { post, me, latestComments } = props;
+  const { cursorById } = useCursorById();
 
   return (
-    <div className="flex">
+    <div className="flex bg-neutral-100 rounded-lg">
       <div className="w-[55%] h-[83vh] max-h-[600px] rounded-l-lg bg-neutral-900 border-r border-gray-200 flex justify-center">
         <FlipImage
           containerStyle={{
@@ -48,167 +49,14 @@ export async function PostDetail(props: Props) {
             >
               <DetailImageBack
                 src={post.imgBack!}
-                myId={myId}
+                myId={me?.id}
                 userId={post.authorId!}
               />
             </Suspense>
           }
         />
       </div>
-      <div className="w-[45%] flex flex-col border rounded-r-lg border-gray-200">
-        <div className="flex items-center p-2 md:p-4 border-b">
-          <ModalLink
-            href={`/profile/${post.author?.username}`}
-            className="flex items-center hover:cursor-pointer"
-          >
-            <Avatar>
-              <AvatarImage
-                alt="User avatar"
-                src={
-                  post.author?.image || "/placeholder.svg?height=32&width=32"
-                }
-              />
-              <AvatarFallback>{post.author?.name}</AvatarFallback>
-            </Avatar>
-            <div className="ml-3">
-              <p className="font-semibold">{post.author?.name}</p>
-              <p className="text-xs text-gray-500">{post.author?.username}</p>
-            </div>
-          </ModalLink>
-        </div>
-        <p className="m-2 md:m-4 text-sm md:text-base">{post.caption}</p>
-        {/* <div className="flex-grow overflow-y-auto">
-          <div className="flex items-start space-x-3 p-4">
-            <Avatar>
-              <AvatarImage
-                alt="User avatar"
-                src="/placeholder.svg?height=32&width=32"
-              />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="font-semibold">
-                username <span className="font-normal">comment text</span>
-              </p>
-              <p className="text-xs text-gray-500">2d</p>
-            </div>
-          </div>
-        </div> */}
-        {/* <div className="flex items-center justify-between p-4 border-t">
-          <div className="flex space-x-4">
-            <HeartIcon className="text-gray-600" />
-            <ReplyIcon className="text-gray-600" />
-            <SendIcon className="text-gray-600" />
-          </div>
-          <BookmarkIcon className="text-gray-600" />
-        </div>
-        <div className="px-4 pb-4">
-          <p className="font-semibold">1,234 likes</p>
-          <p className="text-xs text-gray-500">2 days ago</p>
-        </div>
-        <div className="px-4 pb-4">
-          <Input placeholder="Add a comment..." type="text" />
-        </div> */}
-      </div>
+      <PostInformation post={post} me={me} latestComments={latestComments} />
     </div>
-  );
-}
-
-function MoreHorizontalIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="1" />
-      <circle cx="19" cy="12" r="1" />
-      <circle cx="5" cy="12" r="1" />
-    </svg>
-  );
-}
-
-function HeartIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-    </svg>
-  );
-}
-
-function ReplyIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="9 17 4 12 9 7" />
-      <path d="M20 18v-2a4 4 0 0 0-4-4H4" />
-    </svg>
-  );
-}
-
-function SendIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m22 2-7 20-4-9-9-4Z" />
-      <path d="M22 2 11 13" />
-    </svg>
-  );
-}
-
-function BookmarkIcon(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-    </svg>
   );
 }

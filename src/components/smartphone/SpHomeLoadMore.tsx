@@ -6,16 +6,16 @@ import { useInView } from "react-intersection-observer";
 import { BadgeCheck } from "lucide-react";
 import { Card } from "../ui/card";
 import { fetchMoreLatestPosts } from "@/lib/fetch";
-import { GalleyPost } from "@/lib/definitions";
+import { GalleyPost, sessionUser } from "@/lib/definitions";
 import { SpHomePost } from "./SpHomePost";
 
 type Props = {
   cursorId: string;
-  myId: string | undefined;
+  me: sessionUser | undefined;
 };
 
 const SpHomeLoadMore = (props: Props) => {
-  const { cursorId, myId } = props;
+  const { cursorId, me } = props;
   const { cursorById } = useCursorById();
   const [posts, setPosts] = useState<GalleyPost[]>([]);
   const [postLimit, setPostLimit] = useState(false);
@@ -45,7 +45,7 @@ const SpHomeLoadMore = (props: Props) => {
   return (
     <div>
       {posts.map((post: GalleyPost) => (
-        <SpHomePost key={post.id} post={post} myId={myId} />
+        <SpHomePost key={post.id} post={post} me={me} />
       ))}
       <div className="h-[1px]" ref={ref}></div>
       {loading && !postLimit && (
