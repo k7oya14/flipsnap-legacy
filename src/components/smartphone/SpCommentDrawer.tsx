@@ -75,7 +75,9 @@ export const SpCommentDrawer = (props: Props) => {
           <CommentLoadMore postId={postId} commentId={cursorById(comments)} />
         </div>
         <DrawerFooter className="p-0">
-          <CommentForm postId={postId} me={me} onSubmit={onSubmitComment} />
+          {me && (
+            <CommentForm postId={postId} me={me} onSubmit={onSubmitComment} />
+          )}
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

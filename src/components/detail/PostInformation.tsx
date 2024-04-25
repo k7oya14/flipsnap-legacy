@@ -87,7 +87,9 @@ const PostInformation = (props: Props) => {
             {formatDistance(new Date(), Date.parse(String(post.createdAt)))} ago
           </p>
         </div>
-        <CommentForm me={me} postId={post.id} onSubmit={onSubmitComment} />
+        {me && (
+          <CommentForm me={me} postId={post.id} onSubmit={onSubmitComment} />
+        )}
       </div>
     </div>
   );
