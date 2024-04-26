@@ -27,8 +27,8 @@ export const SpCommentDrawer = (props: Props) => {
   const { latestComments = [], postId, me } = props;
   const { cursorById } = useCursorById();
   const [comments, setComments] = useState<Comment[]>(latestComments);
-  //   const [optimisticComments, setOptimisticComments] =
-  //     useOptimistic<Comment[]>(comments);
+  const [optimisticComments, setOptimisticComments] =
+    useOptimistic<Comment[]>(comments);
 
   const onSubmitComment = async (commentContent: string) => {
     const optimisticComment: Comment = {
@@ -43,23 +43,20 @@ export const SpCommentDrawer = (props: Props) => {
       content: commentContent,
       createdAt: new Date(),
     };
-    setComments((prev) => [optimisticComment, ...prev]);
-    // const newComment = await fetchComments(postId, 1);
-    // console.log(newComment);
-    // setComments((prev) => [...newComment, ...prev]);
+    setOptimisticComments((prev) => [optimisticComment, ...prev]);
   };
 
-  const fetchMoreCommnent = async () => {
+  const fetchLatestCommnent = async () => {
     if (latestComments.length === 0) {
       const comments = await fetchComments(postId, 5);
       setComments([...latestComments, ...comments]);
-      //   setOptimisticComments([...latestComments, ...comments]);
+      setOptimisticComments([...latestComments, ...comments]);
     }
   };
 
   return (
     <Drawer>
-      <DrawerTrigger onClick={fetchMoreCommnent}>
+      <DrawerTrigger onClick={fetchLatestCommnent}>
         <MessageCircle className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
       </DrawerTrigger>
       <DrawerContent>
@@ -69,14 +66,19 @@ export const SpCommentDrawer = (props: Props) => {
           </DrawerTitle>
         </DrawerHeader>
         <div className="max-h-[60vh] overflow-y-scroll overflow-x-hidden">
-          {comments.map((comment) => (
+          {optimisticComments.map((comment) => (
             <OneComment key={comment.id} comment={comment} />
           ))}
           <CommentLoadMore postId={postId} commentId={cursorById(comments)} />
         </div>
         <DrawerFooter className="p-0">
           {me && (
-            <CommentForm postId={postId} me={me} onSubmit={onSubmitComment} />
+            <CommentForm
+              postId={postId}
+              me={me}
+              onSubmit={onSubmitComment}
+              setComments={setComments}
+            />
           )}
         </DrawerFooter>
       </DrawerContent>

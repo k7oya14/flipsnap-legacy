@@ -361,7 +361,6 @@ export async function fetchMoreLikedPosts(
 export async function fetchComments(postId: string, take: number) {
   noStore();
   try {
-    // console.log("fetchComments");
     const data = await prisma.comment.findMany({
       where: {
         postId,

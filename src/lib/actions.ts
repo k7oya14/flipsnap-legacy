@@ -131,7 +131,6 @@ const createCommentSchema = CommentSchema.pick({ content: true });
 export async function createComment(
   myId: string,
   postId: string,
-  prevState: createCommentState,
   formData: FormData
 ) {
   const validatedFields = createCommentSchema.safeParse({
@@ -154,7 +153,6 @@ export async function createComment(
         content,
       },
     });
-    return { message: "Comment created successfully." };
   } catch (error) {
     return {
       errors: {},
