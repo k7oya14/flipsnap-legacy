@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "../ui/button";
-import { useFormStatus } from "react-dom";
-import { LoaderCircle } from "lucide-react";
 import { AutosizeTextarea } from "../ui/autosizeTextarea";
 
 type Props = {
@@ -11,13 +9,7 @@ type Props = {
 
 const CommentTextareaAndButton = (props: Props) => {
   const { commentContent, setCommentContent } = props;
-  const { pending } = useFormStatus();
 
-  useEffect(() => {
-    if (pending) {
-      setCommentContent("");
-    }
-  }, [pending]);
   return (
     <>
       <AutosizeTextarea
@@ -30,7 +22,7 @@ const CommentTextareaAndButton = (props: Props) => {
         maxHeight={100}
         minHeight={37}
         className={`h-10 dialog-scroll border-0 bg-neutral-100 resize-none rounded-none focus-visible:ring-offset-0 focus-visible:ring-0 w-full`}
-        placeholder={pending ? "Processing..." : "Add a comment..."}
+        placeholder="Add a comment..."
       />
       <Button
         type="submit"
@@ -39,9 +31,9 @@ const CommentTextareaAndButton = (props: Props) => {
             ? "text-neutral-600 hover:text-neutral-900"
             : "text-neutral-300"
         }`}
-        disabled={pending || !commentContent}
+        disabled={!commentContent}
       >
-        {pending ? <LoaderCircle className="size-6 animate-spin" /> : "Post"}
+        Post
       </Button>
     </>
   );

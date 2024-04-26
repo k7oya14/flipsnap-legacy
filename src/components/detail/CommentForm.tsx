@@ -5,6 +5,7 @@ import { createComment } from "@/lib/actions";
 import CommentTextareAndButton from "./CommentTextareaAndButton";
 import { Comment, sessionUser } from "@/lib/definitions";
 import { fetchComments } from "@/lib/fetch";
+import { set } from "date-fns";
 
 type Props = {
   me: sessionUser | undefined;
@@ -20,6 +21,7 @@ const CommentForm = (props: Props) => {
     <form
       action={async (formData) => {
         onSubmit(commentContent);
+        setCommentContent("");
         await createComment(me!.id, postId, formData);
         const newComment = await fetchComments(postId, 1);
         setComments((prev) => [...newComment, ...prev]);
