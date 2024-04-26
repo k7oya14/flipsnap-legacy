@@ -66,8 +66,8 @@ export const SpCommentDrawer = (props: Props) => {
       >
         <MessageCircle className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
       </DrawerTrigger>
-      <DrawerContent className="focus-visible:ring-transparent outline-none focus:ring-0">
-        <DrawerHeader>
+      <DrawerContent className="focus-visible:ring-transparent outline-none focus:ring-0 max-h-[80vh]">
+        <DrawerHeader className="pb-0">
           <DrawerTitle className="border-b border-gray-200 pb-5">
             Comment
           </DrawerTitle>

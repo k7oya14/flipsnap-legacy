@@ -5,7 +5,6 @@ import { createComment } from "@/lib/actions";
 import CommentTextareAndButton from "./CommentTextareaAndButton";
 import { Comment, sessionUser } from "@/lib/definitions";
 import { fetchComments } from "@/lib/fetch";
-import { set } from "date-fns";
 
 type Props = {
   me: sessionUser | undefined;
@@ -26,7 +25,8 @@ const CommentForm = (props: Props) => {
         const newComment = await fetchComments(postId, 1);
         setComments((prev) => [...newComment, ...prev]);
       }}
-      className="flex items-center border-t border-t-gray-200 bg-neutral-100 py-2 sm:py-0"
+      className={`fixed bottom-0 sm:sticky w-full
+	   flex items-center border-t border-t-gray-200 bg-neutral-100 py-2 sm:py-0`}
     >
       <CommentTextareAndButton
         commentContent={commentContent}
