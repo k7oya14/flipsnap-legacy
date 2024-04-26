@@ -5,7 +5,6 @@ import { createComment } from "@/lib/actions";
 import CommentTextareAndButton from "./CommentTextareaAndButton";
 import { Comment, sessionUser } from "@/lib/definitions";
 import { fetchComments } from "@/lib/fetch";
-import { set } from "date-fns";
 
 type Props = {
   me: sessionUser | undefined;
@@ -17,6 +16,7 @@ type Props = {
 const CommentForm = (props: Props) => {
   const { me, postId, onSubmit, setComments } = props;
   const [commentContent, setCommentContent] = React.useState("");
+  const [isFocus, setIsFocus] = React.useState(false);
   return (
     <form
       action={async (formData) => {
@@ -26,11 +26,14 @@ const CommentForm = (props: Props) => {
         const newComment = await fetchComments(postId, 1);
         setComments((prev) => [...newComment, ...prev]);
       }}
-      className="flex items-center border-t border-t-gray-200 bg-neutral-100 py-2 sm:py-0"
+      className={`${
+        isFocus && "mb-[50vh]"
+      } flex items-center border-t border-t-gray-200 bg-neutral-100 py-2 sm:py-0`}
     >
       <CommentTextareAndButton
         commentContent={commentContent}
         setCommentContent={setCommentContent}
+        setIsFocus={setIsFocus}
       />
     </form>
   );
