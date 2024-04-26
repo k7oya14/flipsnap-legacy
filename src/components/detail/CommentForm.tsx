@@ -24,7 +24,7 @@ const CommentForm = (props: Props) => {
         const newComment = await fetchComments(postId, 1);
         setComments((prev) => [...newComment, ...prev]);
       }}
-      className="flex items-center border-t border-t-gray-200 bg-neutral-100"
+      className="flex items-center border-t border-t-gray-200 bg-neutral-100 py-2 sm:py-0"
     >
       <CommentTextareAndButton
         commentContent={commentContent}
