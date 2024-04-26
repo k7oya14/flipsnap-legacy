@@ -98,12 +98,14 @@ export async function updateBio(
         bio,
       },
     });
-    return { message: "Bio updated successfully." };
   } catch (error) {
     return {
       errors: {},
       message: "Database Error: Failed to update Bio.",
     };
+  } finally {
+    const referer = headers().get("referer") ?? "/";
+    revalidatePath(referer);
   }
 }
 
@@ -195,7 +197,6 @@ export async function createComment(
         content,
       },
     });
-    return { message: "Comment created successfully." };
   } catch (error) {
     return {
       errors: {},
@@ -205,7 +206,6 @@ export async function createComment(
   //   finally {
   //     const referer = headers().get("referer") ?? "/";
   //     revalidatePath(referer);
-  //     return { message: "Comment created successfully." };
   //   }
 }
 
