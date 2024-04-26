@@ -16,7 +16,6 @@ type Props = {
 const CommentForm = (props: Props) => {
   const { me, postId, onSubmit, setComments } = props;
   const [commentContent, setCommentContent] = React.useState("");
-  const [isFocus, setIsFocus] = React.useState(false);
   return (
     <form
       action={async (formData) => {
@@ -32,7 +31,6 @@ const CommentForm = (props: Props) => {
       <CommentTextareAndButton
         commentContent={commentContent}
         setCommentContent={setCommentContent}
-        setIsFocus={setIsFocus}
       />
     </form>
   );
