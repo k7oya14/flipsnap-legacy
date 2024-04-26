@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from "../ui/skeleton";
-import { BookmarkIcon, HeartIcon, ReplyIcon, SendIcon } from "lucide-react";
+import { HeartIcon, MessageCircle } from "lucide-react";
 
 const SpOnePostSkeleton = () => {
   return (
@@ -21,13 +21,7 @@ const SpOnePostSkeleton = () => {
                 <HeartIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
               </button>
               <button className="focus:outline-none">
-                <ReplyIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none">
-                <SendIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
-              </button>
-              <button className="focus:outline-none ml-auto">
-                <BookmarkIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
+                <MessageCircle className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
               </button>
             </div>
             <Skeleton className="h-4 w-full" />

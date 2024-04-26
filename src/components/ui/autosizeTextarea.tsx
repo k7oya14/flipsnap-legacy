@@ -22,7 +22,7 @@ export const useAutosizeTextArea = ({
   React.useEffect(() => {
     // We need to reset the height momentarily to get the correct scrollHeight for the textarea
     const offsetBorder = 2;
-    if (!commentContent && textAreaRef) {
+    if ((!commentContent && textAreaRef) || textAreaRef) {
       if (init) {
         textAreaRef.style.minHeight = `${minHeight + offsetBorder}px`;
         if (maxHeight > minHeight) {
@@ -39,7 +39,6 @@ export const useAutosizeTextArea = ({
       } else {
         textAreaRef.style.height = `${scrollHeight + offsetBorder}px`;
       }
-    } else if (!commentContent) {
     }
   }, [commentContent, textAreaRef, triggerAutoSize]);
 };

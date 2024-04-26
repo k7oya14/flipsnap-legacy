@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useOptimistic, useState } from "react";
 import ModalLink from "./ModalLink";
 import { Comment, OnePost, sessionUser } from "@/lib/definitions";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -22,8 +22,8 @@ const PostInformation = (props: Props) => {
   const { cursorById } = useCursorById();
 
   const [comments, setComments] = useState<Comment[]>(latestComments);
-  //   const [optimisticComments, setOptimisticComments] =
-  //     useOptimistic<Comment[]>(comments);
+  const [optimisticComments, setOptimisticComments] =
+    useOptimistic<Comment[]>(comments);
 
   const onSubmitComment = async (commentContent: string) => {
     const optimisticComment: Comment = {
@@ -38,10 +38,7 @@ const PostInformation = (props: Props) => {
       content: commentContent,
       createdAt: new Date(),
     };
-    setComments((prev) => [optimisticComment, ...prev]);
-    // const newComment = await fetchComments(postId, 1);
-    // console.log(newComment);
-    // setComments((prev) => [...newComment, ...prev]);
+    setOptimisticComments((prev) => [optimisticComment, ...prev]);
   };
 
   return (
@@ -87,7 +84,14 @@ const PostInformation = (props: Props) => {
             {formatDistance(new Date(), Date.parse(String(post.createdAt)))} ago
           </p>
         </div>
-        <CommentForm me={me} postId={post.id} onSubmit={onSubmitComment} />
+        {me && (
+          <CommentForm
+            me={me}
+            postId={post.id}
+            onSubmit={onSubmitComment}
+            setComments={setComments}
+          />
+        )}
       </div>
     </div>
   );

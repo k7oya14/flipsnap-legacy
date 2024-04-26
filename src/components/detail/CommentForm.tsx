@@ -1,34 +1,37 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 import { createComment } from "@/lib/actions";
-import { useFormState } from "react-dom";
 import CommentTextareAndButton from "./CommentTextareaAndButton";
-import { sessionUser } from "@/lib/definitions";
+import { Comment, sessionUser } from "@/lib/definitions";
+import { fetchComments } from "@/lib/fetch";
 
 type Props = {
   me: sessionUser | undefined;
   postId: string;
   onSubmit: (commentContent: string) => void;
+  setComments: React.Dispatch<React.SetStateAction<Comment[]>>;
 };
 
 const CommentForm = (props: Props) => {
-  const { me, postId, onSubmit } = props;
-  const initialState = {
-    message: "",
-    errors: { content: [] },
-  };
-  const createCommentWithId = createComment.bind(null, me!.id, postId);
-  const [state, dispatch] = useFormState(createCommentWithId, initialState);
-  const formRef = useRef<HTMLFormElement>(null);
-
+  const { me, postId, onSubmit, setComments } = props;
+  const [commentContent, setCommentContent] = React.useState("");
   return (
     <form
-      action={dispatch}
-      ref={formRef}
-      className="flex items-center border-t border-t-gray-200 bg-neutral-100"
+      action={async (formData) => {
+        onSubmit(commentContent);
+        setCommentContent("");
+        await createComment(me!.id, postId, formData);
+        const newComment = await fetchComments(postId, 1);
+        setComments((prev) => [...newComment, ...prev]);
+      }}
+      className={`fixed bottom-0 sm:sticky w-full
+	   flex items-center border-t border-t-gray-200 bg-neutral-100 py-2 sm:py-0`}
     >
-      <CommentTextareAndButton onSubmit={onSubmit} />
+      <CommentTextareAndButton
+        commentContent={commentContent}
+        setCommentContent={setCommentContent}
+      />
     </form>
   );
 };
