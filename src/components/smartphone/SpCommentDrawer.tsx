@@ -16,6 +16,7 @@ import CommentLoadMore from "../detail/CommentLoadMore";
 import OneComment from "../detail/OneComment";
 import CommentForm from "../detail/CommentForm";
 import { fetchComments } from "@/lib/fetch";
+import OneCommentSkeleton from "../skeleton/OneCommentSkeleton";
 
 type Props = {
   latestComments?: Comment[] | [];
@@ -26,6 +27,7 @@ type Props = {
 export const SpCommentDrawer = (props: Props) => {
   const { latestComments = [], postId, me } = props;
   const { cursorById } = useCursorById();
+  const [loading, setLoading] = useState(false);
   const [comments, setComments] = useState<Comment[]>(latestComments);
   const [optimisticComments, setOptimisticComments] =
     useOptimistic<Comment[]>(comments);
@@ -48,9 +50,11 @@ export const SpCommentDrawer = (props: Props) => {
 
   const fetchLatestCommnent = async () => {
     if (latestComments.length === 0) {
+      setLoading(true);
       const comments = await fetchComments(postId, 5);
-      setComments([...latestComments, ...comments]);
       setOptimisticComments([...latestComments, ...comments]);
+      setComments([...latestComments, ...comments]);
+      setLoading(false);
     }
   };
 
@@ -66,10 +70,19 @@ export const SpCommentDrawer = (props: Props) => {
           </DrawerTitle>
         </DrawerHeader>
         <div className="max-h-[60vh] overflow-y-scroll overflow-x-hidden">
-          {optimisticComments.map((comment) => (
-            <OneComment key={comment.id} comment={comment} />
-          ))}
-          <CommentLoadMore postId={postId} commentId={cursorById(comments)} />
+          {loading ? (
+            [...Array(10)].map((_, i) => <OneCommentSkeleton key={i} />)
+          ) : (
+            <>
+              {optimisticComments.map((comment) => (
+                <OneComment key={comment.id} comment={comment} />
+              ))}
+              <CommentLoadMore
+                postId={postId}
+                commentId={cursorById(comments)}
+              />
+            </>
+          )}
         </div>
         <DrawerFooter className="p-0">
           {me && (
