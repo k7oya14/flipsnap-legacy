@@ -25,7 +25,7 @@ const SpPostInformation = (props: Props) => {
 
   return (
     <div className="relative -top-2 px-4 flex flex-col">
-      <div className="relative -left-1 flex items-center">
+      <div className="relative -left-[6px] flex items-center">
         <div className="focus:outline-none">
           <div className="p-[6px]">
             <HeartIcon className="size-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
@@ -40,14 +40,18 @@ const SpPostInformation = (props: Props) => {
         </div>
       </div>
       <p
-        className={
-          home ? "truncate hover:overflow-visible hover:whitespace-normal" : ""
-        }
+        className={`relative -top-1
+          ${
+            home
+              ? "truncate hover:overflow-visible hover:whitespace-normal"
+              : ""
+          }
+        `}
       >
         {caption}
       </p>
 
-      <p className="text-xs text-gray-400 mt-1">
+      <p className="relative -top-1 text-xs text-gray-400 mt-1">
         {formatDistance(new Date(), Date.parse(String(createdAt)))} ago
       </p>
     </div>
