@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
 import { LoaderCircle } from "lucide-react";
 import { AutosizeTextarea } from "../ui/autosizeTextarea";
-import Head from "next/head";
 
 type Props = {
   commentContent: string;
@@ -21,12 +20,6 @@ const CommentTextareaAndButton = (props: Props) => {
   }, [pending]);
   return (
     <>
-      <Head>
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1.0,maximum-scale=1.0"
-        />
-      </Head>
       <AutosizeTextarea
         commentContent={commentContent}
         name="content"
