@@ -66,6 +66,49 @@ export async function updateUsername(
   redirect("/profile/me");
 }
 
+export type updateBioState = {
+  errors?: {
+    bio?: string[];
+  };
+  message?: string | null;
+};
+const updateBioSchema = UserSchema.pick({ bio: true });
+
+export async function updateBio(
+  myId: string,
+  prevState: updateBioState,
+  formData: FormData
+) {
+  const validatedFields = updateBioSchema.safeParse({
+    content: formData.get("bio"),
+  });
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Zod Error: Failed to update Bio.",
+    };
+  }
+
+  const { bio } = validatedFields.data;
+
+  try {
+    await prisma.user.update({
+      where: { id: myId },
+      data: {
+        bio,
+      },
+    });
+  } catch (error) {
+    return {
+      errors: {},
+      message: "Database Error: Failed to update Bio.",
+    };
+  } finally {
+    const referer = headers().get("referer") ?? "/";
+    revalidatePath(referer);
+  }
+}
+
 export type createPostState = {
   errors?: {
     imgFront?: string[];
@@ -164,7 +207,6 @@ export async function createComment(
   //   finally {
   //     const referer = headers().get("referer") ?? "/";
   //     revalidatePath(referer);
-  //     return { message: "Comment created successfully." };
   //   }
 }
 
