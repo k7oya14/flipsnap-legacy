@@ -60,10 +60,13 @@ export const SpCommentDrawer = (props: Props) => {
 
   return (
     <Drawer>
-      <DrawerTrigger onClick={fetchLatestCommnent}>
+      <DrawerTrigger
+        onClick={fetchLatestCommnent}
+        className="focus-visible:ring-transparent"
+      >
         <MessageCircle className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
       </DrawerTrigger>
-      <DrawerContent>
+      <DrawerContent className="focus-visible:ring-transparent">
         <DrawerHeader>
           <DrawerTitle className="border-b border-gray-200 pb-5">
             Comment
