@@ -197,6 +197,7 @@ export async function createComment(
         content,
       },
     });
+    return { message: "Comment created successfully." };
   } catch (error) {
     return {
       errors: {},
