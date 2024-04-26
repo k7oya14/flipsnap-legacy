@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
+import type { Viewport } from "next";
 import "./globals.css";
 import Header from "@/components/header/Header";
 
@@ -9,6 +10,12 @@ export const metadata: Metadata = {
   title: "FlipSnap",
   description:
     "Unlock a world of shared moments with FlipSnap. Share your favorite memories with friends and family.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
