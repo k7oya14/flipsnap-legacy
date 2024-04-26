@@ -29,7 +29,7 @@ const SpPostInformation = (props: Props) => {
         <button className="focus:outline-none">
           <HeartIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
         </button>
-        <div className="focus:outline-none">
+        <div className="focus:outline-none focus:ring-0">
           <SpCommentDrawer
             latestComments={latestComments}
             postId={postId}

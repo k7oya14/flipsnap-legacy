@@ -20,18 +20,23 @@ const CommentTextareaAndButton = (props: Props) => {
   }, [pending]);
   return (
     <>
-      <AutosizeTextarea
-        commentContent={commentContent}
-        name="content"
-        id="content"
-        value={commentContent}
-        onChange={(e) => setCommentContent(e.target.value)}
-        aria-describedby="content-error"
-        maxHeight={100}
-        minHeight={37}
-        className={`h-10 dialog-scroll border-0 bg-neutral-100 resize-none rounded-none focus-visible:ring-offset-0 focus-visible:ring-0 w-full`}
-        placeholder={pending ? "Processing..." : "Add a comment..."}
-      />
+      <meta
+        name="viewport"
+        content="width=device-width,initial-scale=1.0,maximum-scale=1.0"
+      >
+        <AutosizeTextarea
+          commentContent={commentContent}
+          name="content"
+          id="content"
+          value={commentContent}
+          onChange={(e) => setCommentContent(e.target.value)}
+          aria-describedby="content-error"
+          maxHeight={100}
+          minHeight={37}
+          className={`h-10 dialog-scroll border-0 bg-neutral-100 resize-none rounded-none focus-visible:ring-offset-0 focus-visible:ring-0 w-full`}
+          placeholder={pending ? "Processing..." : "Add a comment..."}
+        />
+      </meta>
       <Button
         type="submit"
         className={`rounded-none sm:rounded-br-lg bg-neutral-100 hover:bg-neutral-100 ${
