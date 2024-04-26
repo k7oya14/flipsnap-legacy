@@ -51,7 +51,7 @@ export const SpCommentDrawer = (props: Props) => {
   const fetchLatestCommnent = async () => {
     if (latestComments.length === 0) {
       setLoading(true);
-      const comments = await fetchComments(postId, 5);
+      const comments = await fetchComments(postId, 8);
       setOptimisticComments([...latestComments, ...comments]);
       setComments([...latestComments, ...comments]);
       setLoading(false);
@@ -69,7 +69,7 @@ export const SpCommentDrawer = (props: Props) => {
             Comment
           </DrawerTitle>
         </DrawerHeader>
-        <div className="max-h-[60vh] overflow-y-scroll overflow-x-hidden">
+        <div className="max-h-[50vh] min-h-[30vh] overflow-y-scroll overflow-x-hidden">
           {loading ? (
             [...Array(10)].map((_, i) => <OneCommentSkeleton key={i} />)
           ) : (
