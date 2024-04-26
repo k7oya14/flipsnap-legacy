@@ -10,7 +10,7 @@ type Props = { postId: string; modal?: boolean };
 const DetailPost = async (props: Props) => {
   const { postId, modal = false } = props;
   const session = await auth();
-  const comments = await fetchComments(postId, 5);
+  const comments = await fetchComments(postId, 4);
   const post = await fetchPost(postId);
   if (!post?.id)
     return (
