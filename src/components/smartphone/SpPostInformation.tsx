@@ -56,7 +56,6 @@ const SpPostInformation = (props: Props) => {
       >
         {caption}
       </p>
-
       <p className={`relative -top-1 text-xs text-gray-400 mb-1`}>
         {formatDistance(new Date(), Date.parse(String(createdAt)))} ago
       </p>
