@@ -1,5 +1,4 @@
 import { formatDistance } from "date-fns";
-import { HeartIcon } from "lucide-react";
 import React from "react";
 import { SpCommentDrawer } from "./SpCommentDrawer";
 import { Comment, sessionUser } from "@/lib/definitions";
@@ -28,8 +27,8 @@ const SpPostInformation = (props: Props) => {
     <div className="relative -top-2 px-4 flex flex-col">
       <div className="relative -left-[6px] flex items-center">
         <div className="focus:outline-none">
-          <div className="p-[6px]">
-            <HeartIcon className="size-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
+          <div className="">
+            <LikeButton myId={me?.id} postId={postId} />
           </div>
         </div>
         <div className="focus:outline-none focus:ring-0 mx-[2px]">
