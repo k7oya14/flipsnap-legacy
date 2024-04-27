@@ -45,6 +45,7 @@ export const LikeButton = (props: Props) => {
       } catch (error) {
         realityLiked.current = false;
         setCurrentLikeState(false);
+        if (onClick) onClick(false);
       }
     } else {
       try {
@@ -54,6 +55,7 @@ export const LikeButton = (props: Props) => {
       } catch (error) {
         realityLiked.current = true;
         setCurrentLikeState(true);
+        if (onClick) onClick(true);
       }
     }
   }, 1000);
@@ -73,7 +75,7 @@ export const LikeButton = (props: Props) => {
         style={{
           width: text ? "auto" : `${size}px`,
           height: `${size}px`,
-          paddingLeft: text ? `${size}px` : "0",
+          paddingLeft: text ? `${size - 2}px` : "0",
         }}
       >
         <div
@@ -106,10 +108,11 @@ export const LikeButton = (props: Props) => {
         {text && (
           <span
             className={clsx(
+              "text-lg",
               currentLikeState ? "text-pink-500" : "text-gray-500"
             )}
           >
-            {text}90
+            {text}
           </span>
         )}
       </button>

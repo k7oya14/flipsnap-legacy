@@ -6,10 +6,10 @@ import { Comment, OnePost, sessionUser } from "@/lib/definitions";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import OneComment from "./OneComment";
 import CommentLoadMore from "./CommentLoadMore";
-import { HeartIcon } from "lucide-react";
 import { useCursorById } from "@/lib/utils";
 import { formatDistance } from "date-fns";
 import CommentForm from "./CommentForm";
+import LikeButtonWithText from "./LikeButtonWithText";
 
 type Props = {
   post: OnePost;
@@ -65,21 +65,21 @@ const PostInformation = (props: Props) => {
         </div>
         <p className="m-2 md:m-4 text-sm md:text-base">{post.caption}</p>
         <div>
-          {comments.map((comment) => (
+          {optimisticComments.map((comment) => (
             <OneComment key={comment.id} comment={comment} />
           ))}
           <CommentLoadMore postId={post.id} commentId={cursorById(comments)} />
         </div>
       </div>
       <div className="sticky bottom-0 w-full">
-        <div className="flex items-center justify-between p-2 border-t-[1.35px]">
+        <div className="flex items-center justify-between px-2 border-t-[1.35px]">
           <div className="flex items-center">
-            <HeartIcon className="text-gray-600" />
-            <p className="font-semibold ml-[6px]">
-              {post._count.likes.toLocaleString()}
-            </p>
+            <LikeButtonWithText
+              myId={me?.id}
+              postId={post.id}
+              initialCountLikes={post._count.likes}
+            />
           </div>
-
           <p className="text-xs text-gray-500">
             {formatDistance(new Date(), Date.parse(String(post.createdAt)))} ago
           </p>
