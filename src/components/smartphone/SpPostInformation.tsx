@@ -3,6 +3,8 @@ import React from "react";
 import { SpCommentDrawer } from "./SpCommentDrawer";
 import { Comment, sessionUser } from "@/lib/definitions";
 import LikeButton from "../LikeButton";
+import ModalLink from "../detail/ModalLink";
+import { Heart } from "lucide-react";
 
 type Props = {
   home?: boolean;
@@ -28,7 +30,13 @@ const SpPostInformation = (props: Props) => {
       <div className="relative -left-[6px] flex items-center">
         <div className="focus:outline-none">
           <div className="">
-            <LikeButton myId={me?.id} postId={postId} />
+            {me ? (
+              <LikeButton myId={me?.id} postId={postId} />
+            ) : (
+              <ModalLink href="/profile/error" className="hover:cursor-pointer">
+                <Heart className="size-6 fill-transparent text-gray-500 hover:text-gray-600" />
+              </ModalLink>
+            )}
           </div>
         </div>
         <div className="focus:outline-none focus:ring-0 mx-[2px]">

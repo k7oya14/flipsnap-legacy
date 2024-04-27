@@ -10,6 +10,7 @@ import { useCursorById } from "@/lib/utils";
 import { formatDistance } from "date-fns";
 import CommentForm from "./CommentForm";
 import LikeButtonWithText from "./LikeButtonWithText";
+import { Heart } from "lucide-react";
 
 type Props = {
   post: OnePost;
@@ -73,13 +74,24 @@ const PostInformation = (props: Props) => {
       </div>
       <div className="sticky bottom-0 w-full">
         <div className="flex items-center justify-between px-2 border-t-[1.35px]">
-          <div className="flex items-center">
+          {me ? (
             <LikeButtonWithText
               myId={me?.id}
               postId={post.id}
               initialCountLikes={post._count.likes}
             />
-          </div>
+          ) : (
+            <ModalLink
+              href="/profile/error"
+              className="py-2 flex items-center hover:cursor-pointer"
+            >
+              <Heart className="size-6 fill-transparent text-gray-500 hover:text-gray-600" />
+              <p className="text-lg text-gray-500 ml-[6px]">
+                {post._count.likes}
+              </p>
+            </ModalLink>
+          )}
+
           <p className="text-xs text-gray-500">
             {formatDistance(new Date(), Date.parse(String(post.createdAt)))} ago
           </p>
