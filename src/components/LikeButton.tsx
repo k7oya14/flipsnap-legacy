@@ -20,7 +20,7 @@ export const LikeButton = (props: Props) => {
   const {
     myId,
     postId,
-    size = 42,
+    size = 44,
     defaultLiked = false,
     text,
     onClick,
@@ -93,7 +93,7 @@ export const LikeButton = (props: Props) => {
         >
           <Heart
             className={clsx(
-              "size-6",
+              "size-[28px]",
               currentLikeState
                 ? "fill-pink-500 text-pink-500"
                 : "fill-transparent text-gray-500 hover:text-gray-600",

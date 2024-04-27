@@ -30,14 +30,20 @@ const SpPostInformation = (props: Props) => {
       <div className="flex items-center mt-[2px]">
         <div className="focus:outline-none">
           {me ? (
-            <LikeButton myId={me?.id} postId={postId} />
+            <div className="relative -left-2">
+              <LikeButton myId={me?.id} postId={postId} />
+            </div>
           ) : (
             <ModalLink href="/profile/error" className="hover:cursor-pointer">
-              <Heart className="size-6 fill-transparent text-gray-500 hover:text-gray-600" />
+              <Heart className="size-[28px] fill-transparent text-gray-500 hover:text-gray-600" />
             </ModalLink>
           )}
         </div>
-        <div className="focus:outline-none focus:ring-0 ml-1">
+        <div
+          className={`${
+            me ? "relative -left-2" : "ml-1"
+          } focus:outline-none focus:ring-0`}
+        >
           <SpCommentDrawer
             latestComments={latestComments}
             postId={postId}
