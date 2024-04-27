@@ -1,8 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Heart } from "lucide-react";
 import { clsx } from "clsx";
+import { useDebouncedCallback } from "use-debounce";
+import { useFormStatus } from "react-dom";
+import { Like, UndoLike } from "@/lib/actions";
 
 type Props = {
   myId: string | undefined | null;
@@ -24,54 +27,93 @@ export const LikeButton = (props: Props) => {
   } = props;
 
   const width = Math.floor(size * 25);
-  const [isLiked, setIsLiked] = useState(defaultLiked);
+  const [currentLikeState, setCurrentLikeState] = useState(defaultLiked);
   const [clicked, setClicked] = useState(false);
+  const realityLiked = useRef(defaultLiked);
+  const { pending } = useFormStatus();
+
+  const onDebounceLike = useDebouncedCallback(async () => {
+    if (pending) return;
+
+    if (realityLiked.current === currentLikeState) return;
+
+    if (currentLikeState) {
+      try {
+        await Like(myId!, postId);
+        realityLiked.current = true;
+        setCurrentLikeState(true);
+      } catch (error) {
+        realityLiked.current = false;
+        setCurrentLikeState(false);
+      }
+    } else {
+      try {
+        await UndoLike(myId!, postId);
+        realityLiked.current = false;
+        setCurrentLikeState(false);
+      } catch (error) {
+        realityLiked.current = true;
+        setCurrentLikeState(true);
+      }
+    }
+  }, 1000);
 
   const handleOnClick = () => {
-    if (onClick) onClick(!isLiked);
-    setIsLiked(!isLiked);
+    if (onClick) onClick(!currentLikeState);
+    setCurrentLikeState(!currentLikeState);
     if (!clicked) setClicked(true);
+    onDebounceLike();
   };
 
   return (
-    <button
-      className="relative flex items-center justify-center"
-      style={{
-        width: text ? "auto" : `${size}px`,
-        height: `${size}px`,
-        paddingLeft: text ? `${size}px` : "0",
-      }}
-      onClick={handleOnClick}
-    >
-      <div
-        className={clsx(
-          `like-base-64 absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-full`
-        )}
+    <form action={handleOnClick}>
+      <button
+        type="submit"
+        className="relative flex items-center justify-center"
         style={{
-          width: `${size}px`,
+          width: text ? "auto" : `${size}px`,
           height: `${size}px`,
-          backgroundSize: `auto ${size}px`,
-          transition: `background-position steps(25)`,
-          transitionDuration: isLiked ? "1s" : "0s",
-          backgroundPosition: isLiked ? `-${width}px 0` : `0 0`,
+          paddingLeft: text ? `${size}px` : "0",
         }}
       >
-        <Heart
+        <div
           className={clsx(
-            "size-6",
-            isLiked
-              ? "fill-pink-400 text-pink-400"
-              : "fill-transparent text-gray-500 hover:text-gray-600",
-            clicked ? (isLiked ? "like-animation" : "like-animation-end") : ""
+            `like-base-64 absolute bottom-0 left-0 right-0 top-0 flex items-center justify-center rounded-full`
           )}
-        />
-      </div>
-      {text && (
-        <span className={clsx(isLiked ? "text-pink-400" : "text-gray-400")}>
-          {text}
-        </span>
-      )}
-    </button>
+          style={{
+            width: `${size}px`,
+            height: `${size}px`,
+            backgroundSize: `auto ${size}px`,
+            transition: `background-position steps(25)`,
+            transitionDuration: currentLikeState ? "1s" : "0s",
+            backgroundPosition: currentLikeState ? `-${width}px 0` : `0 0`,
+          }}
+        >
+          <Heart
+            className={clsx(
+              "size-6",
+              currentLikeState
+                ? "fill-pink-500 text-pink-500"
+                : "fill-transparent text-gray-500 hover:text-gray-600",
+              clicked
+                ? currentLikeState
+                  ? "like-animation"
+                  : "like-animation-end"
+                : ""
+            )}
+          />
+        </div>
+        {text && (
+          <span
+            className={clsx(
+              currentLikeState ? "text-pink-500" : "text-gray-500"
+            )}
+          >
+            {text}90
+          </span>
+        )}
+      </button>
+    </form>
   );
 };
 
