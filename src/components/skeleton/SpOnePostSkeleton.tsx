@@ -18,10 +18,10 @@ const SpOnePostSkeleton = () => {
           <div className="px-4 flex flex-col">
             <div className="flex items-center my-2">
               <button className="focus:outline-none">
-                <HeartIcon className="h-6 w-6 text-gray-500 hover:text-gray-600 cursor-pointer" />
+                <HeartIcon className="size-[28px] text-gray-500 hover:text-gray-600 cursor-pointer" />
               </button>
               <button className="focus:outline-none">
-                <MessageCircle className="h-6 w-6 ml-2 text-gray-500 hover:text-gray-600 cursor-pointer" />
+                <MessageCircle className="size-[28px] ml-2 text-gray-500 hover:text-gray-600 cursor-pointer" />
               </button>
             </div>
             <div className="flex flex-col gap-1">
