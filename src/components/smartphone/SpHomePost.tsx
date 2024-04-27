@@ -13,7 +13,7 @@ type Props = {
 export async function SpHomePost(props: Props) {
   const { post, me } = props;
   return (
-    <div className="w-full h-full flex flex-col min-w-[360px] max-w-[960px] border-b-2">
+    <div className="w-full h-full flex flex-col border-b-2">
       <Link
         href={`/profile/${post.author?.username}`}
         className="pl-3 pt-3 flex items-center hover:cursor-pointer"
@@ -31,7 +31,7 @@ export async function SpHomePost(props: Props) {
         </div>
       </Link>
       <main className="flex-grow overflow-y-auto">
-        <div className="flex flex-col gap-4 pt-2">
+        <div className="flex flex-col pt-2">
           <HomeFlipImage
             post={post}
             myId={me?.id}

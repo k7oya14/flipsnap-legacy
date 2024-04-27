@@ -26,20 +26,18 @@ const SpPostInformation = (props: Props) => {
   } = props;
 
   return (
-    <div className="relative -top-2 px-4 flex flex-col">
-      <div className="relative -left-[6px] flex items-center">
+    <div className="px-4 flex flex-col">
+      <div className="flex items-center mt-[2px]">
         <div className="focus:outline-none">
-          <div className="">
-            {me ? (
-              <LikeButton myId={me?.id} postId={postId} />
-            ) : (
-              <ModalLink href="/profile/error" className="hover:cursor-pointer">
-                <Heart className="size-6 fill-transparent text-gray-500 hover:text-gray-600" />
-              </ModalLink>
-            )}
-          </div>
+          {me ? (
+            <LikeButton myId={me?.id} postId={postId} />
+          ) : (
+            <ModalLink href="/profile/error" className="hover:cursor-pointer">
+              <Heart className="size-6 fill-transparent text-gray-500 hover:text-gray-600" />
+            </ModalLink>
+          )}
         </div>
-        <div className="focus:outline-none focus:ring-0 mx-[2px]">
+        <div className="focus:outline-none focus:ring-0 ml-1">
           <SpCommentDrawer
             latestComments={latestComments}
             postId={postId}
@@ -48,7 +46,7 @@ const SpPostInformation = (props: Props) => {
         </div>
       </div>
       <p
-        className={`relative -top-1
+        className={`relative -top-[6px]
           ${
             home
               ? "truncate hover:overflow-visible hover:whitespace-normal"
@@ -59,7 +57,7 @@ const SpPostInformation = (props: Props) => {
         {caption}
       </p>
 
-      <p className="relative -top-1 text-xs text-gray-400 mt-1">
+      <p className={`relative -top-1 text-xs text-gray-400 mb-1`}>
         {formatDistance(new Date(), Date.parse(String(createdAt)))} ago
       </p>
     </div>
