@@ -21,7 +21,7 @@ const SpOnePostSkeleton = () => {
                 <HeartIcon className="size-[28px] text-gray-500 hover:text-gray-600 cursor-pointer" />
               </button>
               <button className="focus:outline-none">
-                <MessageCircle className="size-[28px] ml-2 text-gray-500 hover:text-gray-600 cursor-pointer" />
+                <MessageCircle className="size-[28px] ml-3 text-gray-500 hover:text-gray-600 cursor-pointer" />
               </button>
             </div>
             <div className="flex flex-col gap-1">
