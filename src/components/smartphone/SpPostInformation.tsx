@@ -35,7 +35,7 @@ const SpPostInformation = (props: Props) => {
             </div>
           ) : (
             <ModalLink href="/profile/error" className="hover:cursor-pointer">
-              <Heart className="size-[28px] fill-transparent text-gray-500 hover:text-gray-600" />
+              <Heart className="mr-1 size-[28px] fill-transparent text-gray-500 hover:text-gray-600" />
             </ModalLink>
           )}
         </div>
