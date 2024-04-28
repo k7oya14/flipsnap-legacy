@@ -72,7 +72,7 @@ export const SpCommentDrawer = (props: Props) => {
             Comment
           </DrawerTitle>
         </DrawerHeader>
-        <div className="max-h-[50vh] min-h-[30vh] overflow-y-scroll overflow-x-hidden">
+        <div className="max-h-[50vh] min-h-[30vh] overflow-y-scroll overflow-x-hidden mb-14">
           {loading ? (
             [...Array(10)].map((_, i) => <OneCommentSkeleton key={i} />)
           ) : (

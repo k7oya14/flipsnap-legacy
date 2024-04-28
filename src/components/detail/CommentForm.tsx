@@ -25,7 +25,7 @@ const CommentForm = (props: Props) => {
         const newComment = await fetchComments(postId, 1);
         setComments((prev) => [...newComment, ...prev]);
       }}
-      className={`sticky bottom-0 w-full
+      className={`fixed sm:sticky bottom-0 w-full
 	   flex items-center border-t border-t-gray-200 bg-neutral-100 py-2 sm:py-0`}
     >
       <CommentTextareAndButton
