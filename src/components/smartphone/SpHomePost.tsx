@@ -4,13 +4,14 @@ import Link from "next/link";
 import Image from "next/image";
 import HomeFlipImage from "../home/HomeFlipImage";
 import SpPostInformation from "./SpPostInformation";
+import React from "react";
 
 type Props = {
   post: GalleyPost;
   me: sessionUser | undefined;
 };
 
-export async function SpHomePost(props: Props) {
+export const SpHomePost = React.memo((props: Props) => {
   const { post, me } = props;
   return (
     <div className="w-full h-full flex flex-col border-b-2">
@@ -64,4 +65,4 @@ export async function SpHomePost(props: Props) {
       </main>
     </div>
   );
-}
+});
