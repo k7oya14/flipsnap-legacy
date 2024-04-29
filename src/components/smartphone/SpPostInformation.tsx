@@ -7,6 +7,7 @@ import ModalLink from "../detail/ModalLink";
 import { Heart } from "lucide-react";
 
 type Props = {
+  defaultLiked?: boolean;
   home?: boolean;
   latestComments?: Comment[];
   caption: string;
@@ -17,6 +18,7 @@ type Props = {
 
 const SpPostInformation = (props: Props) => {
   const {
+    defaultLiked = false,
     caption,
     createdAt,
     postId,
@@ -31,7 +33,11 @@ const SpPostInformation = (props: Props) => {
         <div className="focus:outline-none">
           {me ? (
             <div className="relative -left-2">
-              <LikeButton myId={me?.id} postId={postId} />
+              <LikeButton
+                myId={me?.id}
+                postId={postId}
+                defaultLiked={defaultLiked}
+              />
             </div>
           ) : (
             <ModalLink href="/profile/error" className="hover:cursor-pointer">

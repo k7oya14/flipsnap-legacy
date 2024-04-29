@@ -76,6 +76,7 @@ const PostInformation = (props: Props) => {
         <div className="flex items-center justify-between px-2 border-t-[1.35px]">
           {me ? (
             <LikeButtonWithText
+              defaultLiked={post.isLikedByMe}
               myId={me?.id}
               postId={post.id}
               initialCountLikes={post._count.likes}

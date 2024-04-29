@@ -11,7 +11,7 @@ const DetailPost = async (props: Props) => {
   const { postId, modal = false } = props;
   const session = await auth();
   const comments = await fetchComments(postId, 5);
-  const post = await fetchPost(postId);
+  const post = await fetchPost(postId, session?.user?.id);
   if (!post?.id)
     return (
       <ErrorCard

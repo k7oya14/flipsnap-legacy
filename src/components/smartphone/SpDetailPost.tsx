@@ -77,6 +77,7 @@ export async function SpDetailPost(props: Props) {
             }
           />
           <SpPostInformation
+            defaultLiked={post.isLikedByMe}
             latestComments={latestComments}
             caption={post.caption}
             createdAt={post.createdAt}
