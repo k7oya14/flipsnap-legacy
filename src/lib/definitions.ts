@@ -52,6 +52,10 @@ export type OnePost =
         name: string | null;
         username: string | null;
       };
+      isLikedByMe: boolean;
+      likes: {
+        createdAt: Date;
+      }[];
       _count: {
         likes: number;
       };
