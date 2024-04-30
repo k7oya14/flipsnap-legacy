@@ -12,7 +12,7 @@ type Props = {
   post: GalleyPost;
 };
 
-const ImageFront = (props: Props) => {
+const ImageFront = function ImageFront(props: Props) {
   const { index, post } = props;
 
   const variants = {

@@ -12,7 +12,7 @@ type Props = {
   relationship: UserRelationship;
 };
 
-const ProfilePost = (props: Props) => {
+const ProfilePost = function ProfilePost(props: Props) {
   const { post, index, myId, userInfo, relationship } = props;
   return (
     <FlipImage

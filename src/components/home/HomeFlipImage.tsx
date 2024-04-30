@@ -13,7 +13,7 @@ type Props = {
   frontComponent: JSX.Element;
 };
 
-const HomeFlipImage = (props: Props) => {
+const HomeFlipImage = React.memo(function HomeFlipImage(props: Props) {
   const { post, myId, containerStyle, frontComponent } = props;
   const [loading, setLoading] = useState(myId ? true : false);
   const [relationship, setRelationship] = useState<UserRelationship>(
@@ -44,6 +44,6 @@ const HomeFlipImage = (props: Props) => {
       }
     />
   );
-};
+});
 
 export default HomeFlipImage;
