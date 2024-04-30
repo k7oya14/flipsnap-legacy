@@ -11,7 +11,7 @@ type Props = {
   me: sessionUser | undefined;
 };
 
-export const SpHomePost = React.memo((props: Props) => {
+export const SpHomePost = React.memo(function SpHomePost(props: Props) {
   const { post, me } = props;
   return (
     <div className="w-full h-full flex flex-col border-b-2">
