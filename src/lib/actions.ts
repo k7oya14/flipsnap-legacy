@@ -80,7 +80,7 @@ export async function updateBio(
   formData: FormData
 ) {
   const validatedFields = updateBioSchema.safeParse({
-    content: formData.get("bio"),
+    bio: formData.get("bio"),
   });
   if (!validatedFields.success) {
     return {
@@ -106,6 +106,7 @@ export async function updateBio(
   } finally {
     const referer = headers().get("referer") ?? "/";
     revalidatePath(referer);
+    return { errors: {}, message: "" };
   }
 }
 

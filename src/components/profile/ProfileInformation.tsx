@@ -3,6 +3,8 @@ import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { UserInfo, UserRelationship } from "@/lib/definitions";
 import FollowStatusButton from "./FollowStatusButton";
 import Link from "next/link";
+import { Edit } from "lucide-react";
+import EditBioButton from "../detail/EditBioButton";
 
 type Props = {
   userInfo: UserInfo;
@@ -20,14 +22,19 @@ const ProfileInformation = (props: Props) => {
           <AvatarFallback>{userInfo.name}</AvatarFallback>
         </Avatar>
       </div>
-      <div className="flex flex-col items-center sm:w-[50%]">
+      <div className="flex flex-col items-center sm:w-[50%] sm:px-4">
         <h2 className="text-2xl sm:text-5xl text-gray-800 font-bold mt-4 sm:mt-0">
           {userInfo.name}
         </h2>
         <p className="font-medium sm:mt-2">@{userInfo.username}</p>
-        <p className="sm:text-2xl sm:font-semibold text-gray-700 mt-2 sm:mt-1">
-          {userInfo.bio}
-        </p>
+        <div className="flex items-end space-x-2 sm:mt-1">
+          <p className="sm:text-2xl sm:font-semibold text-gray-700 mt-2">
+            {userInfo.bio}
+          </p>
+          {relationship === UserRelationship.Me && (
+            <EditBioButton myId={myId} bio={userInfo.bio} />
+          )}
+        </div>
         <div className="flex items-center justify-center space-x-5 mt-2 sm:mt-6 mb-2">
           <div className="text-center">
             <span className="block font-bold">{userInfo._count?.posts}</span>
