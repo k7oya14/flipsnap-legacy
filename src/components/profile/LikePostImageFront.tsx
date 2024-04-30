@@ -53,8 +53,12 @@ const LikePostImageFront = (props: Props) => {
             </Avatar>
             <p className="text-lg">{post.authorId}</p>
           </Link> */}
-          <Link href={`/posts/${post.id}`} scroll={false}>
-            <Expand className="absolute bottom-[10px] right-[10px] visible sm:invisible group-hover:visible size-[24px] text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
+          <Link
+            href={`/posts/${post.id}`}
+            scroll={false}
+            className="absolute bottom-0 right-0 p-[6px]"
+          >
+            <Expand className=" visible sm:invisible group-hover:visible size-6 sm:size-[28px] text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
           </Link>
         </StopPropagationDiv>
       </div>
