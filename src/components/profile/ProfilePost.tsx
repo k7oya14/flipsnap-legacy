@@ -8,12 +8,11 @@ type Props = {
   post: Post;
   index: number;
   myId: string | undefined;
-  userInfo: UserInfo;
   relationship: UserRelationship;
 };
 
 const ProfilePost = function ProfilePost(props: Props) {
-  const { post, index, myId, userInfo, relationship } = props;
+  const { post, index, myId, relationship } = props;
   return (
     <FlipImage
       containerStyle={{

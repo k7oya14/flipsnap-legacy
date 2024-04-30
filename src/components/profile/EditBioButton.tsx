@@ -36,7 +36,7 @@ const EditBioButton = (props: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="px-1 h-5 sm:px-2 sm:h-6 bg-neutral-200 text-black border border-neutral-400 hover:bg-neutral-300 text-xs font-normal">
+        <Button className="px-1 h-5 sm:px-2 sm:h-6 bg-neutral-200 text-black border border-neutral-200 hover:border-neutral-300 hover:bg-neutral-300 text-xs font-normal">
           Edit{bio?.length == 0 ? " Bio" : ""}
         </Button>
       </DialogTrigger>
