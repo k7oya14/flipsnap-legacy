@@ -3,8 +3,7 @@ import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar";
 import { UserInfo, UserRelationship } from "@/lib/definitions";
 import FollowStatusButton from "./FollowStatusButton";
 import Link from "next/link";
-import { Edit } from "lucide-react";
-import EditBioButton from "../detail/EditBioButton";
+import EditBioButton from "./EditBioButton";
 
 type Props = {
   userInfo: UserInfo;

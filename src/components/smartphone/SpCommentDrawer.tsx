@@ -9,7 +9,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { MessageCircle } from "lucide-react";
+import { MessageCircle, MessageCircleDashed } from "lucide-react";
 import { Comment, sessionUser } from "@/lib/definitions";
 import { useCursorById } from "@/lib/utils";
 import CommentLoadMore from "../detail/CommentLoadMore";
@@ -75,6 +75,13 @@ export const SpCommentDrawer = (props: Props) => {
         <div className="max-h-[50vh] min-h-[30vh] overflow-y-scroll overflow-x-hidden mb-14">
           {loading ? (
             [...Array(10)].map((_, i) => <OneCommentSkeleton key={i} />)
+          ) : optimisticComments.length === 0 ? (
+            <>
+              <MessageCircleDashed className="size-16 text-gray-400 mx-auto mt-5" />
+              <p className="text-center text-gray-400 text-lg mt-1">
+                No comments yet
+              </p>
+            </>
           ) : (
             <>
               {optimisticComments.map((comment) => (
