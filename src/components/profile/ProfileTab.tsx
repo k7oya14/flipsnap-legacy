@@ -14,9 +14,13 @@ const ProfileTab = (props: Props) => {
   const { userInfo, myId, relationship } = props;
   return (
     <Tabs defaultValue="posts" className="w-full">
-      <TabsList className="grid w-full grid-cols-2">
-        <TabsTrigger value="posts">Posts</TabsTrigger>
-        <TabsTrigger value="likes">Likes</TabsTrigger>
+      <TabsList className="grid w-full grid-cols-2 bg-neutral-50 ">
+        <TabsTrigger value="posts" className="font-semibold">
+          Posts
+        </TabsTrigger>
+        <TabsTrigger value="likes" className="font-semibold">
+          Likes
+        </TabsTrigger>
       </TabsList>
       <TabsContent value="posts">
         <Suspense fallback={<ProfileGallerySkeleton />}>

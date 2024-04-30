@@ -6,7 +6,7 @@ import { UserRelationship } from "@/lib/definitions";
 type Props = {
   src: string;
   userId: string;
-  myId: string | undefined;
+  myId: string | undefined | null;
   relationship: UserRelationship;
 };
 

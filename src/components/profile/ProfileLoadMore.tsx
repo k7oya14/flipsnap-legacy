@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import ProfilePost from "./ProfilePost";
 import { Skeleton } from "../ui/skeleton";
+import LikePost from "./LikePost";
 
 type Props = {
   likes?: boolean;
@@ -52,13 +53,19 @@ const ProfileLoadMore = (props: Props) => {
   return (
     <>
       {posts.map((post, index) => (
-        <ProfilePost
-          key={post.id}
-          post={post}
-          index={index}
-          myId={myId}
-          relationship={relationship}
-        />
+        <>
+          {likes ? (
+            <LikePost key={post.id} post={post} index={index} myId={myId} />
+          ) : (
+            <ProfilePost
+              key={post.id}
+              post={post}
+              index={index}
+              myId={myId}
+              relationship={relationship}
+            />
+          )}
+        </>
       ))}
       {loading &&
         !postLimit &&

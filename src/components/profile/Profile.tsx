@@ -35,11 +35,13 @@ const Profile = async (props: Props) => {
         myId={session?.user.id}
         relationship={relationship}
       />
-      <ProfileTab
-        userInfo={userInfo}
-        myId={session?.user.id}
-        relationship={relationship}
-      />
+      <div className="py-4">
+        <ProfileTab
+          userInfo={userInfo}
+          myId={session?.user.id}
+          relationship={relationship}
+        />
+      </div>
     </>
   );
 };

@@ -4,6 +4,7 @@ import { fetchLikedPosts, fetchUserPostsById } from "@/lib/fetch";
 import ProfileLoadMore from "./ProfileLoadMore";
 import ProfilePost from "./ProfilePost";
 import { Instagram } from "lucide-react";
+import LikePost from "./LikePost";
 
 type Props = {
   likes?: boolean;
@@ -31,14 +32,21 @@ export async function ProfileGallery(props: Props) {
       }`}
     >
       {firstPosts.map((post, index) => (
-        <ProfilePost
-          key={post.id}
-          post={post}
-          index={index}
-          myId={myId}
-          relationship={relationship}
-        />
+        <>
+          {likes ? (
+            <LikePost key={post.id} post={post} index={index} myId={myId} />
+          ) : (
+            <ProfilePost
+              key={post.id}
+              post={post}
+              index={index}
+              myId={myId}
+              relationship={relationship}
+            />
+          )}
+        </>
       ))}
+
       {firstPosts.length === 0 ? (
         <div className="pt-6 pb-10 flex flex-col sm:flex-row items-center justify-center">
           <Instagram className="size-16 lg:size-20 mb-2 sm:mr-4" />

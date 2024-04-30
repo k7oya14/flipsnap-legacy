@@ -1,12 +1,14 @@
 "use client";
 
 import { GalleyPost, UserRelationship } from "@/lib/definitions";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import ReactFlipCard from "reactjs-flip-card";
 import ImageBack from "./ImageBack";
 import { fetchUserRelationship } from "@/lib/fetch";
+import ProfileImageBack from "../profile/ProfileImageBack";
 
 type Props = {
+  likes?: boolean;
   post: GalleyPost;
   myId: string | undefined | null;
   containerStyle: React.CSSProperties;
@@ -14,7 +16,7 @@ type Props = {
 };
 
 const HomeFlipImage = React.memo(function HomeFlipImage(props: Props) {
-  const { post, myId, containerStyle, frontComponent } = props;
+  const { likes = false, post, myId, containerStyle, frontComponent } = props;
   const [loading, setLoading] = useState(myId ? true : false);
   const [relationship, setRelationship] = useState<UserRelationship>(
     UserRelationship.NoSession
@@ -34,13 +36,22 @@ const HomeFlipImage = React.memo(function HomeFlipImage(props: Props) {
       containerStyle={containerStyle}
       frontComponent={frontComponent}
       backComponent={
-        <ImageBack
-          post={post}
-          myId={myId}
-          relationship={relationship}
-          loading={loading}
-          fetchRelationship={fetchRelationship}
-        />
+        likes ? (
+          <ProfileImageBack
+            src={post.imgBack}
+            userId={post.authorId}
+            myId={myId}
+            relationship={relationship}
+          />
+        ) : (
+          <ImageBack
+            post={post}
+            myId={myId}
+            relationship={relationship}
+            loading={loading}
+            fetchRelationship={fetchRelationship}
+          />
+        )
       }
     />
   );
