@@ -18,7 +18,6 @@ export type sessionUser = {
 
 export type Post = {
   author?: {
-    relationship: UserRelationship;
     image: string | null;
     name: string | null;
     username: string | null;

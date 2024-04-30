@@ -2,7 +2,7 @@ import React from "react";
 import FlipImage from "../FlipImage";
 import ProfileImageFront from "./ProfileImageFront";
 import ProfileImageBack from "./ProfileImageBack";
-import { Post, UserInfo, UserRelationship } from "@/lib/definitions";
+import { Post, UserRelationship } from "@/lib/definitions";
 
 type Props = {
   post: Post;
