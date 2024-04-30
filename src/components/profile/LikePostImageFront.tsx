@@ -4,8 +4,8 @@ import React from "react";
 import Link from "next/link";
 import StopPropagationDiv from "../StopPropagationDiv";
 import { MotionDiv } from "../MotionDiv";
-import { Post } from "@prisma/client";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Post } from "@/lib/definitions";
 
 type Props = {
   index: number;
@@ -43,22 +43,22 @@ const LikePostImageFront = (props: Props) => {
       />
       <div className="absolute inset-x-0 bottom-0 h-full w-full">
         <StopPropagationDiv>
-          {/* <Link
-            href={`/profile/${post.authorId}`}
+          <Link
+            href={`/profile/${post.author?.username}`}
             className="absolute bottom-2 left-2 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
           >
             <Avatar>
-              <AvatarImage src={post.author.image} />
+              <AvatarImage src={post.author?.image!} />
               <AvatarFallback>{post.author?.name}</AvatarFallback>
             </Avatar>
-            <p className="text-lg">{post.authorId}</p>
-          </Link> */}
+            <p className="text-lg">{post.author?.name}</p>
+          </Link>
           <Link
             href={`/posts/${post.id}`}
             scroll={false}
             className="absolute bottom-0 right-0 p-[6px]"
           >
-            <Expand className=" visible sm:invisible group-hover:visible size-6 sm:size-[28px] text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
+            <Expand className=" visible sm:invisible group-hover:visible size-6 sm:size-[28px] text-slate-200 hover:scale-110 transition duration-200 ease-in-out" />
           </Link>
         </StopPropagationDiv>
       </div>
