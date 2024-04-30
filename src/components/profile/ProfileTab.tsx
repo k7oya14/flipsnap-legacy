@@ -15,10 +15,10 @@ const ProfileTab = (props: Props) => {
   return (
     <Tabs defaultValue="posts" className="w-full">
       <TabsList className="grid w-full grid-cols-2 bg-neutral-50 ">
-        <TabsTrigger value="posts" className="font-semibold">
+        <TabsTrigger value="posts" className="sm:font-semibold">
           Posts
         </TabsTrigger>
-        <TabsTrigger value="likes" className="font-semibold">
+        <TabsTrigger value="likes" className="sm:font-semibold">
           Likes
         </TabsTrigger>
       </TabsList>

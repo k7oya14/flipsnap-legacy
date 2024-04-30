@@ -35,7 +35,7 @@ const Profile = async (props: Props) => {
         myId={session?.user.id}
         relationship={relationship}
       />
-      <div className="py-4">
+      <div className="sm:py-4 mx-2">
         <ProfileTab
           userInfo={userInfo}
           myId={session?.user.id}
