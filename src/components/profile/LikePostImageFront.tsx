@@ -28,7 +28,7 @@ const LikePostImageFront = (props: Props) => {
       transition={{ duration: 0.5, delay: index * 0.2 }}
       className="group relative rounded-md overflow-hidden hover:cursor-pointer"
     >
-      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
       <Image
         priority={index < 3}
         alt=""
