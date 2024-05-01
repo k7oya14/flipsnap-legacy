@@ -5,6 +5,7 @@ import { Comment, sessionUser } from "@/lib/definitions";
 import LikeButton from "../LikeButton";
 import ModalLink from "../detail/ModalLink";
 import { Heart } from "lucide-react";
+import SpHomeCaption from "./SpHomeCaption";
 
 type Props = {
   defaultLiked?: boolean;
@@ -57,17 +58,9 @@ const SpPostInformation = (props: Props) => {
           />
         </div>
       </div>
-      <p
-        className={`relative -top-[6px]
-          ${
-            home
-              ? "truncate hover:overflow-visible hover:whitespace-normal"
-              : ""
-          }
-        `}
-      >
-        {caption}
-      </p>
+      <div className={`relative -top-[6px]`}>
+        {home ? <SpHomeCaption caption={caption} /> : <p>{caption}</p>}
+      </div>
       <p className={`relative -top-1 text-xs text-gray-400 mb-1`}>
         {formatDistance(new Date(), Date.parse(String(createdAt)))} ago
       </p>
