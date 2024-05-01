@@ -7,6 +7,7 @@ import { UserRelationship } from "@/lib/definitions";
 import { signIn } from "next-auth/react";
 
 type Props = {
+  profile?: boolean;
   myId: string | undefined;
   userId: string | undefined;
   relationship: UserRelationship;
@@ -14,7 +15,13 @@ type Props = {
 };
 
 const BackFollowButton = (props: Props) => {
-  const { myId, userId, relationship, fetchRelationship } = props;
+  const {
+    profile = true,
+    myId,
+    userId,
+    relationship,
+    fetchRelationship,
+  } = props;
   const [optimisticRelationship, updateOptimisticRelationship] = useOptimistic<
     UserRelationship,
     UserRelationship
@@ -23,7 +30,7 @@ const BackFollowButton = (props: Props) => {
   switch (optimisticRelationship) {
     case UserRelationship.Following:
       return (
-        <p className="sm:whitespace-nowrap sm:text-lg text-white text-center">
+        <p className="whitespace-nowrap text-lg text-white text-center">
           You are not being followed
         </p>
       );
@@ -38,13 +45,13 @@ const BackFollowButton = (props: Props) => {
           }}
           className="my-2 flex flex-col justify-center"
         >
-          <p className="whitespace-nowrap text-lg text-white text-center">
+          <p className="hidden sm:block whitespace-nowrap text-lg text-white text-center">
             You have to follow
           </p>
           <div className="mx-auto" onClick={(e) => e.stopPropagation()}>
             <Button
               type="submit"
-              className="mt-2 mx-auto bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit"
+              className="mt-2 mx-auto px-0 bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit"
             >
               Follow
             </Button>

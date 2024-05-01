@@ -32,19 +32,18 @@ export async function ProfileGallery(props: Props) {
       }`}
     >
       {firstPosts.map((post, index) => (
-        <>
+        <div key={post.id}>
           {likes ? (
-            <LikePost key={post.id} post={post} index={index} myId={myId} />
+            <LikePost post={post} index={index} myId={myId} />
           ) : (
             <ProfilePost
-              key={post.id}
               post={post}
               index={index}
               myId={myId}
               relationship={relationship}
             />
           )}
-        </>
+        </div>
       ))}
 
       {firstPosts.length === 0 ? (
