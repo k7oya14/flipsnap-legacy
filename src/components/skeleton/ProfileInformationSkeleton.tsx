@@ -30,7 +30,7 @@ const ProfileInformationSkeleton = () => {
           </div>
         </div>
       </div>
-      <Skeleton className="w-[98.5%] h-10 sm:mt-2 mb-2 sm:mb-0" />
+      <Skeleton className="w-[98.5%] h-8 sm:h-10 sm:mt-2 mb-2 sm:mb-0" />
     </div>
   );
 };
