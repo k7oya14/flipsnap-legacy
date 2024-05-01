@@ -16,7 +16,7 @@ type Props = {
 
 const BackFollowButton = (props: Props) => {
   const {
-    profile = true,
+    profile = false,
     myId,
     userId,
     relationship,
@@ -30,8 +30,8 @@ const BackFollowButton = (props: Props) => {
   switch (optimisticRelationship) {
     case UserRelationship.Following:
       return (
-        <p className="whitespace-nowrap text-lg text-white text-center">
-          You are not being followed
+        <p className="whitespace-nowrap sm:text-lg text-white text-center">
+          Not Followed Back
         </p>
       );
     case UserRelationship.Follower:
@@ -43,15 +43,17 @@ const BackFollowButton = (props: Props) => {
             await Follow(myId!, userId!);
             await fetchRelationship?.();
           }}
-          className="my-2 flex flex-col justify-center"
+          className={`${profile ? "" : "sm:my-2"} flex flex-col justify-center`}
         >
-          <p className="hidden sm:block whitespace-nowrap text-lg text-white text-center">
+          <p className="whitespace-nowrap text-lg text-white text-center">
             You have to follow
           </p>
           <div className="mx-auto" onClick={(e) => e.stopPropagation()}>
             <Button
               type="submit"
-              className="mt-2 mx-auto px-0 bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit"
+              className={`${
+                profile ? "h-8 w-16 sm:h-auto sm:w-auto" : ""
+              } mt-2 mx-auto bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit`}
             >
               Follow
             </Button>
@@ -60,14 +62,18 @@ const BackFollowButton = (props: Props) => {
       );
     case UserRelationship.NoSession:
       return (
-        <div className="my-2 flex flex-col justify-center">
+        <div
+          className={`${profile ? "" : "sm:my-2"} flex flex-col justify-center`}
+        >
           <p className="whitespace-nowrap text-lg text-white text-center">
             You have to sign in
           </p>
           <div className="mx-auto" onClick={(e) => e.stopPropagation()}>
             <Button
               onClick={() => signIn("google")}
-              className="mt-2 bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit"
+              className={`${
+                profile ? "h-8 w-[68px] sm:h-auto sm:w-auto" : ""
+              } mt-2 bg-white hover:bg-slate-100 rounded-full text-black font-bold max-w-fit`}
             >
               Sign in
             </Button>

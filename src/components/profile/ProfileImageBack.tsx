@@ -32,6 +32,7 @@ const ProfileImageBack = (props: Props) => {
         />
         {open || (
           <LockedBack
+            profile={true}
             myId={myId}
             userId={userId}
             loading={loading}
