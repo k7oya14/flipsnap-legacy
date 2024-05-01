@@ -3,35 +3,34 @@ import FlipImage from "../FlipImage";
 import ProfileImageFront from "./ProfileImageFront";
 import ProfileImageBack from "./ProfileImageBack";
 import { Post, UserRelationship } from "@/lib/definitions";
+import HomeFlipImage from "../home/HomeFlipImage";
+import LikePostImageFront from "./LikePostImageFront";
 
 type Props = {
   post: Post;
   index: number;
   myId: string | undefined;
-  relationship: UserRelationship;
 };
 
-const ProfilePost = function ProfilePost(props: Props) {
-  const { post, index, myId, relationship } = props;
+const LikePost = function LikePost(props: Props) {
+  const { post, index, myId } = props;
   return (
-    <FlipImage
+    <HomeFlipImage
+      likes={true}
+      post={post}
+      myId={myId}
       containerStyle={{
         width: "100%",
         height: "auto",
       }}
       frontComponent={
-        <ProfileImageFront index={index} src={post.imgFront} postId={post.id} />
-      }
-      backComponent={
-        <ProfileImageBack
-          src={post.imgBack}
-          userId={post.authorId}
-          myId={myId}
-          relationship={relationship}
+        <LikePostImageFront
+          index={index}
+		  post={post}
         />
       }
     />
   );
 };
 
-export default ProfilePost;
+export default LikePost;

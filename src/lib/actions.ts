@@ -80,7 +80,7 @@ export async function updateBio(
   formData: FormData
 ) {
   const validatedFields = updateBioSchema.safeParse({
-    content: formData.get("bio"),
+    bio: formData.get("bio"),
   });
   if (!validatedFields.success) {
     return {
@@ -106,6 +106,7 @@ export async function updateBio(
   } finally {
     const referer = headers().get("referer") ?? "/";
     revalidatePath(referer);
+    return { errors: {}, message: "" };
   }
 }
 
@@ -252,10 +253,11 @@ export async function Like(myId: string, postId: string) {
     });
   } catch (error) {
     throw new Error("Failed to like the post.");
-  } finally {
-    const referer = headers().get("referer") ?? "/";
-    revalidatePath(referer);
   }
+  //   finally {
+  //     const referer = headers().get("referer") ?? "/";
+  //     revalidatePath(referer);
+  //   }
 }
 
 export async function UndoLike(myId: string, postId: string) {
@@ -270,8 +272,9 @@ export async function UndoLike(myId: string, postId: string) {
     });
   } catch (error) {
     throw new Error("Failed to Undo liked the post.");
-  } finally {
-    const referer = headers().get("referer") ?? "/";
-    revalidatePath(referer);
   }
+  //    finally {
+  //     const referer = headers().get("referer") ?? "/";
+  //     revalidatePath(referer);
+  //   }
 }

@@ -42,11 +42,11 @@ const ProfileImageFront = (props: Props) => {
       />
       <StopPropagationDiv>
         <Link
-          className="pl-6 pt-6 pb-2 pr-2 absolute bottom-0 right-0"
+          className="pl-6 pt-6 pb-2 pr-2 absolute -bottom-[1px] sm:-bottom-[2px] -right-[1px] sm:right-0"
           href={`/posts/${postId}`}
           scroll={false}
         >
-          <Expand className="visible sm:invisible group-hover:visible h-5 w-5 text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
+          <Expand className="visible sm:invisible group-hover:visible size-6 sm:size-[28px] text-slate-200 hover:scale-110 transition duration-300 ease-in-out" />
         </Link>
       </StopPropagationDiv>
     </MotionDiv>

@@ -1,11 +1,10 @@
-import React, { Suspense } from "react";
+import React from "react";
 import ProfileInformation from "./ProfileInformation";
-import { ProfileGallery } from "./ProfileGallery";
 import ErrorCard from "../ErrorCard";
 import { auth } from "@/lib/auth";
 import { fetchUserByUsername, fetchUserRelationship } from "@/lib/fetch";
-import ProfileGallerySkeleton from "../skeleton/ProfileGallerySkeleton";
 import { UserRelationship } from "@/lib/definitions";
+import ProfileTab from "./ProfileTab";
 
 type Props = {
   username: string;
@@ -36,13 +35,13 @@ const Profile = async (props: Props) => {
         myId={session?.user.id}
         relationship={relationship}
       />
-      <Suspense fallback={<ProfileGallerySkeleton />}>
-        <ProfileGallery
+      <div className="sm:py-4 mx-2">
+        <ProfileTab
           userInfo={userInfo}
           myId={session?.user.id}
           relationship={relationship}
         />
-      </Suspense>
+      </div>
     </>
   );
 };

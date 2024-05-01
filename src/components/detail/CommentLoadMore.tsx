@@ -17,8 +17,8 @@ const CommentLoadMore = (props: Props) => {
   const { cursorById } = useCursorById();
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentLimit, setCommentLimit] = useState(false);
-  const [cursorCommentId, setCursorCommentId] = useState(commentId);
   const [loading, setLoading] = useState(false);
+  const [cursorCommentId, setCursorCommentId] = useState(commentId);
   const { ref, inView } = useInView({
     threshold: 0,
     initialInView: undefined,

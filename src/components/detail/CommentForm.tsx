@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { createComment } from "@/lib/actions";
 import CommentTextareAndButton from "./CommentTextareaAndButton";
 import { Comment, sessionUser } from "@/lib/definitions";
@@ -15,7 +15,7 @@ type Props = {
 
 const CommentForm = (props: Props) => {
   const { me, postId, onSubmit, setComments } = props;
-  const [commentContent, setCommentContent] = React.useState("");
+  const [commentContent, setCommentContent] = useState("");
   return (
     <form
       action={async (formData) => {
@@ -25,7 +25,7 @@ const CommentForm = (props: Props) => {
         const newComment = await fetchComments(postId, 1);
         setComments((prev) => [...newComment, ...prev]);
       }}
-      className={`fixed bottom-0 sm:sticky w-full
+      className={`fixed sm:sticky bottom-0 w-full
 	   flex items-center border-t border-t-gray-200 bg-neutral-100 py-2 sm:py-0`}
     >
       <CommentTextareAndButton

@@ -4,7 +4,6 @@ import Image from "next/image";
 import { Suspense } from "react";
 import { Skeleton } from "../ui/skeleton";
 import { Comment, OnePost, sessionUser } from "@/lib/definitions";
-import { useCursorById } from "@/lib/utils";
 import PostInformation from "./PostInformation";
 
 type Props = {
@@ -15,7 +14,6 @@ type Props = {
 
 export async function PostDetail(props: Props) {
   const { post, me, latestComments } = props;
-  const { cursorById } = useCursorById();
 
   return (
     <div className="flex bg-neutral-100 rounded-lg">

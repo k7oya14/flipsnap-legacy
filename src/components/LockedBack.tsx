@@ -6,6 +6,7 @@ import { UserRelationship } from "@/lib/definitions";
 import BackFollowButton from "./BackFollowButton";
 
 type Props = {
+  profile?: boolean;
   myId?: string | null | undefined;
   userId?: string;
   relationship: UserRelationship;
@@ -15,6 +16,7 @@ type Props = {
 
 const LockedBack = (props: Props) => {
   const {
+    profile = false,
     myId,
     userId,
     relationship,
@@ -33,6 +35,7 @@ const LockedBack = (props: Props) => {
           </div>
         ) : (
           <BackFollowButton
+            profile={profile}
             myId={myId!}
             userId={userId}
             relationship={relationship}

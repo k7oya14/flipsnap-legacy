@@ -18,7 +18,6 @@ export type sessionUser = {
 
 export type Post = {
   author?: {
-    relationship: UserRelationship;
     image: string | null;
     name: string | null;
     username: string | null;
@@ -52,6 +51,10 @@ export type OnePost =
         name: string | null;
         username: string | null;
       };
+      isLikedByMe: boolean;
+      likes: {
+        createdAt: Date;
+      }[];
       _count: {
         likes: number;
       };

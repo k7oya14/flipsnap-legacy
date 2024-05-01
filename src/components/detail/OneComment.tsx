@@ -8,7 +8,7 @@ type Props = {
   comment: Comment;
 };
 
-const OneComment = (props: Props) => {
+const OneComment = React.memo(function OneComment(props: Props) {
   const { comment } = props;
   return (
     <div className="flex items-start space-x-3 sm:p-3 p-[10px]">
@@ -43,6 +43,6 @@ const OneComment = (props: Props) => {
       </div>
     </div>
   );
-};
+});
 
 export default OneComment;
