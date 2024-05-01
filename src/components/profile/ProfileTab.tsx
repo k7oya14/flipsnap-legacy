@@ -14,7 +14,7 @@ const ProfileTab = (props: Props) => {
   const { userInfo, myId, relationship } = props;
   return (
     <Tabs defaultValue="posts" className="w-full">
-      <TabsList className="grid w-full grid-cols-2 bg-neutral-50">
+      <TabsList className="grid w-full grid-cols-2 bg-[#f0f0f0] border-neutral-300 sm:border">
         <TabsTrigger value="posts" className="sm:font-semibold">
           Posts
         </TabsTrigger>
