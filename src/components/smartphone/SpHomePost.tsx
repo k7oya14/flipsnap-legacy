@@ -15,22 +15,21 @@ export const SpHomePost = React.memo(function SpHomePost(props: Props) {
   const { post, me } = props;
   return (
     <div className="w-full h-full flex flex-col border-b-2">
-      <Link
-        href={`/profile/${post.author?.username}`}
-        className="pl-3 pt-3 flex items-center hover:cursor-pointer"
-      >
-        <Avatar>
-          <AvatarImage
-            className="rounded-full w-10 h-10"
-            src={post.author?.image || "/placeholder.svg?height=32&width=32"}
-          />
-          <AvatarFallback>{post.author?.name}</AvatarFallback>
-        </Avatar>
-        <div className="ml-3">
+      <div className="pl-3 pt-3 flex items-center">
+        <Link href={`/profile/${post.author?.username}`}>
+          <Avatar>
+            <AvatarImage
+              className="rounded-full w-10 h-10"
+              src={post.author?.image || "/placeholder.svg?height=32&width=32"}
+            />
+            <AvatarFallback>{post.author?.name}</AvatarFallback>
+          </Avatar>
+        </Link>
+        <Link href={`/profile/${post.author?.username}`} className="pl-3">
           <p className="font-semibold">{post.author?.name}</p>
-          <p className="ml-1 text-xs text-gray-500">{post.author?.username}</p>
-        </div>
-      </Link>
+          <p className="pl-1 text-xs text-gray-500">{post.author?.username}</p>
+        </Link>
+      </div>
       <main className="flex-grow overflow-y-auto">
         <div className="flex flex-col pt-2">
           <HomeFlipImage
