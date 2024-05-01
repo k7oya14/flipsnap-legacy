@@ -41,6 +41,7 @@ const HomeFlipImage = React.memo(function HomeFlipImage(props: Props) {
             src={post.imgBack}
             userId={post.authorId}
             myId={myId}
+            loading={loading}
             relationship={relationship}
           />
         ) : (

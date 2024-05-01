@@ -45,7 +45,7 @@ const LikePostImageFront = (props: Props) => {
         <StopPropagationDiv>
           <Link
             href={`/profile/${post.author?.username}`}
-            className="absolute bottom-2 left-2 invisible group-hover:visible flex items-center space-x-2 text-slate-200"
+            className="absolute bottom-2 left-2 invisible sm:group-hover:visible flex items-center space-x-2 text-slate-200"
           >
             <Avatar>
               <AvatarImage src={post.author?.image!} />

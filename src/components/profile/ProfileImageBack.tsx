@@ -7,11 +7,12 @@ type Props = {
   src: string;
   userId: string;
   myId: string | undefined | null;
+  loading?: boolean;
   relationship: UserRelationship;
 };
 
 const ProfileImageBack = (props: Props) => {
-  const { src, myId, userId, relationship } = props;
+  const { src, myId, userId, loading = false, relationship } = props;
   const open =
     relationship === UserRelationship.Mutual ||
     relationship === UserRelationship.Me;
@@ -30,7 +31,12 @@ const ProfileImageBack = (props: Props) => {
           width="293"
         />
         {open || (
-          <LockedBack myId={myId} userId={userId} relationship={relationship} />
+          <LockedBack
+            myId={myId}
+            userId={userId}
+            loading={loading}
+            relationship={relationship}
+          />
         )}
       </div>
     </div>
