@@ -47,7 +47,7 @@ export async function ProfileGallery(props: Props) {
       ))}
 
       {firstPosts.length === 0 ? (
-        <div className="pt-6 sm:py-16 flex flex-col sm:flex-row items-center justify-center">
+        <div className="py-6 sm:py-16 flex flex-col sm:flex-row items-center justify-center">
           {likes ? (
             <>
               <HandHeart className="size-16 lg:size-20 mb-2 sm:mr-4" />
