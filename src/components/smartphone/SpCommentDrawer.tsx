@@ -74,7 +74,9 @@ export const SpCommentDrawer = (props: Props) => {
             Comment
           </DrawerTitle>
         </DrawerHeader>
-        <div className="overflow-y-scroll overflow-x-hidden mb-14">
+        <div
+          className={`overflow-y-scroll overflow-x-hidden ${me ? "mb-14" : ""}`}
+        >
           {loading ? (
             [...Array(10)].map((_, i) => <OneCommentSkeleton key={i} />)
           ) : optimisticComments.length === 0 ? (
