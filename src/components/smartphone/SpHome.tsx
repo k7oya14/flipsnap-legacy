@@ -1,23 +1,23 @@
 import React from "react";
 import SpHomeLoadMore from "./SpHomeLoadMore";
-import { GalleyPost } from "@/lib/definitions";
+import { GalleyPost, sessionUser } from "@/lib/definitions";
 import { useCursorById } from "@/lib/utils";
 import { SpHomePost } from "./SpHomePost";
 
 type Props = {
   firstPosts: GalleyPost[];
-  myId: string | undefined;
+  me: sessionUser | undefined;
 };
 
 const SpHome = async (props: Props) => {
-  const { firstPosts, myId } = props;
+  const { firstPosts, me } = props;
   const { cursorById } = useCursorById();
   return (
     <div>
       {firstPosts.map((post: GalleyPost) => (
-        <SpHomePost key={post.id} post={post} myId={myId} />
+        <SpHomePost key={post.id} post={post} me={me} />
       ))}
-      <SpHomeLoadMore cursorId={cursorById(firstPosts)} myId={myId} />
+      <SpHomeLoadMore cursorId={cursorById(firstPosts)} me={me} />
     </div>
   );
 };

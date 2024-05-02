@@ -66,6 +66,50 @@ export async function updateUsername(
   redirect("/profile/me");
 }
 
+export type updateBioState = {
+  errors?: {
+    bio?: string[];
+  };
+  message?: string | null;
+};
+const updateBioSchema = UserSchema.pick({ bio: true });
+
+export async function updateBio(
+  myId: string,
+  prevState: updateBioState,
+  formData: FormData
+) {
+  const validatedFields = updateBioSchema.safeParse({
+    bio: formData.get("bio"),
+  });
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Zod Error: Failed to update Bio.",
+    };
+  }
+
+  const { bio } = validatedFields.data;
+
+  try {
+    await prisma.user.update({
+      where: { id: myId },
+      data: {
+        bio,
+      },
+    });
+  } catch (error) {
+    return {
+      errors: {},
+      message: "Database Error: Failed to update Bio.",
+    };
+  } finally {
+    const referer = headers().get("referer") ?? "/";
+    revalidatePath(referer);
+    return { errors: {}, message: "" };
+  }
+}
+
 export type createPostState = {
   errors?: {
     imgFront?: string[];
@@ -131,13 +175,11 @@ const createCommentSchema = CommentSchema.pick({ content: true });
 export async function createComment(
   myId: string,
   postId: string,
-  prevState: createPostState,
   formData: FormData
 ) {
   const validatedFields = createCommentSchema.safeParse({
     content: formData.get("content"),
   });
-
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
@@ -160,10 +202,11 @@ export async function createComment(
       errors: {},
       message: "Database Error: Failed to create comment.",
     };
-  } finally {
-    const referer = headers().get("referer") ?? "/";
-    revalidatePath(referer);
   }
+  //   finally {
+  //     const referer = headers().get("referer") ?? "/";
+  //     revalidatePath(referer);
+  //   }
 }
 
 export async function Follow(myId: string, userId: string) {
@@ -210,10 +253,11 @@ export async function Like(myId: string, postId: string) {
     });
   } catch (error) {
     throw new Error("Failed to like the post.");
-  } finally {
-    const referer = headers().get("referer") ?? "/";
-    revalidatePath(referer);
   }
+  //   finally {
+  //     const referer = headers().get("referer") ?? "/";
+  //     revalidatePath(referer);
+  //   }
 }
 
 export async function UndoLike(myId: string, postId: string) {
@@ -228,8 +272,9 @@ export async function UndoLike(myId: string, postId: string) {
     });
   } catch (error) {
     throw new Error("Failed to Undo liked the post.");
-  } finally {
-    const referer = headers().get("referer") ?? "/";
-    revalidatePath(referer);
   }
+  //    finally {
+  //     const referer = headers().get("referer") ?? "/";
+  //     revalidatePath(referer);
+  //   }
 }

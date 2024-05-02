@@ -5,6 +5,10 @@ import { unstable_noStore as noStore } from "next/cache";
 import prisma from "./prismaClient";
 import { UserRelationship } from "./definitions";
 
+export async function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function getUsernameById(userId: string) {
   const data = await prisma.user.findUnique({
     where: {
@@ -142,7 +146,7 @@ export async function fetchUserRelationship(myId: string, userId: string) {
   }
 }
 
-export async function fetchPost(postId: string) {
+export async function fetchPost(postId: string, myId?: string | undefined) {
   // noStore();
   try {
     const data = await prisma.post.findUnique({
@@ -157,6 +161,14 @@ export async function fetchPost(postId: string) {
             name: true,
           },
         },
+        likes: {
+          where: {
+            userId: myId ?? "",
+          },
+          select: {
+            createdAt: true,
+          },
+        },
         _count: {
           select: {
             likes: true,
@@ -164,7 +176,8 @@ export async function fetchPost(postId: string) {
         },
       },
     });
-    return data;
+    const post = data ? { ...data, isLikedByMe: data.likes.length > 0 } : data;
+    return post;
   } catch (error) {
     throw new Error("Failed to fetch a post.");
   }

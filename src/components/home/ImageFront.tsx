@@ -12,7 +12,7 @@ type Props = {
   post: GalleyPost;
 };
 
-const ImageFront = (props: Props) => {
+const ImageFront = function ImageFront(props: Props) {
   const { index, post } = props;
 
   const variants = {
@@ -25,7 +25,7 @@ const ImageFront = (props: Props) => {
       variants={variants}
       initial="hidden"
       animate="visible"
-      transition={{ duration: 0.5, delay: 0.5 }}
+      transition={{ duration: 0.5, delay: index == 0 ? 0 : 0.5 }}
     >
       <div className="w-full group relative rounded-md overflow-hidden hover:cursor-pointer">
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>

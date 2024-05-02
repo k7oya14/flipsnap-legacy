@@ -14,7 +14,7 @@ type Props = {
 const ErrorCard = (props: Props) => {
   const { heading, message, button, link } = props;
   return (
-    <Card className="m-4 p-4 max-w-[90vw] w-96 mx-auto shadow-lg">
+    <Card className="m-4 p-4 max-w-[90vw] w-fit mx-auto shadow-lg">
       <CardContent className="flex flex-col items-center justify-center mt-6">
         <TriangleAlert className="text-yellow-300 size-[70px] mb-4" />
         <h1 className="text-center text-2xl font-bold">{heading}</h1>
