@@ -32,9 +32,11 @@ const LikePostImageFront = (props: Props) => {
       }`}
     >
       <div
-        className={`absolute inset-0 bg-black opacity-0 transition-opacity duration-500 ${
-          isMobile ? "" : "group-hover:opacity-40"
-        }`}
+        className={
+          isMobile
+            ? ""
+            : "absolute inset-0 bg-black opacity-0 transition-opacity duration-500 group-hover:opacity-40"
+        }
       />
       <Image
         priority={index < 3}
