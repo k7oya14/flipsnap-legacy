@@ -83,6 +83,23 @@
   min-width: min-content;
 }
 
+.hero {
+  background-image: radial-gradient(at 80% -20%, #fff 10%, transparent 40%),
+    radial-gradient(at 0% 70%, #fff, transparent 50%),
+    radial-gradient(at 0% 0%, #0ff, transparent),
+    radial-gradient(at 80% 40%, #ff9, transparent 40%),
+    radial-gradient(at 100% 100%, #675ee3, transparent);
+  background-attachment: fixed;
+}
+
+.hero2 {
+  background-image: radial-gradient(at 50% 50%, #0ff 0%, transparent 60%),
+    radial-gradient(at 35% 35%, #ff9 0%, transparent 38%),
+    radial-gradient(at 65% 35%, #ff9 0%, transparent 38%),
+    radial-gradient(at 65% 65%, #675ee3 0%, transparent 35%),
+    radial-gradient(at 35% 65%, #675ee3, transparent 35%);
+}
+
 @keyframes heart-beat {
   50% {
     transform: scale(0.75);
