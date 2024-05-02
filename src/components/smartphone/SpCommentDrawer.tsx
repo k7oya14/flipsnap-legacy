@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useOptimistic, useState } from "react";
+import React, { useOptimistic, useRef, useState } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -31,6 +31,7 @@ export const SpCommentDrawer = (props: Props) => {
   const [comments, setComments] = useState<Comment[]>(latestComments);
   const [optimisticComments, setOptimisticComments] =
     useOptimistic<Comment[]>(comments);
+  const firstClick = useRef(true);
 
   const onSubmitComment = async (commentContent: string) => {
     const optimisticComment: Comment = {
@@ -49,7 +50,8 @@ export const SpCommentDrawer = (props: Props) => {
   };
 
   const fetchLatestCommnent = async () => {
-    if (latestComments.length === 0) {
+    if (latestComments.length === 0 && firstClick.current) {
+      firstClick.current = false;
       setLoading(true);
       const comments = await fetchComments(postId, 8);
       setOptimisticComments([...latestComments, ...comments]);
@@ -66,19 +68,19 @@ export const SpCommentDrawer = (props: Props) => {
       >
         <MessageCircle className="size-[28px] text-gray-500 hover:text-gray-600 cursor-pointer" />
       </DrawerTrigger>
-      <DrawerContent className="focus-visible:ring-transparent outline-none focus:ring-0 max-h-[80vh]">
+      <DrawerContent className="focus-visible:ring-transparent outline-none focus:ring-0 h-[80vh]">
         <DrawerHeader className="pb-0">
           <DrawerTitle className="border-b border-gray-200 pb-5">
             Comment
           </DrawerTitle>
         </DrawerHeader>
-        <div className="max-h-[50vh] min-h-44 overflow-y-scroll overflow-x-hidden mb-14">
+        <div className="overflow-y-scroll overflow-x-hidden mb-14">
           {loading ? (
             [...Array(10)].map((_, i) => <OneCommentSkeleton key={i} />)
           ) : optimisticComments.length === 0 ? (
             <>
-              <MessageCircleDashed className="size-16 text-gray-400 mx-auto mt-5" />
-              <p className="text-center text-gray-400 text-lg mt-1">
+              <MessageCircleDashed className="size-[70px] text-gray-400 mx-auto mt-10" />
+              <p className="text-center text-gray-400 text-xl mt-2">
                 No comments yet
               </p>
             </>
