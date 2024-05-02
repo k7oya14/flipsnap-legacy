@@ -6,6 +6,7 @@ import StopPropagationDiv from "../StopPropagationDiv";
 import { MotionDiv } from "../MotionDiv";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Post } from "@/lib/definitions";
+import { isMobile } from "react-device-detect";
 
 type Props = {
   index: number;
@@ -25,10 +26,18 @@ const LikePostImageFront = (props: Props) => {
       variants={variants}
       initial="hidden"
       animate="visible"
-      transition={{ duration: 0.5, delay: index * 0.2 }}
-      className="group relative rounded-md overflow-hidden hover:cursor-pointer"
+      transition={{ duration: 0.4, delay: index * 0.15 }}
+      className={`group relative rounded-md overflow-hidden ${
+        isMobile ? "" : "hover:cursor-pointer"
+      }`}
     >
-      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+      <div
+        className={
+          isMobile
+            ? ""
+            : "absolute inset-0 bg-black opacity-0 transition-opacity duration-500 group-hover:opacity-40"
+        }
+      />
       <Image
         priority={index < 3}
         alt=""
@@ -45,7 +54,9 @@ const LikePostImageFront = (props: Props) => {
         <StopPropagationDiv>
           <Link
             href={`/profile/${post.author?.username}`}
-            className="absolute bottom-2 left-2 invisible sm:group-hover:visible flex items-center space-x-2 text-slate-200"
+            className={`absolute bottom-2 left-2 invisible flex items-center space-x-2 text-slate-200${
+              isMobile ? "" : "group-hover:visible"
+            }`}
           >
             <Avatar>
               <AvatarImage src={post.author?.image!} />
@@ -58,7 +69,11 @@ const LikePostImageFront = (props: Props) => {
             scroll={false}
             className="absolute bottom-0 right-0 p-[6px]"
           >
-            <Expand className=" visible sm:invisible group-hover:visible size-6 sm:size-[28px] text-slate-200 hover:scale-110 transition duration-200 ease-in-out" />
+            <Expand
+              className={`visible sm:invisible size-6 sm:size-[28px] text-slate-200 hover:scale-110 transition duration-200 ease-in-out ${
+                isMobile ? "" : "group-hover:visible"
+              }`}
+            />
           </Link>
         </StopPropagationDiv>
       </div>

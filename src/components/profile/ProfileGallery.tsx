@@ -3,7 +3,7 @@ import { useCursorById } from "@/lib/utils";
 import { fetchLikedPosts, fetchUserPostsById } from "@/lib/fetch";
 import ProfileLoadMore from "./ProfileLoadMore";
 import ProfilePost from "./ProfilePost";
-import { Instagram } from "lucide-react";
+import { HandHeart, Instagram } from "lucide-react";
 import LikePost from "./LikePost";
 
 type Props = {
@@ -47,11 +47,22 @@ export async function ProfileGallery(props: Props) {
       ))}
 
       {firstPosts.length === 0 ? (
-        <div className="pt-6 pb-10 flex flex-col sm:flex-row items-center justify-center">
-          <Instagram className="size-16 lg:size-20 mb-2 sm:mr-4" />
-          <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
-            No posts yet
-          </p>
+        <div className="py-6 sm:py-16 flex flex-col sm:flex-row items-center justify-center">
+          {likes ? (
+            <>
+              <HandHeart className="size-16 lg:size-20 mb-2 sm:mr-4" />
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
+                No likes yet
+              </p>
+            </>
+          ) : (
+            <>
+              <Instagram className="size-16 lg:size-20 mb-2 sm:mr-4" />
+              <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
+                No posts yet
+              </p>
+            </>
+          )}
         </div>
       ) : (
         firstPosts.length === 6 && (

@@ -28,7 +28,7 @@ export function SignupForm({ userId }: { userId: string }) {
                 placeholder="Enter your username"
                 required
                 aria-describedby="username-error"
-                className="w-full border border-gray-200 rounded-lg p-2 focus-visible:ring-transparent focus:outline-none focus:border-gray-800 focus:border-[1.4px] shadow-sm"
+                className="w-full border border-gray-200 rounded-lg p-2 focus-visible:ring-offset-0 focus-visible:ring-neutral-100 focus:ring-0 shadow-sm"
                 style={{ outline: "none" }}
               />
               <div id="username-error" aria-live="polite" aria-atomic="true">
