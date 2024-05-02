@@ -9,7 +9,7 @@ const DetailLoading = () => {
         <DetailSkeleton />
       </div>
       <div className="sm:hidden flex flex-col dialog-scroll w-full overflow-y-scroll">
-        {/* <SpOnePostSkeleton /> */}
+        <SpOnePostSkeleton />
       </div>
     </>
   );
