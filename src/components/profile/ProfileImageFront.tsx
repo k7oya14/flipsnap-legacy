@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import StopPropagationDiv from "../StopPropagationDiv";
 import { MotionDiv } from "../MotionDiv";
+import { isMobile } from "react-device-detect";
 
 type Props = {
   index: number;
@@ -25,9 +26,15 @@ const ProfileImageFront = (props: Props) => {
       initial="hidden"
       animate="visible"
       transition={{ duration: 0.4, delay: index * 0.15 }}
-      className="group relative rounded-md overflow-hidden hover:cursor-pointer"
+      className={`group relative rounded-md overflow-hidden ${
+        isMobile ? "" : "hover:cursor-pointer"
+      }`}
     >
-      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-30 transition-opacity duration-500"></div>
+      <div
+        className={`absolute inset-0 bg-black opacity-0 transition-opacity duration-500 ${
+          isMobile ? "" : "group-hover:opacity-30"
+        }`}
+      />
       <Image
         priority={index < 3}
         alt=""
