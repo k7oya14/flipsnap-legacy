@@ -40,10 +40,9 @@ const EditBioButton = (props: Props) => {
       </DialogTrigger>
       <DialogContent className={`max-w-[90vw] w-[500px] rounded-lg`}>
         <DialogHeader>
-          <DialogTitle className="mx-auto text-3xl font-bold p-0">
+          <DialogTitle className="mx-auto text-3xl sm:font-bold font-extralight p-0">
             Edit bio
           </DialogTitle>
-          {/* <DialogDescription></DialogDescription> */}
         </DialogHeader>
         <form action={dispatch}>
           <div className="grid gap-4 py-2">
