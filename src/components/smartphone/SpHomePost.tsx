@@ -25,9 +25,11 @@ export const SpHomePost = React.memo(function SpHomePost(props: Props) {
             <AvatarFallback>{post.author?.name}</AvatarFallback>
           </Avatar>
         </Link>
-        <Link href={`/profile/${post.author?.username}`} className="pl-3">
+        <Link href={`/profile/${post.author?.username}`} className="pl-2">
           <p className="font-semibold">{post.author?.name}</p>
-          <p className="pl-1 text-xs text-gray-500">{post.author?.username}</p>
+          <p className="pl-[2px] text-xs text-gray-500">
+            {post.author?.username}
+          </p>
         </Link>
       </div>
       <main className="flex-grow overflow-y-auto">
