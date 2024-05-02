@@ -40,23 +40,21 @@ const EditBioButton = (props: Props) => {
       </DialogTrigger>
       <DialogContent className={`max-w-[90vw] w-[500px] rounded-lg`}>
         <DialogHeader>
-          <DialogTitle className="mx-auto text-3xl sm:font-bold font-extralight p-0">
+          <DialogTitle className="mx-auto text-2xl sm:text-3xl sm:font-bold font-normal p-0">
             Edit bio
           </DialogTitle>
         </DialogHeader>
         <form action={dispatch}>
-          <div className="grid gap-4 py-2">
-            <AutosizeTextarea
-              id="bio"
-              name="bio"
-              placeholder="Edit your bio"
-              value={currentBio}
-              onChange={(e) => setCurrentBio(e.target.value)}
-              minHeight={100}
-              maxHeight={200}
-              className="h-[103px] text-base dialog-scroll border-neutral-950 border-[1.5px] resize-none focus-visible:ring-offset-0 focus-visible:ring-neutral-300 focus-visible:ring-1 w-full col-span-3"
-            />
-          </div>
+          <AutosizeTextarea
+            id="bio"
+            name="bio"
+            placeholder="Edit your bio"
+            value={currentBio}
+            onChange={(e) => setCurrentBio(e.target.value)}
+            minHeight={100}
+            maxHeight={200}
+            className="h-[103px] sm:my-2 text-base dialog-scroll border-neutral-950 border-[1.5px] resize-none focus-visible:ring-offset-0 focus-visible:ring-neutral-300 focus-visible:ring-1 w-full col-span-3"
+          />
           <DialogFooter>
             <DialogClose
               type="submit"
