@@ -12,7 +12,7 @@ const Hero = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className={clsx("hero2 h-[80vh] w-full overflow-hidden")}
+      className={clsx("hero h-[80vh] w-full overflow-hidden")}
     >
       <div className="relative inset-0 mt-[5vh] h-[70vh] flex items-center justify-center mx-auto px-8">
         <div className={`${robotoSlab.className} w-full max-w-xl text-center`}>
