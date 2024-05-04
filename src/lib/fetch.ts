@@ -130,7 +130,7 @@ export async function fetchUserRelationship(myId: string, userId: string) {
     const isFollower = relationships.some((rel) => rel.followerId === userId);
 
     // const end = process.hrtime(start);
-    // console.log((end[0] * 1e9 + end[1]) / 1e6 + "ms");
+    // console.log("[MY LOG] fetchUserRelationship >>> " + (end[0] * 1e9 + end[1]) / 1e6 + "ms");
 
     if (isFollowing && isFollower) {
       return UserRelationship.Mutual;
@@ -197,6 +197,7 @@ export async function fetchLatestPosts(
   myId?: string | undefined
 ) {
   noStore();
+  const start = process.hrtime();
   try {
     const data = await prisma.post.findMany({
       orderBy: {
@@ -230,6 +231,12 @@ export async function fetchLatestPosts(
       ...post,
       isLikedByMe: post.likes.length > 0,
     }));
+    const end = process.hrtime(start);
+    console.log(
+      "[MY LOG] fetchLatestPosts >>> " +
+        (end[0] * 1e9 + end[1]) / 1e6 +
+        "ms"
+    );
     return posts;
   } catch (error) {
     throw new Error("Failed to fetch first latest posts.");
