@@ -192,7 +192,10 @@ export async function fetchPost(postId: string, myId?: string | undefined) {
 // const data3 = await fetchMoreLatestPosts(12, session?.user.id, cursorPostId);
 // ...
 
-export async function fetchLatestPosts(take: number) {
+export async function fetchLatestPosts(
+  take: number,
+  myId?: string | undefined
+) {
   noStore();
   try {
     const data = await prisma.post.findMany({
@@ -207,16 +210,37 @@ export async function fetchLatestPosts(take: number) {
             name: true,
           },
         },
+        likes: {
+          where: {
+            userId: myId ?? "",
+          },
+          select: {
+            createdAt: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
       },
       take,
     });
-    return data;
+    const posts = data.map((post) => ({
+      ...post,
+      isLikedByMe: post.likes.length > 0,
+    }));
+    return posts;
   } catch (error) {
     throw new Error("Failed to fetch first latest posts.");
   }
 }
 
-export async function fetchMoreLatestPosts(take: number, cursorPostId: string) {
+export async function fetchMoreLatestPosts(
+  take: number,
+  cursorPostId: string,
+  myId?: string | undefined
+) {
   noStore();
   try {
     const data = await prisma.post.findMany({
@@ -229,6 +253,19 @@ export async function fetchMoreLatestPosts(take: number, cursorPostId: string) {
             username: true,
             image: true,
             name: true,
+          },
+        },
+        likes: {
+          where: {
+            userId: myId ?? "",
+          },
+          select: {
+            createdAt: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
           },
         },
       },
@@ -238,13 +275,21 @@ export async function fetchMoreLatestPosts(take: number, cursorPostId: string) {
         id: cursorPostId,
       },
     });
-    return data;
+    const posts = data.map((post) => ({
+      ...post,
+      isLikedByMe: post.likes.length > 0,
+    }));
+    return posts;
   } catch (error) {
     throw new Error("Failed to fetch more latest posts.");
   }
 }
 
-export async function fetchUserPostsById(userId: string, take: number) {
+export async function fetchUserPostsById(
+  userId: string,
+  take: number,
+  myId?: string | undefined
+) {
   noStore();
   try {
     const data = await prisma.post.findMany({
@@ -255,8 +300,27 @@ export async function fetchUserPostsById(userId: string, take: number) {
         createdAt: "desc",
       },
       take,
+      include: {
+        likes: {
+          where: {
+            userId: myId ?? "",
+          },
+          select: {
+            createdAt: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
+      },
     });
-    return data;
+    const posts = data.map((post) => ({
+      ...post,
+      isLikedByMe: post.likes.length > 0,
+    }));
+    return posts;
   } catch (error) {
     throw new Error("Failed to fetch first User posts.");
   }
@@ -265,7 +329,8 @@ export async function fetchUserPostsById(userId: string, take: number) {
 export async function fetchMoreUserPostsById(
   userId: string,
   take: number,
-  cursorPostId: string
+  cursorPostId: string,
+  myId?: string | undefined
 ) {
   noStore();
   try {
@@ -281,8 +346,27 @@ export async function fetchMoreUserPostsById(
       cursor: {
         id: cursorPostId,
       },
+      include: {
+        likes: {
+          where: {
+            userId: myId ?? "",
+          },
+          select: {
+            createdAt: true,
+          },
+        },
+        _count: {
+          select: {
+            likes: true,
+          },
+        },
+      },
     });
-    return data;
+    const posts = data.map((post) => ({
+      ...post,
+      isLikedByMe: post.likes.length > 0,
+    }));
+    return posts;
   } catch (error) {
     throw new Error("Failed to fetch more User posts.");
   }
