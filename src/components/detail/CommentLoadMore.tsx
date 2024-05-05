@@ -28,8 +28,12 @@ const CommentLoadMore = (props: Props) => {
     if (inView && !commentLimit) {
       const fetchComments = async () => {
         setLoading(true);
-        const newComments = await fetchMoreComments(postId, 6, cursorCommentId);
-        if (newComments.length < 6) {
+        const newComments = await fetchMoreComments(
+          postId,
+          10,
+          cursorCommentId
+        );
+        if (newComments.length < 10) {
           setCommentLimit(true);
         }
         setComments((prev) => [...prev, ...newComments]);
