@@ -87,15 +87,17 @@ export const SpCommentDrawer = (props: Props) => {
               </p>
             </>
           ) : (
-            <>
-              {optimisticComments.map((comment) => (
-                <OneComment key={comment.id} comment={comment} />
-              ))}
-              <CommentLoadMore
-                postId={postId}
-                commentId={cursorById(comments)}
-              />
-            </>
+            optimisticComments.length < 8 || (
+              <>
+                {optimisticComments.map((comment) => (
+                  <OneComment key={comment.id} comment={comment} />
+                ))}
+                <CommentLoadMore
+                  postId={postId}
+                  commentId={cursorById(comments)}
+                />
+              </>
+            )
           )}
         </div>
         <DrawerFooter className="p-0">
