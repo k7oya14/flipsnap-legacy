@@ -4,8 +4,7 @@ import React, { useState, useCallback } from "react";
 import { Area, MediaSize } from "react-easy-crop";
 import CropperModal from "../../components/create-post/CropperModal";
 import getCroppedImg from "../../lib/getCroppedImg";
-import { Dialog } from "@radix-ui/react-dialog";
-import { DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "../ui/input";
 export const ASPECT_RATIO = 6 / 1;
 export const CROP_WIDTH = 400;
@@ -139,38 +138,31 @@ const CropImage = (props: Props) => {
   return (
     <Dialog open={isOpen} onOpenChange={() => setIsOpen(false)}>
       <div className="min-w-full flex items-center text-center flex-col">
-        <DialogTrigger asChild>
-          <Input
-            type="file"
-            accept="image/*"
-            name={front ? "imgFront" : "imgBack"}
-            id={front ? "imgFront" : "imgBack"}
-            required
-            aria-describedby={front ? "imgFront-error" : "imgBack-error"}
-            className="border border-slate-400 p-2"
-            onChange={onFileChange}
-          />
-        </DialogTrigger>
-        <div className="img-container">
-          {/* {croppedImgSrc ? (
-            <img src={croppedImgSrc} alt="Cropped" className="img" />
-          ) : (
-            <div className="">The cropped image is displayed here</div>
-          )} */}
-        </div>
-        <CropperModal
-          crop={crop}
-          setCrop={setCrop}
-          zoom={zoom}
-          setZoom={setZoom}
-          onCropComplete={onCropComplete}
-          open={isOpen}
-          onClose={() => setIsOpen(false)}
-          imgSrc={imgSrc}
-          showCroppedImage={showCroppedImage}
-          onMediaLoaded={onMediaLoaded}
-          minZoom={minZoom}
+        <Input
+          type="file"
+          accept="image/*"
+          name={front ? "imgFront" : "imgBack"}
+          id={front ? "imgFront" : "imgBack"}
+          required
+          aria-describedby={front ? "imgFront-error" : "imgBack-error"}
+          className="border border-slate-400 p-2"
+          onChange={onFileChange}
         />
+        <DialogContent className="max-w-[90vw] w-[500px] flex items-center text-center justify-center">
+          <CropperModal
+            crop={crop}
+            setCrop={setCrop}
+            zoom={zoom}
+            setZoom={setZoom}
+            onCropComplete={onCropComplete}
+            open={isOpen}
+            onClose={() => setIsOpen(false)}
+            imgSrc={imgSrc}
+            showCroppedImage={showCroppedImage}
+            onMediaLoaded={onMediaLoaded}
+            minZoom={minZoom}
+          />
+        </DialogContent>
       </div>
     </Dialog>
   );

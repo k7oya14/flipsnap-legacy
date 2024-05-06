@@ -11,6 +11,7 @@ import { Roboto_Slab } from "next/font/google";
 import { Camera } from "lucide-react";
 import PostButton from "./PostButton";
 import CropImage from "./CropImage";
+import { DialogContent } from "../ui/dialog";
 
 const robotoSlab = Roboto_Slab({ weight: "400", subsets: ["latin"] });
 
@@ -44,7 +45,6 @@ function CreatePostForm({ userId }: { userId: string }) {
             <Label className="ml-[2px]" htmlFor="imgFront">
               Front Image
             </Label>
-
             <CropImage setCroppedImage={setImgFront} front={true} />
             <div id="imgFront-error" aria-live="polite" aria-atomic="true">
               {state.errors?.imgFront &&
