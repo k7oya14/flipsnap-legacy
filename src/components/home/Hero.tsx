@@ -54,9 +54,7 @@ const Hero = () => {
             priority={true}
             className="w-[98%] object-contain mx-auto hover:size-[100%] transition-all duration-300 ease-in-out"
             alt="hero image"
-            // src="/ui-design-45.svg"
             src={"social-media-64.svg"}
-            // src={"camera-1-53.svg"}
           />
         </MotionDiv>
       </div>
