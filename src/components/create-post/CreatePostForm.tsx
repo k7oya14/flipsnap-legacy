@@ -10,6 +10,7 @@ import { AutosizeTextarea } from "../ui/autosizeTextarea";
 import { Roboto_Slab } from "next/font/google";
 import { Camera } from "lucide-react";
 import PostButton from "./PostButton";
+import CropImage from "./CropImage";
 
 const robotoSlab = Roboto_Slab({ weight: "400", subsets: ["latin"] });
 
@@ -20,6 +21,9 @@ function CreatePostForm({ userId }: { userId: string }) {
   };
   const createPostWithId = createPost.bind(null, userId);
   const [state, dispatch] = useFormState(createPostWithId, initialState);
+
+  const [imgFront, setImgFront] = React.useState<Blob | undefined>();
+  const [imgBack, setImgBack] = React.useState<Blob | undefined>();
   return (
     <div className={robotoSlab.className}>
       <CardHeader className="flex items-center">
@@ -27,20 +31,21 @@ function CreatePostForm({ userId }: { userId: string }) {
         <Camera className="w-8 h-8 text-black" />
       </CardHeader>
       <CardContent className="flex items-center justify-center">
-        <form action={dispatch} className="w-full">
+        <form
+          action={(formData) => {
+            if (!imgFront || !imgBack) return;
+            formData.set("imgFront", imgFront);
+            formData.set("imgBack", imgBack);
+            dispatch(formData);
+          }}
+          className="w-full"
+        >
           <div className="mb-4">
             <Label className="ml-[2px]" htmlFor="imgFront">
               Front Image
             </Label>
-            <Input
-              type="file"
-              accept="image/*"
-              name="imgFront"
-              id="imgFront"
-              required
-              aria-describedby="imgFront-error"
-              className="border border-slate-400 p-2"
-            />
+
+            <CropImage setCroppedImage={setImgFront} front={true} />
             <div id="imgFront-error" aria-live="polite" aria-atomic="true">
               {state.errors?.imgFront &&
                 state.errors.imgFront.map((error: string) => (
@@ -54,15 +59,8 @@ function CreatePostForm({ userId }: { userId: string }) {
             <Label className="ml-[2px]" htmlFor="imgBack">
               Back Image
             </Label>
-            <Input
-              type="file"
-              accept="image/*"
-              name="imgBack"
-              id="imgBack"
-              required
-              aria-describedby="imgBack-error"
-              className="border border-slate-400 p-2"
-            />
+
+            <CropImage setCroppedImage={setImgBack} front={false} />
             <div id="imgBack-error" aria-live="polite" aria-atomic="true">
               {state.errors?.imgBack &&
                 state.errors.imgBack.map((error: string) => (
