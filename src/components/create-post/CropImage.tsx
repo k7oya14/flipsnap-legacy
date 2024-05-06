@@ -85,7 +85,7 @@ const CropImage = (props: Props) => {
           className="border border-slate-400 p-2"
           onChange={onFileChange}
         />
-        <DialogContent className="max-w-[90vw] w-[500px] max-h-[85vh] flex items-center text-center justify-center">
+        <DialogContent className="rounded-lg max-w-[90vw] w-[500px] max-h-[85vh] flex items-center text-center justify-center">
           <CropperModal
             aspectRatio={aspectRatio}
             crop={crop}
