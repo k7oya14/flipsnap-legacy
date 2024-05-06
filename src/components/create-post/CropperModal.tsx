@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Cropper, { Area, MediaSize } from "react-easy-crop";
+import Cropper, { Area } from "react-easy-crop";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "../ui/skeleton";
@@ -42,7 +42,7 @@ const CropperModal: React.FC<Props> = ({
 
   return (
     <div className="w-full h-full flex justify-center flex-col ">
-      <div className="relative w-full h-[60vh] min-h-[200px] sm:min-h-[400px] bg-transparent mt-4 mb-2">
+      <div className="relative w-full h-[50vh] min-h-[170px] sm:min-h-[350px] bg-transparent mt-4 mb-2">
         {rendered ? (
           <Cropper
             image={imgSrc}
@@ -55,7 +55,7 @@ const CropperModal: React.FC<Props> = ({
             showGrid={true}
           />
         ) : (
-          <Skeleton className="w-full h-[60vh] sm:h-[400px] min-h-[200px]s" />
+          <Skeleton className="w-full h-[50vh] min-h-[170px] sm:min-h-[350px] mt-4 mb-2" />
         )}
       </div>
       <DialogFooter>
