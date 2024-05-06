@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Cropper, { Area, MediaSize } from "react-easy-crop";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "../ui/skeleton";
 
 type Props = {
   aspectRatio: number;
@@ -22,7 +23,7 @@ type Props = {
 };
 
 const CropperModal: React.FC<Props> = ({
-	aspectRatio,
+  aspectRatio,
   crop,
   setCrop,
   onCropComplete,
@@ -43,23 +44,27 @@ const CropperModal: React.FC<Props> = ({
     return () => clearTimeout(timeoutId);
   }, []);
 
-  if (!rendered) {
-    return null;
-  }
+  //   if (!rendered) {
+  //     return null;
+  //   }
 
   return (
     <div className="w-full h-full flex justify-center flex-col ">
       <div className="relative w-full h-[60vh] min-h-[200px] sm:min-h-[400px] bg-transparent mt-4 mb-2">
-        <Cropper
-          image={imgSrc}
-          crop={crop}
-          zoom={zoom}
-          aspect={aspectRatio}
-          onCropChange={setCrop}
-          onCropComplete={onCropComplete}
-          onZoomChange={setZoom}
-          showGrid={true}
-        />
+        {rendered ? (
+          <Cropper
+            image={imgSrc}
+            crop={crop}
+            zoom={zoom}
+            aspect={aspectRatio}
+            onCropChange={setCrop}
+            onCropComplete={onCropComplete}
+            onZoomChange={setZoom}
+            showGrid={true}
+          />
+        ) : (
+          <Skeleton className="w-full h-[60vh] sm:h-[400px] min-h-[200px]s" />
+        )}
       </div>
       <DialogFooter>
         <Button className="" onClick={onClose}>
