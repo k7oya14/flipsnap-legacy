@@ -10,7 +10,6 @@ import {
   DialogTitle,
   DialogTrigger,
   DialogClose,
-  DialogDescription,
 } from "@/components/ui/dialog";
 import { AutosizeTextarea } from "../ui/autosizeTextarea";
 import { useFormState } from "react-dom";

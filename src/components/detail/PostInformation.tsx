@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useOptimistic, useState } from "react";
+import React, { useCallback, useOptimistic, useState } from "react";
 import ModalLink from "./ModalLink";
 import { Comment, OnePost, sessionUser } from "@/lib/definitions";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -26,7 +26,7 @@ const PostInformation = (props: Props) => {
   const [optimisticComments, setOptimisticComments] =
     useOptimistic<Comment[]>(comments);
 
-  const onSubmitComment = async (commentContent: string) => {
+  const onSubmitComment = useCallback(async (commentContent: string) => {
     const optimisticComment: Comment = {
       author: {
         image: me!.image,
@@ -40,7 +40,7 @@ const PostInformation = (props: Props) => {
       createdAt: new Date(),
     };
     setOptimisticComments((prev) => [optimisticComment, ...prev]);
-  };
+  }, []);
 
   return (
     <div className="relative h-[83vh] max-h-[600px] w-[45%] flex flex-col border rounded-r-lg border-gray-200">

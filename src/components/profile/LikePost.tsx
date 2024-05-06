@@ -1,8 +1,5 @@
 import React from "react";
-import FlipImage from "../FlipImage";
-import ProfileImageFront from "./ProfileImageFront";
-import ProfileImageBack from "./ProfileImageBack";
-import { Post, UserRelationship } from "@/lib/definitions";
+import { Post } from "@/lib/definitions";
 import HomeFlipImage from "../home/HomeFlipImage";
 import LikePostImageFront from "./LikePostImageFront";
 
@@ -23,12 +20,7 @@ const LikePost = function LikePost(props: Props) {
         width: "100%",
         height: "auto",
       }}
-      frontComponent={
-        <LikePostImageFront
-          index={index}
-		  post={post}
-        />
-      }
+      frontComponent={<LikePostImageFront index={index} post={post} />}
     />
   );
 };

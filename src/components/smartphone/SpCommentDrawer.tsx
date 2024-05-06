@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useOptimistic, useRef, useState } from "react";
+import React, { useCallback, useOptimistic, useRef, useState } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -33,7 +33,7 @@ export const SpCommentDrawer = (props: Props) => {
     useOptimistic<Comment[]>(comments);
   const firstClick = useRef(true);
 
-  const onSubmitComment = async (commentContent: string) => {
+  const onSubmitComment = useCallback(async (commentContent: string) => {
     const optimisticComment: Comment = {
       author: {
         image: me!.image,
@@ -47,9 +47,9 @@ export const SpCommentDrawer = (props: Props) => {
       createdAt: new Date(),
     };
     setOptimisticComments((prev) => [optimisticComment, ...prev]);
-  };
+  }, []);
 
-  const fetchLatestCommnent = async () => {
+  const fetchLatestCommnent = useCallback(async () => {
     if (latestComments.length === 0 && firstClick.current) {
       firstClick.current = false;
       setLoading(true);
@@ -58,7 +58,7 @@ export const SpCommentDrawer = (props: Props) => {
       setComments([...latestComments, ...comments]);
       setLoading(false);
     }
-  };
+  }, [latestComments, postId]);
 
   return (
     <Drawer>

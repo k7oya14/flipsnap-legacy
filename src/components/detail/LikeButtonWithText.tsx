@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import LikeButton from "../LikeButton";
 
 type Props = {
@@ -12,13 +12,13 @@ const LikeButtonWithText = (props: Props) => {
   const { defaultLiked, myId, postId, initialCountLikes } = props;
   const [countLikes, setCountLikes] = useState(initialCountLikes);
 
-  const onClick = (liked: boolean) => {
+  const onClick = useCallback((liked: boolean) => {
     if (liked) {
-      setCountLikes(countLikes + 1);
+      setCountLikes((prev) => prev + 1);
     } else {
-      setCountLikes(countLikes - 1);
+      setCountLikes((prev) => prev - 1);
     }
-  };
+  }, []);
   return (
     <LikeButton
       defaultLiked={defaultLiked}

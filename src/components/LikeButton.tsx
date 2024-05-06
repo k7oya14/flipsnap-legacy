@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Heart } from "lucide-react";
 import { clsx } from "clsx";
 import { useDebouncedCallback } from "use-debounce";
@@ -60,12 +60,12 @@ export const LikeButton = (props: Props) => {
     }
   }, 1000);
 
-  const handleOnClick = () => {
+  const handleOnClick = useCallback(() => {
     if (onClick) onClick(!currentLikeState);
     setCurrentLikeState(!currentLikeState);
     if (!clicked) setClicked(true);
     onDebounceLike();
-  };
+  }, [currentLikeState, onClick, onDebounceLike, clicked]);
 
   return (
     <form action={handleOnClick}>
