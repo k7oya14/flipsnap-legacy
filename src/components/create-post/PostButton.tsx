@@ -5,13 +5,24 @@ import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
 import { LoaderCircle } from "lucide-react";
 
-function PostButton() {
+type Props = {
+  imgFront: Blob | undefined;
+  imgBack: Blob | undefined;
+};
+
+function PostButton(props: Props) {
+  const { imgFront, imgBack } = props;
   const { pending } = useFormStatus();
   return (
     <Button
       type="submit"
-      className="w-full border border-black py-0 my-0 rounded-md hover:bg-gray-800"
+      className={`w-full border  py-0 my-0 rounded-md ${
+        imgFront && imgBack
+          ? "bg-black text-white border-black hover:bg-gray-800"
+          : "bg-gray-400 text-white hover:bg-gray-400 cursor-not-allowed"
+      }`}
       aria-disabled={pending}
+      disabled={!imgFront || !imgBack}
     >
       {pending ? (
         <>

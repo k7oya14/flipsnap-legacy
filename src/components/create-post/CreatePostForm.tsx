@@ -91,7 +91,7 @@ function CreatePostForm({ userId }: { userId: string }) {
                 ))}
             </div>
           </div>
-          <PostButton />
+          <PostButton imgFront={imgFront} imgBack={imgBack} />
         </form>
       </CardContent>
     </div>
