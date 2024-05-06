@@ -14,12 +14,9 @@ type Props = {
   zoom: number;
   setZoom: (zoom: number) => void;
   onCropComplete: (croppedArea: Area, croppedAreaPixels: Area) => void;
-  open: boolean;
   onClose: () => void;
   imgSrc: string;
   showCroppedImage: () => void;
-  onMediaLoaded: (mediaSize: MediaSize) => void;
-  minZoom: number;
 };
 
 const CropperModal: React.FC<Props> = ({
@@ -32,7 +29,6 @@ const CropperModal: React.FC<Props> = ({
   onClose,
   imgSrc,
   showCroppedImage,
-  onMediaLoaded,
 }) => {
   const [rendered, setRendered] = useState(false);
 
@@ -43,10 +39,6 @@ const CropperModal: React.FC<Props> = ({
 
     return () => clearTimeout(timeoutId);
   }, []);
-
-  //   if (!rendered) {
-  //     return null;
-  //   }
 
   return (
     <div className="w-full h-full flex justify-center flex-col ">

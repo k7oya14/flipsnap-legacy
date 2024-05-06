@@ -1,51 +1,11 @@
 "use client";
 
 import React, { useState, useCallback } from "react";
-import { Area, MediaSize } from "react-easy-crop";
+import { Area } from "react-easy-crop";
 import CropperModal from "../../components/create-post/CropperModal";
 import getCroppedImg from "../../lib/getCroppedImg";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "../ui/input";
-export const ASPECT_RATIO = 6 / 1;
-export const CROP_WIDTH = 400;
-
-// const useStyles = makeStyles({
-//   root: {
-//     "& .file-upload-container": {
-//       width: 500,
-//       marginTop: 10,
-//       "& .button": {
-//         backgroundColor: "#00A0FF",
-//         color: "white",
-//       },
-//     },
-//     "& .img-container": {
-//       marginTop: 40,
-//       width: `${CROP_WIDTH}px`,
-//       height: `${CROP_WIDTH / ASPECT_RATIO}px`,
-//       display: "flex",
-//       alinItems: "center",
-//       borderRadius: 5,
-//       border: "1px solid gray",
-//       overflow: "hidden",
-//       backgroundColor: "#EAEAEA",
-//       "& .img": {
-//         width: "100%",
-//         objectFit: "contain",
-//         backgroundColor: "#EAEAEA",
-//       },
-//       "& .no-img": {
-//         backgroundColor: "#EAEAEA",
-//         width: "100%",
-//         height: "100%",
-//         display: "flex",
-//         alignItems: "center",
-//         justifyContent: "center",
-//         color: "#000",
-//       },
-//     },
-//   },
-// });
 
 type Props = {
   setCroppedImage: (blob: Blob) => void;
@@ -63,16 +23,11 @@ const CropImage = (props: Props) => {
 
   /** 画像の拡大縮小倍率 */
   const [zoom, setZoom] = useState(1);
-  /** 画像拡大縮小の最小値 */
-  const [minZoom, setMinZoom] = useState(1);
 
   /** 切り取る領域の情報 */
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   /** 切り取る領域の情報 */
   const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area>();
-
-  /** 切り取ったあとの画像URL */
-  const [croppedImgSrc, setCroppedImgSrc] = useState("");
 
   /**
    * ファイルアップロード後
@@ -93,25 +48,6 @@ const CropImage = (props: Props) => {
     },
     []
   );
-  /**
-   * Cropper側で画像データ読み込み完了
-   * Zoomの最小値をセットしZoomの値も更新
-   */
-  const onMediaLoaded = useCallback((mediaSize: MediaSize) => {
-    const { width, height } = mediaSize;
-    const mediaAspectRadio = width / height;
-    if (mediaAspectRadio > ASPECT_RATIO) {
-      // 縦幅に合わせてZoomを指定
-      const result = CROP_WIDTH / ASPECT_RATIO / height;
-      setZoom(result);
-      setMinZoom(result);
-      return;
-    }
-    // 横幅に合わせてZoomを指定
-    const result = CROP_WIDTH / width;
-    setZoom(result);
-    setMinZoom(result);
-  }, []);
 
   /**
    * 切り取り完了後、切り取り領域の情報をセット
@@ -157,12 +93,9 @@ const CropImage = (props: Props) => {
             zoom={zoom}
             setZoom={setZoom}
             onCropComplete={onCropComplete}
-            open={isOpen}
             onClose={() => setIsOpen(false)}
             imgSrc={imgSrc}
             showCroppedImage={showCroppedImage}
-            onMediaLoaded={onMediaLoaded}
-            minZoom={minZoom}
           />
         </DialogContent>
       </div>
