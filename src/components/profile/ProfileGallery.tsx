@@ -52,14 +52,14 @@ export async function ProfileGallery(props: Props) {
             <>
               <HandHeart className="size-16 lg:size-20 mb-2 sm:mr-4" />
               <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
-                No likes yet
+                No likes
               </p>
             </>
           ) : (
             <>
               <Instagram className="size-16 lg:size-20 mb-2 sm:mr-4" />
               <p className="text-2xl sm:text-3xl lg:text-4xl font-semibold">
-                No posts yet
+                No posts
               </p>
             </>
           )}
