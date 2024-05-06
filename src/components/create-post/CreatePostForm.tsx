@@ -7,14 +7,10 @@ import { Label } from "../ui/label";
 import { CardContent, CardHeader } from "../ui/card";
 import { AutosizeTextarea } from "../ui/autosizeTextarea";
 import { Roboto_Slab } from "next/font/google";
-import {
-  Camera,
-  RectangleHorizontal,
-  RectangleVertical,
-  Square,
-} from "lucide-react";
+import { Camera } from "lucide-react";
 import PostButton from "./PostButton";
 import CropImage from "./CropImage";
+import AspectRatioButton from "./AspectRatioButton";
 
 const robotoSlab = Roboto_Slab({ weight: "400", subsets: ["latin"] });
 
@@ -50,32 +46,7 @@ function CreatePostForm({ userId }: { userId: string }) {
           className="w-full relative h-full"
         >
           {aspectRatio === 0 ? (
-            <div className="w-full">
-              <h1 className="mb-2">Image Size</h1>
-              <div className="flex items-center justify-center space-x-5">
-                <button
-                  onClick={() => handleAspectChange(3 / 4)}
-                  className="border shadow-md flex flex-col items-center p-1 size-16 transition duration-100 transform hover:shadow hover:translate-y-[0.5px]"
-                >
-                  <RectangleVertical className="size-10 text-black" />
-                  <p className="text-sm">3:4</p>
-                </button>
-                <button
-                  onClick={() => handleAspectChange(1)}
-                  className="border shadow-md flex flex-col items-center p-1 size-16 transition duration-100 transform hover:shadow hover:translate-y-[0.5px]"
-                >
-                  <Square className="size-10 text-black" />
-                  <p className="text-sm">1:1</p>
-                </button>
-                <button
-                  onClick={() => handleAspectChange(4 / 3)}
-                  className="border shadow-md flex flex-col items-center p-1 size-16 transition duration-100 transform hover:shadow hover:translate-y-[0.5px]"
-                >
-                  <RectangleHorizontal className="size-10 text-black" />
-                  <p className="text-sm">4:3</p>
-                </button>
-              </div>
-            </div>
+            <AspectRatioButton handleAspectChange={handleAspectChange} />
           ) : (
             <>
               <div className="mb-4">

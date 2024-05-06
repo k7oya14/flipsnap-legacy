@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { memo } from "react";
 import { Button } from "../ui/button";
 import { useFormStatus } from "react-dom";
 import { LoaderCircle } from "lucide-react";
@@ -10,7 +10,7 @@ type Props = {
   imgBack: Blob | undefined;
 };
 
-function PostButton(props: Props) {
+const PostButton = memo(function PostButton(props: Props) {
   const { imgFront, imgBack } = props;
   const { pending } = useFormStatus();
   return (
@@ -34,6 +34,6 @@ function PostButton(props: Props) {
       )}
     </Button>
   );
-}
+});
 
 export default PostButton;
