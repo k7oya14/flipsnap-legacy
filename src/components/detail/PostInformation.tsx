@@ -69,7 +69,12 @@ const PostInformation = (props: Props) => {
           {optimisticComments.map((comment) => (
             <OneComment key={comment.id} comment={comment} />
           ))}
-          <CommentLoadMore postId={post.id} commentId={cursorById(comments)} />
+          {optimisticComments.length < 8 || (
+            <CommentLoadMore
+              postId={post.id}
+              commentId={cursorById(comments)}
+            />
+          )}
         </div>
       </div>
       <div className="sticky bottom-0 w-full">
