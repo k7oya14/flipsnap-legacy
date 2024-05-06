@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { Follow, UnFollow } from "@/lib/actions";
 import { UserRelationship } from "@/lib/definitions";
@@ -49,7 +49,7 @@ const FollowStatusButton = (props: Props) => {
     }
   }, 500);
 
-  const handleOnClick = () => {
+  const handleOnClick = useCallback(() => {
     if (
       optimisticRelationship === UserRelationship.Follower ||
       optimisticRelationship === UserRelationship.None
@@ -57,7 +57,7 @@ const FollowStatusButton = (props: Props) => {
       updateOptimisticRelationship((prev) => prev + 1);
     else updateOptimisticRelationship((prev) => prev - 1);
     onDebounceFollow();
-  };
+  }, [optimisticRelationship, onDebounceFollow]);
 
   switch (optimisticRelationship) {
     case UserRelationship.Follower:

@@ -1,6 +1,6 @@
 "use client";
 
-import { GalleyPost, UserRelationship } from "@/lib/definitions";
+import { GalleyPost, Post, UserRelationship } from "@/lib/definitions";
 import React, { useState } from "react";
 import ReactFlipCard from "reactjs-flip-card";
 import ImageBack from "./ImageBack";
@@ -9,7 +9,7 @@ import ProfileImageBack from "../profile/ProfileImageBack";
 
 type Props = {
   likes?: boolean;
-  post: GalleyPost;
+  post: GalleyPost | Post;
   myId: string | undefined | null;
   containerStyle: React.CSSProperties;
   frontComponent: JSX.Element;

@@ -56,6 +56,7 @@ export const SpHomePost = React.memo(function SpHomePost(props: Props) {
             }
           />
           <SpPostInformation
+            defaultLiked={post.isLikedByMe}
             home={true}
             caption={post.caption}
             createdAt={post.createdAt}
