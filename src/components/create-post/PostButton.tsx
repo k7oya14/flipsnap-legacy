@@ -16,7 +16,7 @@ function PostButton(props: Props) {
   return (
     <Button
       type="submit"
-      className={`w-full border  py-0 my-0 rounded-md ${
+      className={`w-full border py-0 my-0 rounded-md ${
         imgFront && imgBack
           ? "bg-black text-white border-black hover:bg-gray-800"
           : "bg-gray-400 text-white hover:bg-gray-400 cursor-not-allowed"

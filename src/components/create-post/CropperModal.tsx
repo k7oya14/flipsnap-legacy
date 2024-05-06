@@ -4,6 +4,7 @@ import { DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
 type Props = {
+  aspectRatio: number;
   crop: {
     x: number;
     y: number;
@@ -21,6 +22,7 @@ type Props = {
 };
 
 const CropperModal: React.FC<Props> = ({
+	aspectRatio,
   crop,
   setCrop,
   onCropComplete,
@@ -52,7 +54,7 @@ const CropperModal: React.FC<Props> = ({
           image={imgSrc}
           crop={crop}
           zoom={zoom}
-          aspect={3 / 4}
+          aspect={aspectRatio}
           onCropChange={setCrop}
           onCropComplete={onCropComplete}
           onZoomChange={setZoom}

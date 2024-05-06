@@ -50,10 +50,11 @@ export const CROP_WIDTH = 400;
 type Props = {
   setCroppedImage: (blob: Blob) => void;
   front: boolean;
+  aspectRatio: number;
 };
 
 const CropImage = (props: Props) => {
-  const { setCroppedImage, front } = props;
+  const { setCroppedImage, front, aspectRatio } = props;
   /** Cropモーダルの開閉 */
   const [isOpen, setIsOpen] = useState(false);
 
@@ -150,6 +151,7 @@ const CropImage = (props: Props) => {
         />
         <DialogContent className="max-w-[90vw] w-[500px] flex items-center text-center justify-center">
           <CropperModal
+            aspectRatio={aspectRatio}
             crop={crop}
             setCrop={setCrop}
             zoom={zoom}
