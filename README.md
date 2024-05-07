@@ -1,9 +1,9 @@
 <p align="center">
     <img src="assets/logo.png" height="128"/>
     <h1 align="center">FlipSnap (Legacy)</h1>
-    <p style="color: red;"　align="center">
+    <h2 align="center">
     This is the legacy version. All development has now been moved to <a href="https://github.com/k7oya14/flipsnap">here</a>.
-    </p>
+    </h2>
 </p>
 
 # Introduction
